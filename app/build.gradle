@@ -6,7 +6,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "edu.sjsu.android.cs160budgetapp"
+        applicationId "cs160.dataLayer"
         minSdk 21
         targetSdk 32
         versionCode 1

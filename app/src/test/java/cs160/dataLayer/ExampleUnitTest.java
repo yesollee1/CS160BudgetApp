@@ -1,4 +1,4 @@
-package edu.sjsu.android.cs160budgetapp;
+package cs160.dataLayer;
 
 import org.junit.Test;
 
