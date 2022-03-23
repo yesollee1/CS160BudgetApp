@@ -66,5 +66,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        View button = findViewById(R.id);
+        button.setOnClickListener(view -> {
+            setOptionalEventListener();
+            openLink();
+        });
+    }
+
+    private void onLinkTokenSuccess(String token){
+        LinkTokenConfiguration linkTokenConfiguration = new LinkTokenConfiguration.Builder()
+                .token("link-sandbox-19b38d14-56d7-4e0c-9036-8f95504e53f0")
+                .build();
+        linkAccountToPlaid.launch(linkTokenConfiguration);
+    }
+
+    private void openLink(){
+        tokenResult.
     }
 }

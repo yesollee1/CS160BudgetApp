@@ -1,0 +1,2 @@
+- CLI command to get the PLAID tokenL:
+curl -X POST https://sandbox.plaid.com/link/token/create -H 'Content-type: application/json' -d '{ "client_id": "CAN GET THIS ID IN PLAID DASHBOARD", "secret": "CAN GET THIS SECRET IN PLAID DASHBOARD(FOR DEVELOPMENT PURPOSE, SHOULD USE SANDBOX KEY)", "user": {"client_user_id":"123456-unique"}, "client_name": "Plaid", "products":["auth"], "country_codes":["US"],"language":"en", "android_package_name":"cs160.dataLayer"}'
