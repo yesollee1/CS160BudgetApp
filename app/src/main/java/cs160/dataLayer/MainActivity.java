@@ -9,9 +9,9 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-
-
+import android.widget.Toast;
 import com.plaid.link.OpenPlaidLink;
 import com.plaid.link.configuration.LinkTokenConfiguration;
 import com.plaid.link.result.LinkAccount;
@@ -66,14 +66,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        result = findViewById(R.id.result);
+        tokenResult = findViewById(R.id.public_token_result);
 
-
-        View button = findViewById(R.id);
+        Button button = findViewById(R.id.open_link);
         button.setOnClickListener(view -> {
-            setOptionalEventListener();
             openLink();
         });
     }
+
+    private void openLink() {
+        LinkTokenRequester.getToken()
+                .subscribe(this::onLinkTokenSuccess, this::onLinkTokenError);
+    }
+
 
     private void onLinkTokenSuccess(String token){
         LinkTokenConfiguration linkTokenConfiguration = new LinkTokenConfiguration.Builder()
@@ -82,7 +88,14 @@ public class MainActivity extends AppCompatActivity {
         linkAccountToPlaid.launch(linkTokenConfiguration);
     }
 
-    private void openLink(){
-        tokenResult.
+    private void onLinkTokenError(Throwable error) {
+        if (error instanceof java.net.ConnectException) {
+            Toast.makeText(
+                    this,
+                    "Please run `sh start_server.sh <client_id> <sandbox_secret>`",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        Toast.makeText(this, error.getMessage(), Toast.LENGTH_SHORT).show();
     }
 }

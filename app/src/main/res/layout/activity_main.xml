@@ -15,6 +15,36 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/public_token_result"
+        style="@style/PlaidText.H4.Semibold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|center"
+        tools:text="public_token:\npublic-sandbox-12341234" />
+
+    <TextView
+        android:id="@+id/result"
+        style="@style/PlaidText.B1.Regular"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:autoLink="all"
+        android:gravity="start|center"
+        android:text="    Welcome to the sample app. It will show you how Link Android SDK can integrate with your own app. We hope you’ll find that:\n
+    \n\t&#8226; It’s easy to integrate, with fewer lines than webviews
+    \n\t&#8226; It features enhanced security and a type-safe API
+    \n\t&#8226; It supports all Link flows, including oauth
+    \n\t&#8226; You’ll get monthly updates from Plaid
+    \n\t&#8226; You can get support directly from the Plaid team" />
+
+    <Button
+        android:id="@+id/open_link"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Open Link" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
