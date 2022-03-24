@@ -15,11 +15,7 @@ public abstract class Category {
         return mCurrentAmount / mProposedAmount;
     }
 
-    public void edit() {
+    public void edit() { }
 
-    }
-
-    public void delete() {
-        
-    }
+    public void delete() { }
 }
