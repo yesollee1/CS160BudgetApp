@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CS160BudgetApp</string>
+    <string name="expense_title_hint">Enter a title for the expense.</string>
+    <string name="expense_amount_hint">Enter an amount for the expense.</string>
+    <string name="expense_title_label">Title</string>
+    <string name="expense_amount_label">Amount</string>
+    <string name="expense_details_label">Details</string>
+    <string name="expense_solved_label">Solved</string>
+</resources>
