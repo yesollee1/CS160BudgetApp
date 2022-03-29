@@ -10,4 +10,5 @@
     <string name="goal_title_label">Title</string>
     <string name="goal_amount_label">Amount</string>
     <string name="goal_details_label">Details</string>
+    <string name="date_picker_title">Date of crime: </string>
 </resources>

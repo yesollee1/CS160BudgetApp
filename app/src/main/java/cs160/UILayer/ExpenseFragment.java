@@ -16,13 +16,17 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
 
 import java.util.Date;
 import java.util.UUID;
 
 public class ExpenseFragment extends Fragment {
     private static final String ARG_EXPENSE_ID = "expense_id";
+    private static final String DIALOG_DATE = "DialogDate";
 
     private Expense mExpense;
     private EditText mTitleField;
@@ -41,9 +45,6 @@ public class ExpenseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        mExpense = new Expense();
-//        UUID expenseId = (UUID) getActivity().getIntent()
-//                .getSerializableExtra(ExpenseActivity.EXTRA_EXPENSE_ID);
         UUID expenseId = (UUID) getArguments().getSerializable(ARG_EXPENSE_ID);
         mExpense = ExpenseLab.get(getActivity()).getExpense(expenseId);
     }
@@ -99,11 +100,24 @@ public class ExpenseFragment extends Fragment {
         });
 
         mDateButton = (Button) v.findViewById(R.id.expense_date);
-        mDateButton.setText(mExpense.getDate().toString());
-        DateFormat df = new DateFormat();
-        CharSequence formattedDate = df.format("E, MMM d, yyyy", mExpense.getDate());
-        mDateButton.setText(formattedDate);
-        mDateButton.setEnabled(false);
+        updateDate();
+//        mDateButton.setEnabled(false); // Disables button
+        mDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getChildFragmentManager();
+                DatePickerFragment dialog = DatePickerFragment.newInstance(mExpense.getDate());
+                manager.setFragmentResultListener(DatePickerFragment.ARG_DATE, getViewLifecycleOwner(), new FragmentResultListener() {
+                    @Override
+                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                        Date date = (Date) result.getSerializable(DatePickerFragment.EXTRA_DATE);
+                        mExpense.setDate(date);
+                        updateDate();
+                    }
+                });
+                dialog.show(manager, DIALOG_DATE);
+            }
+        });
 
 //        mSolvedCheckBox = (CheckBox) v.findViewById(R.id.expense_solved);
 //        mSolvedCheckBox.setChecked(mExpense.isSolved());
@@ -127,5 +141,12 @@ public class ExpenseFragment extends Fragment {
             amount = 0.0;
         }
         mExpense.setProposedAmount(amount);
+    }
+
+    private void updateDate() {
+//        mDateButton.setText(mExpense.getDate().toString());
+        DateFormat df = new DateFormat();
+        CharSequence formattedDate = df.format("E, MMM d, yyyy", mExpense.getDate());
+        mDateButton.setText(formattedDate);
     }
 }
