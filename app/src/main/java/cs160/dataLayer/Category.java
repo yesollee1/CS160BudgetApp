@@ -81,7 +81,7 @@ public abstract class Category {
         mNotifyPercent = notifyPercent;
     }
 
-    public abstract void delete();
+//    public abstract void delete();
 
 //    public boolean containsMerchant(String merchant) {
 //        return mMerchants.contains(merchant);

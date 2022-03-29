@@ -5,10 +5,10 @@ import java.util.UUID;
 
 public class Expense extends Category {
 
-    private static ArrayList<Expense> mExpenseCategories = new ArrayList<>();
-    public static ArrayList<Expense> getExpenseCategories() {
-        return mExpenseCategories;
-    }
+//    private static ArrayList<Expense> mExpenseCategories = new ArrayList<>();
+//    public static ArrayList<Expense> getExpenseCategories() {
+//        return mExpenseCategories;
+//    }
 
     private ArrayList<String> mMerchants;
     //TODO add support for transactions
@@ -16,7 +16,7 @@ public class Expense extends Category {
 
     public Expense(String title, Frequency frequency, Double proposedAmount, Double currentAmount) {
         super(title, frequency, proposedAmount, currentAmount);
-        mExpenseCategories.add(this);
+//        mExpenseCategories.add(this);
     }
 
 //    public String getTitle() {
@@ -68,9 +68,9 @@ public class Expense extends Category {
 //        mNotifyPercent = notifyPercent;
 //    }
 //
-    public void delete() {
-        mExpenseCategories.remove(this);
-    }
+//    public void delete() {
+//        mExpenseCategories.remove(this);
+//    }
 
     public boolean containsMerchant(String merchant) {
         return mMerchants.contains(merchant);

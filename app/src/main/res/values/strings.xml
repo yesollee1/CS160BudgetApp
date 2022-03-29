@@ -5,5 +5,9 @@
     <string name="expense_title_label">Title</string>
     <string name="expense_amount_label">Amount</string>
     <string name="expense_details_label">Details</string>
-    <string name="expense_solved_label">Solved</string>
+    <string name="goal_title_hint">Enter a title for the goal.</string>
+    <string name="goal_amount_hint">Enter an amount for the goal.</string>
+    <string name="goal_title_label">Title</string>
+    <string name="goal_amount_label">Amount</string>
+    <string name="goal_details_label">Details</string>
 </resources>

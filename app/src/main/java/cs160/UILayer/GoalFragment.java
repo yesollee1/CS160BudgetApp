@@ -21,19 +21,19 @@ import androidx.fragment.app.Fragment;
 import java.util.Date;
 import java.util.UUID;
 
-public class ExpenseFragment extends Fragment {
-    private static final String ARG_EXPENSE_ID = "expense_id";
+public class GoalFragment extends Fragment {
+    private static final String ARG_GOAL_ID = "goal_id";
 
-    private Expense mExpense;
+    private Goal mGoal;
     private EditText mTitleField;
     private EditText mAmountField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
 
-    public static ExpenseFragment newInstance(UUID expenseId) {
+    public static GoalFragment newInstance(UUID goalId) {
         Bundle args = new Bundle();
-        args.putSerializable(ARG_EXPENSE_ID, expenseId);
-        ExpenseFragment fragment = new ExpenseFragment();
+        args.putSerializable(ARG_GOAL_ID, goalId);
+        GoalFragment fragment = new GoalFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -44,18 +44,18 @@ public class ExpenseFragment extends Fragment {
 //        mExpense = new Expense();
 //        UUID expenseId = (UUID) getActivity().getIntent()
 //                .getSerializableExtra(ExpenseActivity.EXTRA_EXPENSE_ID);
-        UUID expenseId = (UUID) getArguments().getSerializable(ARG_EXPENSE_ID);
-        mExpense = ExpenseLab.get(getActivity()).getExpense(expenseId);
+        UUID goalId = (UUID) getArguments().getSerializable(ARG_GOAL_ID);
+        mGoal = GoalLab.get(getActivity()).getGoal(goalId);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // The third argument of the method below tells whether to add the inflated view to the view's parent
         // Here, we pass in false because we will add the view in the activity's code
-        View v = inflater.inflate(R.layout.fragment_expense, container, false);
+        View v = inflater.inflate(R.layout.fragment_goal, container, false);
 
-        mTitleField = (EditText) v.findViewById(R.id.expense_title);
-        mTitleField.setText(mExpense.getTitle());
+        mTitleField = (EditText) v.findViewById(R.id.goal_title);
+        mTitleField.setText(mGoal.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -64,7 +64,7 @@ public class ExpenseFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int count, int after) {
-                mExpense.setTitle(s.toString());
+                mGoal.setTitle(s.toString());
             }
 
             @Override
@@ -75,7 +75,7 @@ public class ExpenseFragment extends Fragment {
 
         // Change amount for expense in onPause() method
         mAmountField = (EditText) v.findViewById(R.id.expense_amount);
-        mAmountField.setText(mExpense.getProposedAmount().toString());
+        mAmountField.setText(mGoal.getProposedAmount().toString());
         mAmountField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -85,10 +85,10 @@ public class ExpenseFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int count, int after) {
                 try {
-                    mExpense.setProposedAmount(Double.parseDouble(s.toString()));
+                    mGoal.setProposedAmount(Double.parseDouble(s.toString()));
                 } catch (NumberFormatException e) {
                     // on empty string (when user backspaces) or non-number input, amount should be 0
-                    mExpense.setProposedAmount(0.0);
+                    mGoal.setProposedAmount(0.0);
                 }
             }
 
@@ -98,10 +98,10 @@ public class ExpenseFragment extends Fragment {
             }
         });
 
-        mDateButton = (Button) v.findViewById(R.id.expense_date);
-        mDateButton.setText(mExpense.getDate().toString());
+        mDateButton = (Button) v.findViewById(R.id.goal_date);
+        mDateButton.setText(mGoal.getDate().toString());
         DateFormat df = new DateFormat();
-        CharSequence formattedDate = df.format("E, MMM d, yyyy", mExpense.getDate());
+        CharSequence formattedDate = df.format("E, MMM d, yyyy", mGoal.getDate());
         mDateButton.setText(formattedDate);
         mDateButton.setEnabled(false);
 
@@ -126,6 +126,6 @@ public class ExpenseFragment extends Fragment {
         } catch (Exception e) {
             amount = 0.0;
         }
-        mExpense.setProposedAmount(amount);
+        mGoal.setProposedAmount(amount);
     }
 }
