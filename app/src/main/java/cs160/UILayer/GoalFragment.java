@@ -76,7 +76,7 @@ public class GoalFragment extends Fragment {
         });
 
         // Change amount for expense in onPause() method
-        mAmountField = (EditText) v.findViewById(R.id.expense_amount);
+        mAmountField = (EditText) v.findViewById(R.id.goal_amount);
         mAmountField.setText(mGoal.getProposedAmount().toString());
         mAmountField.addTextChangedListener(new TextWatcher() {
             @Override

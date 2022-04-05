@@ -21,6 +21,9 @@
             android:name=".ExpenseActivity"
             android:exported="false">
         </activity>
+        <activity
+            android:name=".GoalActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

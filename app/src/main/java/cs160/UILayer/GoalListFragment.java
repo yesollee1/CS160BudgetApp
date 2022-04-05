@@ -76,7 +76,7 @@ public class GoalListFragment extends Fragment {
         @Override
         public void onClick(View view) {
 //            Toast.makeText(getActivity(), mExpense.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
-            Intent intent = ExpenseActivity.newIntent(getActivity(), mGoal.getId());
+            Intent intent = GoalActivity.newIntent(getActivity(), mGoal.getId());
             mLastClickedPosition = getAdapterPosition();
             startActivity(intent);
         }

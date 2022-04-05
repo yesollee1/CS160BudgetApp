@@ -2,4 +2,36 @@
 <FrameLayout android:id="@+id/fragment_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent" >
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        >
+
+        <Button
+            android:id="@+id/goalButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:text="Goals"
+            android:textSize="12dp"/>
+
+        <Button
+            android:id="@+id/expenseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Expenses"
+            android:textSize="12dp"/>
+
+        <Button
+            android:id="@+id/transactionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            android:text="Transactions"
+            android:textSize="10dp"/>
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+</FrameLayout>
