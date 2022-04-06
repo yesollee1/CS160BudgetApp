@@ -1,9 +1,5 @@
 package cs160.UILayer;
 
-import cs160.dataLayer.*;
-
-import static android.widget.CompoundButton.*;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -24,21 +19,22 @@ import androidx.fragment.app.FragmentResultListener;
 import java.util.Date;
 import java.util.UUID;
 
-public class GoalFragment extends Fragment {
-    private static final String ARG_GOAL_ID = "goal_id";
+import cs160.dataLayer.*;
+
+public class TransactionFragment extends Fragment {
+    private static final String ARG_TRANSACTION_ID = "transaction_id";
     private static final String DIALOG_DATE = "DialogDate";
 
-    private Goal mGoal;
+    private Transaction mTransaction;
     private EditText mTitleField;
     private EditText mAmountField;
+    private EditText mNotesField;
     private Button mDateButton;
-    //TODO: implement "completed" feature for goals
-    private CheckBox mCompletedCheckBox;
 
-    public static GoalFragment newInstance(UUID goalId) {
+    public static TransactionFragment newInstance(UUID transactionId) {
         Bundle args = new Bundle();
-        args.putSerializable(ARG_GOAL_ID, goalId);
-        GoalFragment fragment = new GoalFragment();
+        args.putSerializable(ARG_TRANSACTION_ID, transactionId);
+        TransactionFragment fragment = new TransactionFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,18 +42,18 @@ public class GoalFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID goalId = (UUID) getArguments().getSerializable(ARG_GOAL_ID);
-        mGoal = GoalLab.get(getActivity()).getGoal(goalId);
+        UUID transactionId = (UUID) getArguments().getSerializable(ARG_TRANSACTION_ID);
+        mTransaction = TransactionLab.get(getActivity()).getTransaction(transactionId);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // The third argument of the method below tells whether to add the inflated view to the view's parent
         // Here, we pass in false because we will add the view in the activity's code
-        View v = inflater.inflate(R.layout.fragment_goal, container, false);
+        View v = inflater.inflate(R.layout.fragment_transaction, container, false);
 
-        mTitleField = (EditText) v.findViewById(R.id.goal_title);
-        mTitleField.setText(mGoal.getTitle());
+        mTitleField = (EditText) v.findViewById(R.id.merchant_name);
+        mTitleField.setText(mTransaction.getMerchant());
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -66,7 +62,7 @@ public class GoalFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int count, int after) {
-                mGoal.setTitle(s.toString());
+                mTransaction.categorize(s.toString());
             }
 
             @Override
@@ -75,9 +71,9 @@ public class GoalFragment extends Fragment {
             }
         });
 
-        // Change amount for goal in onPause() method
-        mAmountField = (EditText) v.findViewById(R.id.goal_amount);
-        mAmountField.setText(mGoal.getProposedAmount().toString());
+        // Change amount for expense in onPause() method
+        mAmountField = (EditText) v.findViewById(R.id.transaction_amount);
+        mAmountField.setText(mTransaction.getAmount().toString());
         mAmountField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -87,10 +83,10 @@ public class GoalFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int count, int after) {
                 try {
-                    mGoal.setProposedAmount(Double.parseDouble(s.toString()));
+                    mTransaction.setAmount(Double.parseDouble(s.toString()));
                 } catch (NumberFormatException e) {
                     // on empty string (when user backspaces) or non-number input, amount should be 0
-                    mGoal.setProposedAmount(0.0);
+                    mTransaction.setAmount(0.0);
                 }
             }
 
@@ -100,7 +96,7 @@ public class GoalFragment extends Fragment {
             }
         });
 
-        mDateButton = (Button) v.findViewById(R.id.goal_date);
+        mDateButton = (Button) v.findViewById(R.id.transaction_date);
         updateDate();
 //        mDateButton.setEnabled(false); // Disables button
 
@@ -108,28 +104,18 @@ public class GoalFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentManager manager = getChildFragmentManager();
-                DatePickerFragment dialog = DatePickerFragment.newInstance(mGoal.getDate());
+                DatePickerFragment dialog = DatePickerFragment.newInstance(mTransaction.getDate());
                 manager.setFragmentResultListener(DatePickerFragment.ARG_DATE, getViewLifecycleOwner(), new FragmentResultListener() {
                     @Override
                     public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
                         Date date = (Date) result.getSerializable(DatePickerFragment.EXTRA_DATE);
-                        mGoal.setDate(date);
+                        mTransaction.setDate(date);
                         updateDate();
                     }
                 });
                 dialog.show(manager, DIALOG_DATE);
             }
         });
-
-//        mSolvedCheckBox = (CheckBox) v.findViewById(R.id.goal_solved);
-//        mSolvedCheckBox.setChecked(mGoal.isSolved());
-//        mSolvedCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                mGoal.setSolved(isChecked);
-//            }
-//        });
-
         return v;
     }
 
@@ -142,13 +128,13 @@ public class GoalFragment extends Fragment {
         } catch (Exception e) {
             amount = 0.0;
         }
-        mGoal.setProposedAmount(amount);
+        mTransaction.setAmount(amount);
     }
 
     private void updateDate() {
-//        mDateButton.setText(mGoal.getDate().toString());
+//        mDateButton.setText(mExpense.getDate().toString());
         DateFormat df = new DateFormat();
-        CharSequence formattedDate = df.format("E, MMM d, yyyy", mGoal.getDate());
+        CharSequence formattedDate = df.format("E, MMM d, yyyy", mTransaction.getDate());
         mDateButton.setText(formattedDate);
     }
 }

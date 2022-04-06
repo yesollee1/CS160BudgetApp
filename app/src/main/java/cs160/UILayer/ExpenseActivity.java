@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public class ExpenseActivity extends SingleFragmentActivity {
 
-    private static final String EXTRA_EXPENSE_ID = "com.bignerdranch.android.criminal_intent.expense_id";
+    private static final String EXTRA_EXPENSE_ID = "cs160.UILayer.expense_id";
 
     // This method is called to start a new Expense Activity
     public static Intent newIntent(Context packageContext, UUID expenseId) {
@@ -25,7 +25,6 @@ public class ExpenseActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
-        //return new ExpenseFragment();
         UUID expenseId = (UUID) getIntent().getSerializableExtra(EXTRA_EXPENSE_ID);
         return ExpenseFragment.newInstance(expenseId);
     }

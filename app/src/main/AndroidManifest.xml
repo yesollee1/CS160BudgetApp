@@ -12,13 +12,33 @@
         <activity
             android:name=".ExpenseListActivity"
             android:exported="true">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN"/>-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".ExpenseActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".GoalListActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".GoalActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".TransactionListActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".ExpenseActivity"
+            android:name=".TransactionActivity"
             android:exported="false">
         </activity>
     </application>
