@@ -3,11 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/activity_button_fragment.xml" value="0.16750756811301715" />
+        <entry key="app/src/main/res/layout/activity_fragment.xml" value="0.24486846923828126" />
         <entry key="app/src/main/res/layout/dialog_date.xml" value="0.16750756811301715" />
+        <entry key="app/src/main/res/layout/fragment_button.xml" value="0.10643115942028986" />
         <entry key="app/src/main/res/layout/fragment_expense.xml" value="0.16750756811301715" />
         <entry key="app/src/main/res/layout/fragment_expense_list.xml" value="0.16750756811301715" />
         <entry key="app/src/main/res/layout/fragment_goal.xml" value="0.10643115942028986" />
         <entry key="app/src/main/res/layout/fragment_goal_list.xml" value="0.10643115942028986" />
+        <entry key="app/src/main/res/layout/fragment_item_list.xml" value="0.10643115942028986" />
         <entry key="app/src/main/res/layout/fragment_transaction.xml" value="0.33889881078747736" />
         <entry key="app/src/main/res/layout/list_item_expense.xml" value="0.16750756811301715" />
         <entry key="app/src/main/res/layout/list_item_goal.xml" value="0.10643115942028986" />
