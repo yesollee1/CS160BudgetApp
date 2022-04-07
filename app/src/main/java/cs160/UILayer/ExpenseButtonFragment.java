@@ -17,6 +17,7 @@ import java.util.List;
 
 import cs160.dataLayer.Expense;
 import cs160.dataLayer.ExpenseLab;
+import cs160.dataLayer.Frequency;
 
 public class ExpenseButtonFragment extends Fragment {
     private Button mAddNewButton;
@@ -29,7 +30,11 @@ public class ExpenseButtonFragment extends Fragment {
         mAddNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO implement button functionality
+                Expense expense = new Expense();
+                ExpenseLab expenseLab = ExpenseLab.get(getActivity());
+                expenseLab.addExpense(expense);
+                Intent intent = ExpenseActivity.newIntent(getActivity(), expense.getId());
+                startActivity(intent);
             }
         });
 //        updateUI();

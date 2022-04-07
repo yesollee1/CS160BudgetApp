@@ -51,7 +51,7 @@ public class ExpenseListFragment extends Fragment {
     private class ExpenseHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTitleTextView;
         private TextView mAmountTextView;
-        private TextView mDateTextView;
+//        private TextView mDateTextView;
 //        private ImageView mSolvedImageView;
 
         private Expense mExpense;
@@ -61,7 +61,7 @@ public class ExpenseListFragment extends Fragment {
             itemView.setOnClickListener(this);
             mTitleTextView = (TextView) itemView.findViewById(R.id.expense_title);
             mAmountTextView = (TextView) itemView.findViewById(R.id.expense_amount);
-            mDateTextView = (TextView) itemView.findViewById(R.id.expense_date);
+//            mDateTextView = (TextView) itemView.findViewById(R.id.expense_date);
 //            mSolvedImageView = (ImageView) itemView.findViewById(R.id.expense_solved);
         }
 

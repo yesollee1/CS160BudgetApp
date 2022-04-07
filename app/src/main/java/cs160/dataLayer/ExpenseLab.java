@@ -25,9 +25,6 @@ public class ExpenseLab {
         mExpenses = new ArrayList<>();
         mExpenseMap = new HashMap<>();
 
-        Expense expense = new Expense("Default Expense", Frequency.MONTHLY, 0.0, 0.0);
-        mExpenses.add(expense);
-        mExpenseMap.put(expense.getId(), expense);
 //        for (int i = 0; i < 100; i++) {
 //            Expense expense = new Expense("Expense #"+i, Frequency.MONTHLY, 0.0, 0.0);
 ////            expense.setTitle("Expense #" + i);
@@ -35,6 +32,11 @@ public class ExpenseLab {
 //            mExpenses.add(expense);
 //            mExpenseMap.put(expense.getId(), expense);
 //        }
+    }
+
+    public void addExpense(Expense expense) {
+        mExpenses.add(expense);
+        mExpenseMap.put(expense.getId(), expense);
     }
 
     public List<Expense> getExpenses() {

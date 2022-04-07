@@ -20,16 +20,16 @@
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/expense_details_label" />
+        android:text="@string/expense_amount_label" />
 
     <EditText android:id="@+id/expense_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/expense_amount_hint" />
 
-    <Button android:id="@+id/expense_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+<!--    <Button android:id="@+id/expense_date"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content" />-->
 
 <!--    <CheckBox android:id="@+id/expense_solved"-->
 <!--        android:layout_width="match_parent"-->

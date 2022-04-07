@@ -31,8 +31,8 @@ public class ExpenseFragment extends Fragment {
     private Expense mExpense;
     private EditText mTitleField;
     private EditText mAmountField;
-    private Button mDateButton;
-    private CheckBox mSolvedCheckBox;
+//    private Button mDateButton;
+//    private CheckBox mSolvedCheckBox;
 
     public static ExpenseFragment newInstance(UUID expenseId) {
         Bundle args = new Bundle();
@@ -76,7 +76,10 @@ public class ExpenseFragment extends Fragment {
 
         // Change amount for expense in onPause() method
         mAmountField = (EditText) v.findViewById(R.id.expense_amount);
-        mAmountField.setText(mExpense.getProposedAmount().toString());
+        Double proposedAmount = mExpense.getProposedAmount();
+        if (proposedAmount != 0) {
+            mAmountField.setText(proposedAmount.toString());
+        }
         mAmountField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -86,7 +89,8 @@ public class ExpenseFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int count, int after) {
                 try {
-                    mExpense.setProposedAmount(Double.parseDouble(s.toString()));
+                    Double amount = Double.parseDouble(s.toString());
+                    mExpense.setProposedAmount(amount);
                 } catch (NumberFormatException e) {
                     // on empty string (when user backspaces) or non-number input, amount should be 0
                     mExpense.setProposedAmount(0.0);
@@ -99,25 +103,25 @@ public class ExpenseFragment extends Fragment {
             }
         });
 
-        mDateButton = (Button) v.findViewById(R.id.expense_date);
-        updateDate();
-//        mDateButton.setEnabled(false); // Disables button
-        mDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager manager = getChildFragmentManager();
-                DatePickerFragment dialog = DatePickerFragment.newInstance(mExpense.getDate());
-                manager.setFragmentResultListener(DatePickerFragment.ARG_DATE, getViewLifecycleOwner(), new FragmentResultListener() {
-                    @Override
-                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                        Date date = (Date) result.getSerializable(DatePickerFragment.EXTRA_DATE);
-                        mExpense.setDate(date);
-                        updateDate();
-                    }
-                });
-                dialog.show(manager, DIALOG_DATE);
-            }
-        });
+//        mDateButton = (Button) v.findViewById(R.id.expense_date);
+//        updateDate();
+////        mDateButton.setEnabled(false); // Disables button
+//        mDateButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FragmentManager manager = getChildFragmentManager();
+//                DatePickerFragment dialog = DatePickerFragment.newInstance(mExpense.getDate());
+//                manager.setFragmentResultListener(DatePickerFragment.ARG_DATE, getViewLifecycleOwner(), new FragmentResultListener() {
+//                    @Override
+//                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+//                        Date date = (Date) result.getSerializable(DatePickerFragment.EXTRA_DATE);
+//                        mExpense.setDate(date);
+//                        updateDate();
+//                    }
+//                });
+//                dialog.show(manager, DIALOG_DATE);
+//            }
+//        });
 
 //        mSolvedCheckBox = (CheckBox) v.findViewById(R.id.expense_solved);
 //        mSolvedCheckBox.setChecked(mExpense.isSolved());
@@ -143,10 +147,10 @@ public class ExpenseFragment extends Fragment {
         mExpense.setProposedAmount(amount);
     }
 
-    private void updateDate() {
-//        mDateButton.setText(mExpense.getDate().toString());
-        DateFormat df = new DateFormat();
-        CharSequence formattedDate = df.format("E, MMM d, yyyy", mExpense.getDate());
-        mDateButton.setText(formattedDate);
-    }
+//    private void updateDate() {
+////        mDateButton.setText(mExpense.getDate().toString());
+//        DateFormat df = new DateFormat();
+//        CharSequence formattedDate = df.format("E, MMM d, yyyy", mExpense.getDate());
+//        mDateButton.setText(formattedDate);
+//    }
 }

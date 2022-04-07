@@ -14,6 +14,10 @@ public class Expense extends Category {
     //TODO add support for transactions
 //    private ArrayList<Transaction> mTransactions;
 
+    public Expense() {
+        super(null, Frequency.MONTHLY, 0.0, 0.0);
+    }
+
     public Expense(String title, Frequency frequency, Double proposedAmount, Double currentAmount) {
         super(title, frequency, proposedAmount, currentAmount);
 //        mExpenseCategories.add(this);

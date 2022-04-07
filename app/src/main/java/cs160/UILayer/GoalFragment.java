@@ -77,7 +77,10 @@ public class GoalFragment extends Fragment {
 
         // Change amount for goal in onPause() method
         mAmountField = (EditText) v.findViewById(R.id.goal_amount);
-        mAmountField.setText(mGoal.getProposedAmount().toString());
+        Double proposedAmount = mGoal.getProposedAmount();
+        if (proposedAmount != 0) {
+            mAmountField.setText(String.format(proposedAmount.toString()));
+        }
         mAmountField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
