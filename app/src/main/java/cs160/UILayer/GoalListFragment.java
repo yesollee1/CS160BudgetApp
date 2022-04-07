@@ -4,6 +4,7 @@ import cs160.dataLayer.*;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +68,9 @@ public class GoalListFragment extends Fragment {
             mGoal = goal;
             mTitleTextView.setText(mGoal.getTitle());
             mAmountTextView.setText(mGoal.getProposedAmount().toString());
+            DateFormat df = new DateFormat();
+            CharSequence formattedDate = df.format("MMM d, yyyy", mGoal.getDate());
+            mDateTextView.setText(formattedDate);
         }
 
         @Override

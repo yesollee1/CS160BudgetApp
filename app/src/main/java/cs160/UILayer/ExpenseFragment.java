@@ -26,7 +26,7 @@ import java.util.UUID;
 
 public class ExpenseFragment extends Fragment {
     private static final String ARG_EXPENSE_ID = "expense_id";
-    private static final String DIALOG_DATE = "DialogDate";
+//    private static final String DIALOG_DATE = "DialogDate";
 
     private Expense mExpense;
     private EditText mTitleField;

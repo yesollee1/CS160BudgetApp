@@ -71,9 +71,12 @@ public class TransactionFragment extends Fragment {
             }
         });
 
-        // Change amount for expense in onPause() method
+        // Change amount for transaction in onPause() method
         mAmountField = (EditText) v.findViewById(R.id.transaction_amount);
-        mAmountField.setText(mTransaction.getAmount().toString());
+        Double amount = mTransaction.getAmount();
+        if (amount != 0) {
+            mAmountField.setText(amount.toString());
+        }
         mAmountField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -83,7 +86,8 @@ public class TransactionFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int count, int after) {
                 try {
-                    mTransaction.setAmount(Double.parseDouble(s.toString()));
+                    Double amount = Double.parseDouble(s.toString());
+                    mTransaction.setAmount(amount);
                 } catch (NumberFormatException e) {
                     // on empty string (when user backspaces) or non-number input, amount should be 0
                     mTransaction.setAmount(0.0);

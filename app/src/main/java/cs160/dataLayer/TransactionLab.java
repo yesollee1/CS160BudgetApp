@@ -24,11 +24,11 @@ public class TransactionLab {
     private TransactionLab(Context context) {
         mTransactions = new ArrayList<>();
         mTransactionMap = new HashMap<>();
-        for (int i = 0; i < 100; i++) {
-            Transaction transaction = new Transaction("Transaction #"+i, 0.0);
-            mTransactions.add(transaction);
-            mTransactionMap.put(transaction.getId(), transaction);
-        }
+    }
+
+    public void addTransaction(Transaction transaction) {
+        mTransactions.add(transaction);
+        mTransactionMap.put(transaction.getId(), transaction);
     }
 
     public List<Transaction> getTransactions() {

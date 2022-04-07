@@ -24,11 +24,11 @@ public class GoalLab {
     private GoalLab(Context context) {
         mGoals = new ArrayList<>();
         mGoalMap = new HashMap<>();
-        for (int i = 0; i < 100; i++) {
-            Goal goal = new Goal("Goal #"+i, Frequency.MONTHLY, 0.0, 0.0, new Date());
-            mGoals.add(goal);
-            mGoalMap.put(goal.getId(), goal);
-        }
+    }
+
+    public void addGoal(Goal goal) {
+        mGoals.add(goal);
+        mGoalMap.put(goal.getId(), goal);
     }
 
     public List<Goal> getGoals() {

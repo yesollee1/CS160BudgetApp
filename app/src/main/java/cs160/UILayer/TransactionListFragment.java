@@ -2,6 +2,7 @@ package cs160.UILayer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +68,9 @@ public class TransactionListFragment extends Fragment {
             mTransaction = transaction;
             mTitleTextView.setText(mTransaction.getMerchant());
             mAmountTextView.setText(mTransaction.getAmount().toString());
+            DateFormat df = new DateFormat();
+            CharSequence formattedDate = df.format("MMM d, yyyy", mTransaction.getDate());
+            mDateTextView.setText(formattedDate);
         }
 
         @Override

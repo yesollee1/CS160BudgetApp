@@ -16,6 +16,7 @@ public class Transaction {
     public Transaction() {
         mId = UUID.randomUUID();
         mMerchant = null;
+        mDate = new Date();
         mAmount = 0.0;
         mExpenseName = null;
         mNotes = null;

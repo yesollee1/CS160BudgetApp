@@ -15,5 +15,5 @@
     <string name="transaction_title_label">Title</string>
     <string name="transaction_amount_label">Amount</string>
 <!--    <string name="transaction_details_label">Details</string>-->
-    <string name="date_picker_title">Date of crime: </string>
+    <string name="date_picker_title">Choose a date: </string>
 </resources>

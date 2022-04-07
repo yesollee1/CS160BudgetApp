@@ -79,7 +79,7 @@ public class GoalFragment extends Fragment {
         mAmountField = (EditText) v.findViewById(R.id.goal_amount);
         Double proposedAmount = mGoal.getProposedAmount();
         if (proposedAmount != 0) {
-            mAmountField.setText(String.format(proposedAmount.toString()));
+            mAmountField.setText(proposedAmount.toString());
         }
         mAmountField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -90,7 +90,8 @@ public class GoalFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int count, int after) {
                 try {
-                    mGoal.setProposedAmount(Double.parseDouble(s.toString()));
+                    Double amount = Double.parseDouble(s.toString());
+                    mGoal.setProposedAmount(amount);
                 } catch (NumberFormatException e) {
                     // on empty string (when user backspaces) or non-number input, amount should be 0
                     mGoal.setProposedAmount(0.0);

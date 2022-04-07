@@ -37,14 +37,6 @@ public abstract class Category {
         return mId;
     }
 
-    public Date getDate() {
-        return mDate;
-    }
-
-    public void setDate(Date date) {
-        mDate = date;
-    }
-
     public Frequency getFrequency() {
         return mFrequency;
     }

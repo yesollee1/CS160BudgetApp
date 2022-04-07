@@ -4,9 +4,13 @@ import cs160.dataLayer.*;
 
 import androidx.fragment.app.Fragment;
 
-public class GoalListActivity extends SingleFragmentActivity {
+public class GoalListActivity extends ButtonFragmentActivity {
     @Override
-    protected Fragment createFragment() {
+    protected Fragment createButtonFragment() {
+        return new GoalButtonFragment();
+    }
+    @Override
+    protected Fragment createListFragment() {
         return new GoalListFragment();
     }
 }
