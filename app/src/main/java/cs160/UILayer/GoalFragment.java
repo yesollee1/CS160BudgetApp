@@ -5,6 +5,7 @@ import cs160.dataLayer.*;
 import static android.widget.CompoundButton.*;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,7 +33,8 @@ public class GoalFragment extends Fragment {
     private Goal mGoal;
     private EditText mTitleField;
     private EditText mAmountField;
-    private Button mDateButton, mBack;
+    private Button mDateButton;
+    private Button confirmBtn;
     //TODO: implement "completed" feature for goals
     private CheckBox mCompletedCheckBox;
 
@@ -125,15 +127,22 @@ public class GoalFragment extends Fragment {
                 dialog.show(manager, DIALOG_DATE);
             }
         });
-    //    ActionBar action = getSupportActionBar();
-//        mSolvedCheckBox = (CheckBox) v.findViewById(R.id.goal_solved);
-//        mSolvedCheckBox.setChecked(mGoal.isSolved());
-//        mSolvedCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                mGoal.setSolved(isChecked);
-//            }
-//        });
+
+        confirmBtn = v.findViewById(R.id.confirm_button);
+        confirmBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String title = mTitleField.getText().toString();
+                if (title.isEmpty()) {
+                    mTitleField.setError("Title must not be empty");
+                    mGoal.setTitle("Bug needs to be addressed! Empty title can be created!");
+                }else{
+                    Intent intent = new Intent(GoalFragment.this.getActivity(), GoalListActivity.class);
+                    startActivity(intent);
+                }
+
+            }
+        });
 
         return v;
     }
@@ -155,5 +164,12 @@ public class GoalFragment extends Fragment {
         DateFormat df = new DateFormat();
         CharSequence formattedDate = df.format("E, MMM d, yyyy", mGoal.getDate());
         mDateButton.setText(formattedDate);
+    }
+
+    private void onLoginClicked() {
+        String title = mTitleField.getText().toString();
+        if (title.isEmpty()) {
+            mTitleField.setError("Title must not be empty");
+        }
     }
 }

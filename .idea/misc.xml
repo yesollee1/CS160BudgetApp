@@ -11,10 +11,13 @@
         <entry key="app/src/main/res/layout/fragment_button.xml" value="0.2598958333333333" />
         <entry key="app/src/main/res/layout/fragment_expense.xml" value="0.16750756811301715" />
         <entry key="app/src/main/res/layout/fragment_expense_list.xml" value="0.16750756811301715" />
-        <entry key="app/src/main/res/layout/fragment_goal.xml" value="0.12" />
+        <entry key="app/src/main/res/layout/fragment_goal.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_goal_list.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_item_list.xml" value="0.2864583333333333" />
+        <entry key="app/src/main/res/layout/fragment_transaction.xml" value="0.2864583333333333" />
         <entry key="app/src/main/res/layout/list_item_expense.xml" value="0.33" />
         <entry key="app/src/main/res/layout/list_item_goal.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/list_item_transaction.xml" value="0.2864583333333333" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2835" />
       </map>
     </option>

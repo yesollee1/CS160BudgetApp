@@ -2,12 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="right">
+    android:gravity="center">
 
-    <Button
-        android:id="@+id/add_new_button"
-        android:layout_width="wrap_content"
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Add New" />
+        android:layout_gravity="top"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp">
+
+
+        <Button
+            android:id="@+id/add_new_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="New Item"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"/>
+
+
+    </TableRow>
+
+    <!--    <Button-->
+<!--        android:id="@+id/add_new_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        and-->
+<!--        android:text="Add New" />-->
 
 </LinearLayout>
