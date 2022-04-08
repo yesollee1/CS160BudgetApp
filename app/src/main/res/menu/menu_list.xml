@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<!--    <item android:id="@+id/new_item"-->
+<!--        android:icon="@android:drawable/ic_menu_add"-->
+<!--        android:title="@string/new_item"-->
+<!--        app:showAsAction="ifRoom|withText" />-->
+
+    <item android:id="@+id/expense_list_activity"
+        android:title="@string/expense_list_name"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/goal_list_activity"
+        android:title="@string/goal_list_name"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/transaction_list_activity"
+        android:title="@string/transaction_list_name"
+        app:showAsAction="never" />
+
+</menu>

@@ -16,4 +16,8 @@
     <string name="transaction_amount_label">Amount</string>
 <!--    <string name="transaction_details_label">Details</string>-->
     <string name="date_picker_title">Choose a date: </string>
+    <string name="new_item">Add New</string>
+    <string name="expense_list_name">Expenses</string>
+    <string name="goal_list_name">Goals</string>
+    <string name="transaction_list_name">Transactions</string>
 </resources>

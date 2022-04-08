@@ -2,26 +2,20 @@ package cs160.UILayer;
 
 import cs160.dataLayer.*;
 
-import static android.widget.CompoundButton.*;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentResultListener;
 
-import java.util.Date;
 import java.util.UUID;
 
 public class ExpenseFragment extends Fragment {
@@ -47,6 +41,7 @@ public class ExpenseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         UUID expenseId = (UUID) getArguments().getSerializable(ARG_EXPENSE_ID);
         mExpense = ExpenseLab.get(getActivity()).getExpense(expenseId);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -153,4 +148,46 @@ public class ExpenseFragment extends Fragment {
 //        CharSequence formattedDate = df.format("E, MMM d, yyyy", mExpense.getDate());
 //        mDateButton.setText(formattedDate);
 //    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_list, menu);
+//        MenuItem subtitleItem = menu.findItem(R.id.show_subtitle);
+//        if (mSubtitleVisible) {
+//            subtitleItem.setTitle(R.string.hide_subtitle);
+//        } else {
+//            subtitleItem.setTitle(R.string.show_subtitle);
+//        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.expense_list_activity:
+//                Expense crime = new Expense();
+//                ExpenseLab.get(getActivity()).addExpense(crime);
+//                Intent intent = ExpenseActivity.newIntent(getActivity(), crime.getId());
+                intent = new Intent(getActivity(), ExpenseListActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.goal_list_activity:
+//                Expense crime = new Expense();
+//                ExpenseLab.get(getActivity()).addExpense(crime);
+//                Intent intent = ExpenseActivity.newIntent(getActivity(), crime.getId());
+                intent = new Intent(getActivity(), GoalListActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.transaction_list_activity:
+//                Expense crime = new Expense();
+//                ExpenseLab.get(getActivity()).addExpense(crime);
+//                Intent intent = ExpenseActivity.newIntent(getActivity(), crime.getId());
+                intent = new Intent(getActivity(), TransactionListActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

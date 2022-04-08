@@ -53,4 +53,20 @@ public class ExpenseLab {
 //        return null;
         return mExpenseMap.get(id);
     }
+
+//    public ArrayList<String> getExpenseNames() {
+//        ArrayList<String> expenseNames = new ArrayList<>();
+//        for (Expense expense : mExpenses) {
+//            expenseNames.add(expense.getTitle());
+//        }
+//        return expenseNames;
+//    }
+
+    public String[] getExpenseNames() {
+        String[] expenseNames = new String[mExpenses.size()];
+        for (int i = 0; i < mExpenses.size(); i++) {
+            expenseNames[i] = mExpenses.get(i).getTitle();
+        }
+        return expenseNames;
+    }
 }

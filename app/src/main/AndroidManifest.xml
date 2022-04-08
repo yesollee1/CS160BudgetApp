@@ -19,6 +19,7 @@
         </activity>
         <activity
             android:name=".ExpenseActivity"
+            android:parentActivityName=".ExpenseListActivity"
             android:exported="false">
         </activity>
         <activity
@@ -31,11 +32,12 @@
         </activity>
         <activity
             android:name=".GoalActivity"
+            android:parentActivityName=".GoalListActivity"
             android:exported="false">
         </activity>
         <activity
             android:name=".TransactionListActivity"
-            android:exported="false">
+            android:exported="true">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN"/>-->
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
@@ -43,6 +45,7 @@
         </activity>
         <activity
             android:name=".TransactionActivity"
+            android:parentActivityName=".TransactionListActivity"
             android:exported="false">
         </activity>
     </application>

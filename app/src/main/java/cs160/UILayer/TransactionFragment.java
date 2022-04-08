@@ -1,15 +1,23 @@
 package cs160.UILayer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -28,6 +36,7 @@ public class TransactionFragment extends Fragment {
     private Transaction mTransaction;
     private EditText mTitleField;
     private EditText mAmountField;
+    private Spinner mExpenseSpinner;
     private EditText mNotesField;
     private Button mDateButton;
 
@@ -44,6 +53,7 @@ public class TransactionFragment extends Fragment {
         super.onCreate(savedInstanceState);
         UUID transactionId = (UUID) getArguments().getSerializable(ARG_TRANSACTION_ID);
         mTransaction = TransactionLab.get(getActivity()).getTransaction(transactionId);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -100,6 +110,22 @@ public class TransactionFragment extends Fragment {
             }
         });
 
+        mExpenseSpinner = (Spinner) v.findViewById(R.id.expense_spinner);
+        mExpenseSpinner.setAdapter(new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1, ExpenseLab.get(getActivity()).getExpenseNames()));
+        mExpenseSpinner.setPrompt("Spend from: ");
+        mExpenseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("Transaction Spinner", "Position selected: " + position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Log.d("Spinner Transaction", "Nothing selected");
+            }
+        });
+
         mDateButton = (Button) v.findViewById(R.id.transaction_date);
         updateDate();
 //        mDateButton.setEnabled(false); // Disables button
@@ -140,5 +166,47 @@ public class TransactionFragment extends Fragment {
         DateFormat df = new DateFormat();
         CharSequence formattedDate = df.format("E, MMM d, yyyy", mTransaction.getDate());
         mDateButton.setText(formattedDate);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_list, menu);
+//        MenuItem subtitleItem = menu.findItem(R.id.show_subtitle);
+//        if (mSubtitleVisible) {
+//            subtitleItem.setTitle(R.string.hide_subtitle);
+//        } else {
+//            subtitleItem.setTitle(R.string.show_subtitle);
+//        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.expense_list_activity:
+//                Expense crime = new Expense();
+//                ExpenseLab.get(getActivity()).addExpense(crime);
+//                Intent intent = ExpenseActivity.newIntent(getActivity(), crime.getId());
+                intent = new Intent(getActivity(), ExpenseListActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.goal_list_activity:
+//                Expense crime = new Expense();
+//                ExpenseLab.get(getActivity()).addExpense(crime);
+//                Intent intent = ExpenseActivity.newIntent(getActivity(), crime.getId());
+                intent = new Intent(getActivity(), GoalListActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.transaction_list_activity:
+//                Expense crime = new Expense();
+//                ExpenseLab.get(getActivity()).addExpense(crime);
+//                Intent intent = ExpenseActivity.newIntent(getActivity(), crime.getId());
+                intent = new Intent(getActivity(), TransactionListActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

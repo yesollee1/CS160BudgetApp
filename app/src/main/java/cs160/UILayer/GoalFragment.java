@@ -4,11 +4,15 @@ import cs160.dataLayer.*;
 
 import static android.widget.CompoundButton.*;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -48,6 +52,7 @@ public class GoalFragment extends Fragment {
         super.onCreate(savedInstanceState);
         UUID goalId = (UUID) getArguments().getSerializable(ARG_GOAL_ID);
         mGoal = GoalLab.get(getActivity()).getGoal(goalId);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -154,5 +159,47 @@ public class GoalFragment extends Fragment {
         DateFormat df = new DateFormat();
         CharSequence formattedDate = df.format("E, MMM d, yyyy", mGoal.getDate());
         mDateButton.setText(formattedDate);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_list, menu);
+//        MenuItem subtitleItem = menu.findItem(R.id.show_subtitle);
+//        if (mSubtitleVisible) {
+//            subtitleItem.setTitle(R.string.hide_subtitle);
+//        } else {
+//            subtitleItem.setTitle(R.string.show_subtitle);
+//        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.expense_list_activity:
+//                Expense crime = new Expense();
+//                ExpenseLab.get(getActivity()).addExpense(crime);
+//                Intent intent = ExpenseActivity.newIntent(getActivity(), crime.getId());
+                intent = new Intent(getActivity(), ExpenseListActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.goal_list_activity:
+//                Expense crime = new Expense();
+//                ExpenseLab.get(getActivity()).addExpense(crime);
+//                Intent intent = ExpenseActivity.newIntent(getActivity(), crime.getId());
+                intent = new Intent(getActivity(), GoalListActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.transaction_list_activity:
+//                Expense crime = new Expense();
+//                ExpenseLab.get(getActivity()).addExpense(crime);
+//                Intent intent = ExpenseActivity.newIntent(getActivity(), crime.getId());
+                intent = new Intent(getActivity(), TransactionListActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

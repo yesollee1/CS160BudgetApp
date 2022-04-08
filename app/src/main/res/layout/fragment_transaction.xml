@@ -27,6 +27,10 @@
         android:layout_height="wrap_content"
         android:hint="@string/transaction_amount_hint" />
 
+    <Spinner android:id="@+id/expense_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <TextView
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
