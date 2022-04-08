@@ -86,6 +86,7 @@ public class ExpenseFragment extends Fragment {
                 try {
                     Double amount = Double.parseDouble(s.toString());
                     mExpense.setProposedAmount(amount);
+                    mExpense.setCurrentAmount(amount);
                 } catch (NumberFormatException e) {
                     // on empty string (when user backspaces) or non-number input, amount should be 0
                     mExpense.setProposedAmount(0.0);

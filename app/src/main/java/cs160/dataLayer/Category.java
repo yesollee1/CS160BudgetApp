@@ -49,6 +49,10 @@ public abstract class Category {
         return mCurrentAmount;
     }
 
+    public void setCurrentAmount(Double currentAmount) {
+        mCurrentAmount = currentAmount;
+    }
+
 //    public ArrayList<String> getMerchants() {
 //        return mMerchants;
 //    }

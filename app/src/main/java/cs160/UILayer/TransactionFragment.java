@@ -72,7 +72,7 @@ public class TransactionFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int count, int after) {
-                mTransaction.categorize(s.toString());
+                mTransaction.setMerchant(s.toString());
             }
 
             @Override
@@ -111,13 +111,16 @@ public class TransactionFragment extends Fragment {
         });
 
         mExpenseSpinner = (Spinner) v.findViewById(R.id.expense_spinner);
+        String[] expenseNames = ExpenseLab.get(getActivity()).getExpenseNames();
         mExpenseSpinner.setAdapter(new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, ExpenseLab.get(getActivity()).getExpenseNames()));
+                android.R.layout.simple_list_item_1, expenseNames));
         mExpenseSpinner.setPrompt("Spend from: ");
         mExpenseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("Transaction Spinner", "Position selected: " + position);
+                Expense expense = ExpenseLab.get(getActivity()).getExpenseByName(expenseNames[position]);
+                expense.addTransaction(mTransaction);
             }
 
             @Override

@@ -112,6 +112,7 @@ public class ExpenseListFragment extends Fragment {
     private class ExpenseHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTitleTextView;
         private TextView mAmountTextView;
+        private TextView mAmountLeftTextView;
 //        private TextView mDateTextView;
 //        private ImageView mSolvedImageView;
 
@@ -122,6 +123,7 @@ public class ExpenseListFragment extends Fragment {
             itemView.setOnClickListener(this);
             mTitleTextView = (TextView) itemView.findViewById(R.id.expense_title);
             mAmountTextView = (TextView) itemView.findViewById(R.id.expense_amount);
+            mAmountLeftTextView = (TextView) itemView.findViewById(R.id.amount_left);
 //            mDateTextView = (TextView) itemView.findViewById(R.id.expense_date);
 //            mSolvedImageView = (ImageView) itemView.findViewById(R.id.expense_solved);
         }
@@ -129,7 +131,10 @@ public class ExpenseListFragment extends Fragment {
         public void bind(Expense expense) {
             mExpense = expense;
             mTitleTextView.setText(mExpense.getTitle());
-            mAmountTextView.setText(mExpense.getProposedAmount().toString());
+            String spentOfTotalStr = mExpense.getProposedAmount() - mExpense.getCurrentAmount() +
+                    " spent of " + mExpense.getProposedAmount().toString();
+            mAmountTextView.setText(spentOfTotalStr);
+            mAmountLeftTextView.setText(mExpense.getCurrentAmount().toString());
 //            mDateTextView.setText(mExpense.getDate().toString());
 //            DateFormat df = new DateFormat();
 //            CharSequence formattedDate = df.format("E, MMM d, yyyy", mExpense.getDate());

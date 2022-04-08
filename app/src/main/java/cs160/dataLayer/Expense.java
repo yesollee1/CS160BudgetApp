@@ -11,15 +11,18 @@ public class Expense extends Category {
 //    }
 
     private ArrayList<String> mMerchants;
-    //TODO add support for transactions
-//    private ArrayList<Transaction> mTransactions;
+    private ArrayList<Transaction> mTransactions;
 
     public Expense() {
         super(null, Frequency.MONTHLY, 0.0, 0.0);
+        mMerchants = new ArrayList<>();
+        mTransactions = new ArrayList<>();
     }
 
     public Expense(String title, Frequency frequency, Double proposedAmount, Double currentAmount) {
         super(title, frequency, proposedAmount, currentAmount);
+        mMerchants = new ArrayList<>();
+        mTransactions = new ArrayList<>();
 //        mExpenseCategories.add(this);
     }
 
@@ -45,6 +48,11 @@ public class Expense extends Category {
 
     public void addMerchant(String merchant) {
         mMerchants.add(merchant);
+    }
+
+    public void addTransaction(Transaction transaction) {
+        mTransactions.add(transaction);
+        setCurrentAmount(getCurrentAmount() - transaction.getAmount());
     }
 
 //    public ArrayList<Transaction> getTransactions() {

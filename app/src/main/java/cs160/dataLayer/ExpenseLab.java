@@ -54,6 +54,15 @@ public class ExpenseLab {
         return mExpenseMap.get(id);
     }
 
+    public Expense getExpenseByName(String expenseName) {
+        for (Expense expense : mExpenses) {
+            if (expense.getTitle().equals(expenseName)) {
+                return expense;
+            }
+        }
+        return null;
+    }
+
 //    public ArrayList<String> getExpenseNames() {
 //        ArrayList<String> expenseNames = new ArrayList<>();
 //        for (Expense expense : mExpenses) {

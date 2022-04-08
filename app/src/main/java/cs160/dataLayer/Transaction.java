@@ -39,8 +39,13 @@ public class Transaction {
         return mMerchant;
     }
 
-    public void categorize(String merchant) { // setMerchant()
+    public void setMerchant(String merchant) { // setMerchant()
         mMerchant = merchant;
+    }
+
+    public void categorize(String expenseName) { // setMerchant()
+        mExpenseName = expenseName;
+
     }
 
     public Double getAmount() {
