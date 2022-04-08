@@ -5,6 +5,7 @@ import cs160.dataLayer.*;
 import static android.widget.CompoundButton.*;
 
 import android.content.Intent;
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -35,7 +36,7 @@ public class GoalFragment extends Fragment {
     private Goal mGoal;
     private EditText mTitleField;
     private EditText mAmountField;
-    private Button mDateButton;
+    private Button mDateButton, mBack;
     //TODO: implement "completed" feature for goals
     private CheckBox mCompletedCheckBox;
 
@@ -129,7 +130,7 @@ public class GoalFragment extends Fragment {
                 dialog.show(manager, DIALOG_DATE);
             }
         });
-
+    //    ActionBar action = getSupportActionBar();
 //        mSolvedCheckBox = (CheckBox) v.findViewById(R.id.goal_solved);
 //        mSolvedCheckBox.setChecked(mGoal.isSolved());
 //        mSolvedCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {

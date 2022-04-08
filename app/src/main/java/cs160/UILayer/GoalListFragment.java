@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -62,7 +63,7 @@ public class GoalListFragment extends Fragment {
         private TextView mAmountTextView;
         private TextView mDateTextView;
 //        private ImageView mSolvedImageView;
-
+        private Button confirmBtn, backBtn;
         private Goal mGoal;
 
         public GoalHolder(LayoutInflater inflater, ViewGroup parent) {
