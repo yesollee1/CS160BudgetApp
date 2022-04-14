@@ -34,9 +34,11 @@ public class GoalFragment extends Fragment {
     private EditText mTitleField;
     private EditText mAmountField;
     private Button mDateButton;
-    private Button confirmBtn;
+    private Button mConfirmBtn;
     //TODO: implement "completed" feature for goals
     private CheckBox mCompletedCheckBox;
+
+    private Date mDate; // this is for saving a date before the goal has been saved
 
     public static GoalFragment newInstance(UUID goalId) {
         Bundle args = new Bundle();
@@ -50,7 +52,9 @@ public class GoalFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID goalId = (UUID) getArguments().getSerializable(ARG_GOAL_ID);
-        mGoal = GoalLab.get(getActivity()).getGoal(goalId);
+        if (goalId != null) {
+            mGoal = GoalLab.get(getActivity()).getGoal(goalId);
+        }
     }
 
     @Override
@@ -60,52 +64,56 @@ public class GoalFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_goal, container, false);
 
         mTitleField = (EditText) v.findViewById(R.id.goal_title);
-        mTitleField.setText(mGoal.getTitle());
-        mTitleField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // This space intentionally left blank
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int count, int after) {
-                mGoal.setTitle(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // This space intentionally left blank
-            }
-        });
+        if (mGoal != null) {
+            mTitleField.setText(mGoal.getTitle());
+        }
+//        mTitleField.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                // This space intentionally left blank
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int count, int after) {
+//                mGoal.setTitle(s.toString());
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                // This space intentionally left blank
+//            }
+//        });
 
         // Change amount for goal in onPause() method
         mAmountField = (EditText) v.findViewById(R.id.goal_amount);
-        Double proposedAmount = mGoal.getProposedAmount();
-        if (proposedAmount != 0) {
-            mAmountField.setText(proposedAmount.toString());
+        if (mGoal != null) {
+            Double proposedAmount = mGoal.getProposedAmount();
+            if (proposedAmount != 0) {
+                mAmountField.setText(proposedAmount.toString());
+            }
         }
-        mAmountField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // This space intentionally left blank
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int count, int after) {
-                try {
-                    Double amount = Double.parseDouble(s.toString());
-                    mGoal.setProposedAmount(amount);
-                } catch (NumberFormatException e) {
-                    // on empty string (when user backspaces) or non-number input, amount should be 0
-                    mGoal.setProposedAmount(0.0);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // This space intentionally left blank
-            }
-        });
+//        mAmountField.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                // This space intentionally left blank
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int count, int after) {
+//                try {
+//                    Double amount = Double.parseDouble(s.toString());
+//                    mGoal.setProposedAmount(amount);
+//                } catch (NumberFormatException e) {
+//                    // on empty string (when user backspaces) or non-number input, amount should be 0
+//                    mGoal.setProposedAmount(0.0);
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                // This space intentionally left blank
+//            }
+//        });
 
         mDateButton = (Button) v.findViewById(R.id.goal_date);
         updateDate();
@@ -115,12 +123,16 @@ public class GoalFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentManager manager = getChildFragmentManager();
-                DatePickerFragment dialog = DatePickerFragment.newInstance(mGoal.getDate());
+                DatePickerFragment dialog;
+                if (mGoal != null) {
+                    dialog = DatePickerFragment.newInstance(mGoal.getDate());
+                } else {
+                    dialog = DatePickerFragment.newInstance(new Date());
+                }
                 manager.setFragmentResultListener(DatePickerFragment.ARG_DATE, getViewLifecycleOwner(), new FragmentResultListener() {
                     @Override
                     public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                        Date date = (Date) result.getSerializable(DatePickerFragment.EXTRA_DATE);
-                        mGoal.setDate(date);
+                        mDate = (Date) result.getSerializable(DatePickerFragment.EXTRA_DATE);
                         updateDate();
                     }
                 });
@@ -128,10 +140,16 @@ public class GoalFragment extends Fragment {
             }
         });
 
-        confirmBtn = v.findViewById(R.id.confirm_button);
-        confirmBtn.setOnClickListener(new OnClickListener() {
+        mConfirmBtn = v.findViewById(R.id.confirm_button);
+        mConfirmBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mGoal == null) {
+                    Goal goal = new Goal();
+                    GoalLab goalLab = GoalLab.get(getActivity());
+                    goalLab.addGoal(goal);
+                    mGoal = goal;
+                }
                 String title = mTitleField.getText().toString();
                 if (title.isEmpty()) {
                     mTitleField.setError("Title must not be empty");
@@ -140,7 +158,6 @@ public class GoalFragment extends Fragment {
                     Intent intent = new Intent(GoalFragment.this.getActivity(), GoalListActivity.class);
                     startActivity(intent);
                 }
-
             }
         });
 
@@ -162,14 +179,17 @@ public class GoalFragment extends Fragment {
     private void updateDate() {
 //        mDateButton.setText(mGoal.getDate().toString());
         DateFormat df = new DateFormat();
-        CharSequence formattedDate = df.format("E, MMM d, yyyy", mGoal.getDate());
+        if (mDate == null) {
+            mDate = new Date();
+        }
+        CharSequence formattedDate = df.format("E, MMM d, yyyy", mDate);
         mDateButton.setText(formattedDate);
     }
 
-    private void onLoginClicked() {
-        String title = mTitleField.getText().toString();
-        if (title.isEmpty()) {
-            mTitleField.setError("Title must not be empty");
-        }
-    }
+//    private void onConfirmClicked() {
+//        String title = mTitleField.getText().toString();
+//        if (title.isEmpty()) {
+//            mTitleField.setError("Title must not be empty");
+//        }
+//    }
 }
