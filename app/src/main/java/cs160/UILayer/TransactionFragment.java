@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
@@ -47,6 +48,11 @@ public class TransactionFragment extends Fragment {
         UUID transactionId = (UUID) getArguments().getSerializable(ARG_TRANSACTION_ID);
         mTransaction = TransactionLab.get(getActivity()).getTransaction(transactionId);
         setHasOptionsMenu(true);
+        if (mTransaction != null) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Transaction: " + mTransaction.getMerchant());
+        } else {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("New Transaction");
+        }
     }
 
     @Override

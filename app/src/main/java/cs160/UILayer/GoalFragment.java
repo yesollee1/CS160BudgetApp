@@ -21,6 +21,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
@@ -58,6 +59,11 @@ public class GoalFragment extends Fragment {
             mGoal = GoalLab.get(getActivity()).getGoal(goalId);
         }
         setHasOptionsMenu(true);
+        if (mGoal != null) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Goal: " + mGoal.getTitle());
+        } else {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("New Goal");
+        }
     }
 
     @Override

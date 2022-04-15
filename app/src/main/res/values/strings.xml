@@ -18,5 +18,5 @@
     <string name="date_picker_title">Choose a date: </string>
     <string name="expense_list_name">Expenses</string>
     <string name="goal_list_name">Goals</string>
-    <string name="transaction_list_name">Transaction</string>
+    <string name="transaction_list_name">Transactions</string>
 </resources>

@@ -19,6 +19,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
@@ -50,6 +51,11 @@ public class ExpenseFragment extends Fragment {
         UUID expenseId = (UUID) getArguments().getSerializable(ARG_EXPENSE_ID);
         mExpense = ExpenseLab.get(getActivity()).getExpense(expenseId);
         setHasOptionsMenu(true);
+        if (mExpense != null) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Expense: " + mExpense.getTitle());
+        } else {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("New Expense");
+        }
     }
 
     @Override
