@@ -8,6 +8,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -46,6 +47,27 @@ public class GoalListFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_main, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.expense_list_activity:
+                intent = new Intent(getActivity(), ExpenseListActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.goal_list_activity:
+                intent = new Intent(getActivity(), GoalListActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.transaction_list_activity:
+                intent = new Intent(getActivity(), TransactionListActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
