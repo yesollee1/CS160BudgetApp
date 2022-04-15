@@ -59,6 +59,12 @@ public class GoalFragment extends Fragment {
         if (goalId != null) {
             mGoal = GoalLab.get(getActivity()).getGoal(goalId);
         }
+        if (mGoal != null) {
+            mDate = mGoal.getDate();
+        }
+        if (mDate == null) {
+            mDate = new Date();
+        }
         setHasOptionsMenu(true);
         if (mGoal != null) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Goal: " + mGoal.getTitle());
@@ -169,10 +175,19 @@ public class GoalFragment extends Fragment {
                 String title = mTitleField.getText().toString();
                 if (title.isEmpty()) {
                     mTitleField.setError("Title must not be empty");
-                    mGoal.setTitle("Bug needs to be addressed! Empty title can be created!");
-                }else{
-                    Intent intent = new Intent(GoalFragment.this.getActivity(), GoalListActivity.class);
-                    startActivity(intent);
+                } else {
+                    mGoal.setTitle(title);
+                    try {
+                        Double amount = Double.parseDouble(mAmountField.getText().toString());
+                        mGoal.setProposedAmount(amount);
+
+                        mGoal.setDate(mDate);
+
+                        Intent intent = new Intent(GoalFragment.this.getActivity(), GoalListActivity.class);
+                        startActivity(intent);
+                    } catch (NumberFormatException e) {
+                        mAmountField.setError("Amount must be a valid number");
+                    }
                 }
             }
         });
@@ -180,24 +195,24 @@ public class GoalFragment extends Fragment {
         return v;
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        double amount;
-        try {
-            amount = Double.parseDouble(mAmountField.getText().toString());
-        } catch (Exception e) {
-            amount = 0.0;
-        }
-        mGoal.setProposedAmount(amount);
-    }
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        double amount;
+//        try {
+//            amount = Double.parseDouble(mAmountField.getText().toString());
+//        } catch (Exception e) {
+//            amount = 0.0;
+//        }
+////        mGoal.setProposedAmount(amount);
+//    }
 
     private void updateDate() {
 //        mDateButton.setText(mGoal.getDate().toString());
         DateFormat df = new DateFormat();
-        if (mDate == null) {
-            mDate = new Date();
-        }
+//        if (mDate == null) {
+//            mDate = new Date();
+//        }
         CharSequence formattedDate = df.format("E, MMM d, yyyy", mDate);
         mDateButton.setText(formattedDate);
     }

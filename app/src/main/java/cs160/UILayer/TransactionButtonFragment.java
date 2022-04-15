@@ -22,10 +22,10 @@ public class TransactionButtonFragment extends Fragment {
         mAddNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Transaction transaction = new Transaction();
-                TransactionLab transactionLab = TransactionLab.get(getActivity());
-                transactionLab.addTransaction(transaction);
-                Intent intent = TransactionActivity.newIntent(getActivity(), transaction.getId());
+//                Transaction transaction = new Transaction();
+//                TransactionLab transactionLab = TransactionLab.get(getActivity());
+//                transactionLab.addTransaction(transaction);
+                Intent intent = TransactionActivity.newIntent(getActivity(), null);
                 startActivity(intent);
             }
         });

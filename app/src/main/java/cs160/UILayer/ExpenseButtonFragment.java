@@ -30,10 +30,10 @@ public class ExpenseButtonFragment extends Fragment {
         mAddNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Expense expense = new Expense();
-                ExpenseLab expenseLab = ExpenseLab.get(getActivity());
-                expenseLab.addExpense(expense);
-                Intent intent = ExpenseActivity.newIntent(getActivity(), expense.getId());
+//                Expense expense = new Expense();
+//                ExpenseLab expenseLab = ExpenseLab.get(getActivity());
+//                expenseLab.addExpense(expense);
+                Intent intent = ExpenseActivity.newIntent(getActivity(), null);
                 startActivity(intent);
             }
         });

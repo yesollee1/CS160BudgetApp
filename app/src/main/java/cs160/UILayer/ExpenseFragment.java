@@ -4,6 +4,7 @@ import cs160.dataLayer.*;
 
 import static android.widget.CompoundButton.*;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,6 +35,7 @@ public class ExpenseFragment extends Fragment {
     private Expense mExpense;
     private EditText mTitleField;
     private EditText mAmountField;
+    private Button mConfirmBtn;
 //    private Button mDateButton;
 //    private CheckBox mSolvedCheckBox;
 
@@ -49,7 +51,9 @@ public class ExpenseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UUID expenseId = (UUID) getArguments().getSerializable(ARG_EXPENSE_ID);
-        mExpense = ExpenseLab.get(getActivity()).getExpense(expenseId);
+        if (expenseId != null) {
+            mExpense = ExpenseLab.get(getActivity()).getExpense(expenseId);
+        }
         setHasOptionsMenu(true);
         if (mExpense != null) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Expense: " + mExpense.getTitle());
@@ -71,52 +75,57 @@ public class ExpenseFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_expense, container, false);
 
         mTitleField = (EditText) v.findViewById(R.id.expense_title);
-        mTitleField.setText(mExpense.getTitle());
-        mTitleField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // This space intentionally left blank
-            }
+        if (mExpense != null) {
+            mTitleField.setText(mExpense.getTitle());
+        }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int count, int after) {
-                mExpense.setTitle(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // This space intentionally left blank
-            }
-        });
+//        mTitleField.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                // This space intentionally left blank
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int count, int after) {
+//                mExpense.setTitle(s.toString());
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                // This space intentionally left blank
+//            }
+//        });
 
         // Change amount for expense in onPause() method
         mAmountField = (EditText) v.findViewById(R.id.expense_amount);
-        Double proposedAmount = mExpense.getProposedAmount();
-        if (proposedAmount != 0) {
-            mAmountField.setText(proposedAmount.toString());
+        if (mExpense != null) {
+            Double proposedAmount = mExpense.getProposedAmount();
+            if (proposedAmount != 0) {
+                mAmountField.setText(proposedAmount.toString());
+            }
         }
-        mAmountField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // This space intentionally left blank
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int count, int after) {
-                try {
-                    Double amount = Double.parseDouble(s.toString());
-                    mExpense.setProposedAmount(amount);
-                } catch (NumberFormatException e) {
-                    // on empty string (when user backspaces) or non-number input, amount should be 0
-                    mExpense.setProposedAmount(0.0);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // This space intentionally left blank
-            }
-        });
+//        mAmountField.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                // This space intentionally left blank
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int count, int after) {
+//                try {
+//                    Double amount = Double.parseDouble(s.toString());
+//                    mExpense.setProposedAmount(amount);
+//                } catch (NumberFormatException e) {
+//                    // on empty string (when user backspaces) or non-number input, amount should be 0
+//                    mExpense.setProposedAmount(0.0);
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                // This space intentionally left blank
+//            }
+//        });
 
 //        mDateButton = (Button) v.findViewById(R.id.expense_date);
 //        updateDate();
@@ -147,6 +156,36 @@ public class ExpenseFragment extends Fragment {
 //            }
 //        });
 
+        mConfirmBtn = v.findViewById(R.id.confirm_button);
+        mConfirmBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mExpense == null) {
+                    Expense expense = new Expense();
+                    ExpenseLab expenseLab = ExpenseLab.get(getActivity());
+                    expenseLab.addExpense(expense);
+                    mExpense = expense;
+                }
+                String title = mTitleField.getText().toString();
+                if (title.isEmpty()) {
+                    mTitleField.setError("Title must not be empty");
+                } else {
+                    mExpense.setTitle(title);
+                    try {
+                        Double amount = Double.parseDouble(mAmountField.getText().toString());
+                        mExpense.setProposedAmount(amount);
+
+//                        mExpense.setDate(mDate);
+
+                        Intent intent = new Intent(ExpenseFragment.this.getActivity(), ExpenseListActivity.class);
+                        startActivity(intent);
+                    } catch (NumberFormatException e) {
+                        mAmountField.setError("Amount must be a valid number");
+                    }
+                }
+            }
+        });
+
         return v;
     }
 
@@ -159,7 +198,7 @@ public class ExpenseFragment extends Fragment {
         } catch (Exception e) {
             amount = 0.0;
         }
-        mExpense.setProposedAmount(amount);
+//        mExpense.setProposedAmount(amount);
     }
 
 //    private void updateDate() {
