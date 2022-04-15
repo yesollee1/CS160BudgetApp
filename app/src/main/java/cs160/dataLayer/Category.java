@@ -5,15 +5,13 @@ import java.util.Date;
 import java.util.UUID;
 
 public abstract class Category {
-    private static UUID sNextId;
+//    private static UUID sNextId;
     protected String mTitle;
     protected UUID mId;
     protected Date mDate;
     protected Frequency mFrequency;
     protected Double mProposedAmount;
     protected Double mCurrentAmount;
-    //protected ArrayList<String> mMerchants;
-    //protected ArrayList<Transaction> mTransactions;
     protected int mNotifyPercent;
 
     public Category(String title, Frequency frequency, Double proposedAmount, Double currentAmount) {
@@ -49,14 +47,6 @@ public abstract class Category {
         return mCurrentAmount;
     }
 
-//    public ArrayList<String> getMerchants() {
-//        return mMerchants;
-//    }
-//
-//    public ArrayList<Transaction> getTransactions() {
-//        return mTransactions;
-//    }
-
     public Double getProposedAmount() {
         return mProposedAmount;
     }
@@ -73,9 +63,6 @@ public abstract class Category {
         mNotifyPercent = notifyPercent;
     }
 
+    //TODO: Implement delete for Expenses, Goals, and Transactions
 //    public abstract void delete();
-
-//    public boolean containsMerchant(String merchant) {
-//        return mMerchants.contains(merchant);
-//    }
 }

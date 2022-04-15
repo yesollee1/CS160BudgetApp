@@ -31,14 +31,11 @@ import java.util.UUID;
 
 public class ExpenseFragment extends Fragment {
     private static final String ARG_EXPENSE_ID = "expense_id";
-//    private static final String DIALOG_DATE = "DialogDate";
 
     private Expense mExpense;
     private EditText mTitleField;
     private EditText mAmountField;
     private Button mConfirmBtn;
-//    private Button mDateButton;
-//    private CheckBox mSolvedCheckBox;
 
     public static ExpenseFragment newInstance(UUID expenseId) {
         Bundle args = new Bundle();
@@ -101,24 +98,6 @@ public class ExpenseFragment extends Fragment {
             mTitleField.setText(mExpense.getTitle());
         }
 
-//        mTitleField.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                // This space intentionally left blank
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int count, int after) {
-//                mExpense.setTitle(s.toString());
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                // This space intentionally left blank
-//            }
-//        });
-
-        // Change amount for expense in onPause() method
         mAmountField = (EditText) v.findViewById(R.id.expense_amount);
         if (mExpense != null) {
             Double proposedAmount = mExpense.getProposedAmount();
@@ -126,57 +105,6 @@ public class ExpenseFragment extends Fragment {
                 mAmountField.setText(proposedAmount.toString());
             }
         }
-//        mAmountField.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                // This space intentionally left blank
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int count, int after) {
-//                try {
-//                    Double amount = Double.parseDouble(s.toString());
-//                    mExpense.setProposedAmount(amount);
-//                } catch (NumberFormatException e) {
-//                    // on empty string (when user backspaces) or non-number input, amount should be 0
-//                    mExpense.setProposedAmount(0.0);
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                // This space intentionally left blank
-//            }
-//        });
-
-//        mDateButton = (Button) v.findViewById(R.id.expense_date);
-//        updateDate();
-////        mDateButton.setEnabled(false); // Disables button
-//        mDateButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FragmentManager manager = getChildFragmentManager();
-//                DatePickerFragment dialog = DatePickerFragment.newInstance(mExpense.getDate());
-//                manager.setFragmentResultListener(DatePickerFragment.ARG_DATE, getViewLifecycleOwner(), new FragmentResultListener() {
-//                    @Override
-//                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-//                        Date date = (Date) result.getSerializable(DatePickerFragment.EXTRA_DATE);
-//                        mExpense.setDate(date);
-//                        updateDate();
-//                    }
-//                });
-//                dialog.show(manager, DIALOG_DATE);
-//            }
-//        });
-
-//        mSolvedCheckBox = (CheckBox) v.findViewById(R.id.expense_solved);
-//        mSolvedCheckBox.setChecked(mExpense.isSolved());
-//        mSolvedCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                mExpense.setSolved(isChecked);
-//            }
-//        });
 
         mConfirmBtn = v.findViewById(R.id.confirm_button);
         mConfirmBtn.setOnClickListener(new OnClickListener() {
@@ -197,8 +125,6 @@ public class ExpenseFragment extends Fragment {
                         Double amount = Double.parseDouble(mAmountField.getText().toString());
                         mExpense.setProposedAmount(amount);
 
-//                        mExpense.setDate(mDate);
-
                         Intent intent = new Intent(ExpenseFragment.this.getActivity(), ExpenseListActivity.class);
                         startActivity(intent);
                     } catch (NumberFormatException e) {
@@ -210,23 +136,4 @@ public class ExpenseFragment extends Fragment {
 
         return v;
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        double amount;
-        try {
-            amount = Double.parseDouble(mAmountField.getText().toString());
-        } catch (Exception e) {
-            amount = 0.0;
-        }
-//        mExpense.setProposedAmount(amount);
-    }
-
-//    private void updateDate() {
-////        mDateButton.setText(mExpense.getDate().toString());
-//        DateFormat df = new DateFormat();
-//        CharSequence formattedDate = df.format("E, MMM d, yyyy", mExpense.getDate());
-//        mDateButton.setText(formattedDate);
-//    }
 }

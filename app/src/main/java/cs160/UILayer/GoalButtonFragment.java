@@ -22,9 +22,6 @@ public class GoalButtonFragment extends Fragment {
         mAddNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Goal goal = new Goal();
-//                GoalLab goalLab = GoalLab.get(getActivity());
-//                goalLab.addGoal(goal);
                 Intent intent = GoalActivity.newIntent(getActivity(), null);
                 startActivity(intent);
             }

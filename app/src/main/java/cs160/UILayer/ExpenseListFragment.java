@@ -90,8 +90,6 @@ public class ExpenseListFragment extends Fragment {
     private class ExpenseHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTitleTextView;
         private TextView mAmountTextView;
-//        private TextView mDateTextView;
-//        private ImageView mSolvedImageView;
 
         private Expense mExpense;
 
@@ -100,24 +98,16 @@ public class ExpenseListFragment extends Fragment {
             itemView.setOnClickListener(this);
             mTitleTextView = (TextView) itemView.findViewById(R.id.expense_title);
             mAmountTextView = (TextView) itemView.findViewById(R.id.expense_amount);
-//            mDateTextView = (TextView) itemView.findViewById(R.id.expense_date);
-//            mSolvedImageView = (ImageView) itemView.findViewById(R.id.expense_solved);
         }
 
         public void bind(Expense expense) {
             mExpense = expense;
             mTitleTextView.setText(mExpense.getTitle());
             mAmountTextView.setText(mExpense.getProposedAmount().toString());
-//            mDateTextView.setText(mExpense.getDate().toString());
-//            DateFormat df = new DateFormat();
-//            CharSequence formattedDate = df.format("E, MMM d, yyyy", mExpense.getDate());
-//            mDateTextView.setText(formattedDate);
-//            mSolvedImageView.setVisibility(expense.isSolved() ? View.VISIBLE : View.GONE);
         }
 
         @Override
         public void onClick(View view) {
-//            Toast.makeText(getActivity(), mExpense.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
             Intent intent = ExpenseActivity.newIntent(getActivity(), mExpense.getId());
             mLastClickedPosition = getAdapterPosition();
             startActivity(intent);

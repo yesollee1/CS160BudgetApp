@@ -28,19 +28,4 @@ public class ExpenseActivity extends SingleFragmentActivity {
         UUID expenseId = (UUID) getIntent().getSerializableExtra(EXTRA_EXPENSE_ID);
         return ExpenseFragment.newInstance(expenseId);
     }
-//    // This code is now handled in the SingleFragmentActivity class
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_fragment);
-//
-//        FragmentManager fm = getSupportFragmentManager();
-//        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
-//        if (fragment == null) {
-//            fragment = new ExpenseFragment();
-//            fm.beginTransaction()
-//                    .add(R.id.fragment_container, fragment) // Creates fragment transaction
-//                    .commit(); // Commits fragment transaction
-//        }
-//    }
 }

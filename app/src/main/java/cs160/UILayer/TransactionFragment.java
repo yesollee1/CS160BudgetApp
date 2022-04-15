@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,8 +34,10 @@ public class TransactionFragment extends Fragment {
     private Transaction mTransaction;
     private EditText mTitleField;
     private EditText mAmountField;
-    ////TODO Add notes functionality
+    //TODO: Add notes functionality
     private EditText mNotesField;
+    //TODO: Add categorize functionality
+    private Spinner mExpenseList;
     private Button mDateButton;
     private Button mConfirmBtn;
 
@@ -106,24 +109,7 @@ public class TransactionFragment extends Fragment {
         if (mTransaction != null) {
             mTitleField.setText(mTransaction.getMerchant());
         }
-//        mTitleField.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                // This space intentionally left blank
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int count, int after) {
-//                mTransaction.categorize(s.toString());
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                // This space intentionally left blank
-//            }
-//        });
 
-        // Change amount for transaction in onPause() method
         mAmountField = (EditText) v.findViewById(R.id.transaction_amount);
         if (mTransaction != null) {
             Double amount = mTransaction.getAmount();
@@ -131,28 +117,6 @@ public class TransactionFragment extends Fragment {
                 mAmountField.setText(amount.toString());
             }
         }
-//        mAmountField.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                // This space intentionally left blank
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int count, int after) {
-//                try {
-//                    Double amount = Double.parseDouble(s.toString());
-//                    mTransaction.setAmount(amount);
-//                } catch (NumberFormatException e) {
-//                    // on empty string (when user backspaces) or non-number input, amount should be 0
-//                    mTransaction.setAmount(0.0);
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                // This space intentionally left blank
-//            }
-//        });
 
         mDateButton = (Button) v.findViewById(R.id.transaction_date);
         updateDate();
@@ -212,6 +176,7 @@ public class TransactionFragment extends Fragment {
         return v;
     }
 
+//// We should probably use the onPause() method to store info when the date fragment pops up
 //    @Override
 //    public void onPause() {
 //        super.onPause();

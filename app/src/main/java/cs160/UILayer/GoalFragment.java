@@ -29,7 +29,6 @@ import androidx.fragment.app.FragmentResultListener;
 
 import java.util.Date;
 import java.util.UUID;
-// TODO: Input validation for confirmBtn
 
 public class GoalFragment extends Fragment {
     private static final String ARG_GOAL_ID = "goal_id";
@@ -40,7 +39,7 @@ public class GoalFragment extends Fragment {
     private EditText mAmountField;
     private Button mDateButton;
     private Button mConfirmBtn;
-    //TODO: implement "completed" feature for goals
+    //TODO: Implement "completed" feature for goals
     private CheckBox mCompletedCheckBox;
 
     private Date mDate; // this is for saving a date before the goal has been saved
@@ -111,24 +110,7 @@ public class GoalFragment extends Fragment {
         if (mGoal != null) {
             mTitleField.setText(mGoal.getTitle());
         }
-//        mTitleField.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                // This space intentionally left blank
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int count, int after) {
-//                mGoal.setTitle(s.toString());
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                // This space intentionally left blank
-//            }
-//        });
 
-        // Change amount for goal in onPause() method
         mAmountField = (EditText) v.findViewById(R.id.goal_amount);
         if (mGoal != null) {
             Double proposedAmount = mGoal.getProposedAmount();
@@ -136,28 +118,6 @@ public class GoalFragment extends Fragment {
                 mAmountField.setText(proposedAmount.toString());
             }
         }
-//        mAmountField.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                // This space intentionally left blank
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int count, int after) {
-//                try {
-//                    Double amount = Double.parseDouble(s.toString());
-//                    mGoal.setProposedAmount(amount);
-//                } catch (NumberFormatException e) {
-//                    // on empty string (when user backspaces) or non-number input, amount should be 0
-//                    mGoal.setProposedAmount(0.0);
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                // This space intentionally left blank
-//            }
-//        });
 
         mDateButton = (Button) v.findViewById(R.id.goal_date);
         updateDate();
@@ -217,6 +177,7 @@ public class GoalFragment extends Fragment {
         return v;
     }
 
+//// We should probably use the onPause() method to store info when the date fragment pops up
 //    @Override
 //    public void onPause() {
 //        super.onPause();
@@ -230,19 +191,8 @@ public class GoalFragment extends Fragment {
 //    }
 
     private void updateDate() {
-//        mDateButton.setText(mGoal.getDate().toString());
         DateFormat df = new DateFormat();
-//        if (mDate == null) {
-//            mDate = new Date();
-//        }
         CharSequence formattedDate = df.format("E, MMM d, yyyy", mDate);
         mDateButton.setText(formattedDate);
     }
-
-//    private void onConfirmClicked() {
-//        String title = mTitleField.getText().toString();
-//        if (title.isEmpty()) {
-//            mTitleField.setError("Title must not be empty");
-//        }
-//    }
 }

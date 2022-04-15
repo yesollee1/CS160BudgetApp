@@ -37,4 +37,9 @@
         android:layout_height="wrap_content"
         android:text="Confirm" />
 
+    <!--    <CheckBox android:id="@+id/goal_completed"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="@string/expense_solved_label" />-->
+
 </LinearLayout>

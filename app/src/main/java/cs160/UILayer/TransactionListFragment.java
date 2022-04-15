@@ -90,7 +90,6 @@ public class TransactionListFragment extends Fragment {
         private TextView mTitleTextView;
         private TextView mAmountTextView;
         private TextView mDateTextView;
-//        private ImageView mSolvedImageView;
 
         private Transaction mTransaction;
 
@@ -113,7 +112,6 @@ public class TransactionListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-//            Toast.makeText(getActivity(), mTransaction.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
             Intent intent = TransactionActivity.newIntent(getActivity(), mTransaction.getId());
             mLastClickedPosition = getAdapterPosition();
             startActivity(intent);

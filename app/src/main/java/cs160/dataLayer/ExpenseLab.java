@@ -24,14 +24,6 @@ public class ExpenseLab {
     private ExpenseLab(Context context) {
         mExpenses = new ArrayList<>();
         mExpenseMap = new HashMap<>();
-
-//        for (int i = 0; i < 100; i++) {
-//            Expense expense = new Expense("Expense #"+i, Frequency.MONTHLY, 0.0, 0.0);
-////            expense.setTitle("Expense #" + i);
-////            expense.setSolved(i % 2 == 0); // Every other expense will be set to Solved
-//            mExpenses.add(expense);
-//            mExpenseMap.put(expense.getId(), expense);
-//        }
     }
 
     public void addExpense(Expense expense) {
@@ -44,13 +36,11 @@ public class ExpenseLab {
     }
 
     public Expense getExpense(UUID id) {
-        // Implemented more efficient expense lookup
-//        for (Expense expense : mExpenses) {
-//            if (expense.getId().equals(id)) {
-//                return expense;
-//            }
-//        }
-//        return null;
         return mExpenseMap.get(id);
+    }
+
+    //TODO: Implement autocategorize for transactions
+    public void autocategorize(String merchant) {
+        // search expenses merchant lists for merchant name each time a transaction is added
     }
 }

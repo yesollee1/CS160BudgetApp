@@ -9,24 +9,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CS160BudgetApp">
+<!--        <activity-->
+<!--            android:name=".DashboardActivity"-->
+<!--            android:exported="false" />-->
+<!--        <activity-->
+<!--            android:name=".StartUpActivity"-->
+<!--            android:exported="false">-->
+<!--&lt;!&ndash;            <intent-filter>&ndash;&gt;-->
+<!--&lt;!&ndash;                <action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
+<!--&lt;!&ndash;            </intent-filter>&ndash;&gt;-->
+<!--        </activity>-->
         <activity
-            android:name=".DashboardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".StartUpActivity"
+            android:name=".ExpenseListActivity"
             android:exported="true">
+<!--            android:parentActivityName=".DummyActivity">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".ExpenseListActivity"
-            android:exported="false">
-            android:parentActivityName=".DummyActivity">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity"/>
+<!--            <meta-data android:name="android.support.PARENT_ACTIVITY"-->
+<!--                android:value=".DashboardActivity"/>-->
         </activity>
         <activity
             android:name=".ExpenseActivity"
@@ -38,9 +43,9 @@
         <activity
             android:name=".GoalListActivity"
             android:exported="false">
-            android:parentActivityName=".DummyActivity">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity"/>
+<!--            android:parentActivityName=".DummyActivity">-->
+<!--            <meta-data android:name="android.support.PARENT_ACTIVITY"-->
+<!--                android:value=".DashboardActivity"/>-->
         </activity>
         <activity
             android:name=".GoalActivity"
@@ -53,8 +58,8 @@
             android:name=".TransactionListActivity"
             android:exported="false"
         android:parentActivityName=".DashboardActivity">
-        <meta-data android:name="android.support.PARENT_ACTIVITY"
-            android:value=".DashboardActivity"/>
+<!--        <meta-data android:name="android.support.PARENT_ACTIVITY"-->
+<!--            android:value=".DashboardActivity"/>-->
         </activity>
         <activity
             android:name=".TransactionActivity"

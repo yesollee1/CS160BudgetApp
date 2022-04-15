@@ -91,8 +91,6 @@ public class GoalListFragment extends Fragment {
         private TextView mTitleTextView;
         private TextView mAmountTextView;
         private TextView mDateTextView;
-//        private ImageView mSolvedImageView;
-        private Button confirmBtn, backBtn;
         private Goal mGoal;
 
         public GoalHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -114,7 +112,6 @@ public class GoalListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-//            Toast.makeText(getActivity(), mGoal.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
             Intent intent = GoalActivity.newIntent(getActivity(), mGoal.getId());
             mLastClickedPosition = getAdapterPosition();
             startActivity(intent);
