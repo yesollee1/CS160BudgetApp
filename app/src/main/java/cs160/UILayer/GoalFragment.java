@@ -27,6 +27,7 @@ import androidx.fragment.app.FragmentResultListener;
 
 import java.util.Date;
 import java.util.UUID;
+// TODO: Input validation for confirmBtn
 
 public class GoalFragment extends Fragment {
     private static final String ARG_GOAL_ID = "goal_id";
