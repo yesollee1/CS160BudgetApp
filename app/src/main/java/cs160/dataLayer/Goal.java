@@ -21,4 +21,11 @@ public class Goal extends Category {
     public void setDate(Date date) {
         mDate = date;
     }
+
+    public void setProposedAmount(Double proposedAmount) {
+        if(proposedAmount < 0){
+            return;
+        }
+        mProposedAmount = proposedAmount;
+    }
 }

@@ -23,6 +23,10 @@ public abstract class Category {
         mCurrentAmount = currentAmount;
     }
 
+    public Category(){
+        mId = UUID.randomUUID();
+    }
+
     public String getTitle() {
         return mTitle;
     }
