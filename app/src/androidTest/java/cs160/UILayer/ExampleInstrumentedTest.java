@@ -1,7 +1,9 @@
 package cs160.UILayer;
 
+import static androidx.test.espresso.Espresso.onView;
 import android.content.Context;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -23,4 +25,5 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("cs160.UILayer", appContext.getPackageName());
     }
+
 }
