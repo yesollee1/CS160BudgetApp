@@ -48,6 +48,9 @@ public class Transaction {
     }
 
     public void setAmount(Double amount) {
+        if(amount == null || amount < 0 || amount == Double.MIN_VALUE || amount == Double.MAX_VALUE){
+            return;
+        }
         mAmount = amount;
     }
 
@@ -56,7 +59,9 @@ public class Transaction {
     }
 
     public void setDate(Date date) {
-        mDate = date;
+        if(date!=null){
+            mDate = date;
+        }
     }
 
     public String getExpenseName() {

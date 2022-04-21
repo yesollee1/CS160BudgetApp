@@ -19,11 +19,13 @@ public class Goal extends Category {
     }
 
     public void setDate(Date date) {
-        mDate = date;
+        if(date != null){
+            mDate = date;
+        }
     }
 
     public void setProposedAmount(Double proposedAmount) {
-        if(proposedAmount < 0){
+        if( proposedAmount == null || proposedAmount < 0 || proposedAmount == Double.MAX_VALUE || proposedAmount == Double.MIN_VALUE){
             return;
         }
         mProposedAmount = proposedAmount;
