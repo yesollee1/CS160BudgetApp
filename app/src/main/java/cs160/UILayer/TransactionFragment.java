@@ -1,27 +1,35 @@
 package cs160.UILayer;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -39,9 +47,12 @@ public class TransactionFragment extends Fragment {
     //TODO: Add categorize functionality
     private Spinner mExpenseList;
     private Button mDateButton;
+    private TextView mSpendFromText;
+    private Button mCategorizeButton;
     private Button mConfirmBtn;
 
     private Date mDate; // this is for saving a date before the transaction has been saved
+    private String mExpenseName;
 
     public static TransactionFragment newInstance(UUID transactionId) {
         Bundle args = new Bundle();
@@ -106,19 +117,23 @@ public class TransactionFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_transaction, container, false);
 
         mTitleField = (EditText) v.findViewById(R.id.merchant_name);
+        mAmountField = (EditText) v.findViewById(R.id.transaction_amount);
+        mNotesField = (EditText) v.findViewById(R.id.transaction_notes);
+        mDateButton = (Button) v.findViewById(R.id.transaction_date);
+//        mExpenseList = (Spinner) v.findViewById(R.id.expense_list);
+        mSpendFromText = (TextView) v.findViewById(R.id.spend_from_text);
+        mCategorizeButton = (Button) v.findViewById(R.id.categorize_button);
+
         if (mTransaction != null) {
             mTitleField.setText(mTransaction.getMerchant());
-        }
-
-        mAmountField = (EditText) v.findViewById(R.id.transaction_amount);
-        if (mTransaction != null) {
             Double amount = mTransaction.getAmount();
             if (amount != 0) {
                 mAmountField.setText(amount.toString());
             }
+            mNotesField.setText(mTransaction.getNotes());
         }
 
-        mDateButton = (Button) v.findViewById(R.id.transaction_date);
+        updateCategorizeUI();
         updateDate();
 //        mDateButton.setEnabled(false); // Disables button
 
@@ -143,6 +158,66 @@ public class TransactionFragment extends Fragment {
             }
         });
 
+        mCategorizeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                View dialogView = getLayoutInflater().inflate(R.layout.dialog_spinner, null);
+                builder.setTitle("Choose an expense to spend from");
+                Spinner mSpinner = (Spinner) dialogView.findViewById(R.id.expense_spinner);
+                ArrayList<String> expenseNames = ExpenseLab.get(getActivity()).getExpenseNames();
+                expenseNames.add(0, getResources().getString(R.string.expense_list_prompt));
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                        android.R.layout.simple_list_item_1, expenseNames);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                mSpinner.setAdapter(adapter);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (!mSpinner.getSelectedItem().toString().equalsIgnoreCase(getResources().getString(R.string.expense_list_prompt))) {
+                            mExpenseName = mSpinner.getSelectedItem().toString();
+                            Toast.makeText(getActivity(),"Spending from " + mExpenseName, Toast.LENGTH_LONG).show();
+                            updateCategorizeUI();
+                            dialogInterface.dismiss();
+                        }
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.setView(dialogView);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+////        String[] expenseNames = ExpenseLab.get(getActivity()).getExpenseNames();
+//        ArrayList<String> expenseNames = ExpenseLab.get(getActivity()).getExpenseNames();
+////        expenseNames.add(0, "Choose Expense:");
+////        mExpenseList.setPromptId(expenseNames.indexOf(mTransaction.getExpenseName()));
+////        mExpenseList.setPrompt(mTransaction.getExpenseName());
+//        mExpenseList.setAdapter(new ArrayAdapter<String>(getActivity(),
+//                android.R.layout.simple_list_item_1, expenseNames));
+//        mExpenseList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+////                if (position > 0) {
+//                    mExpenseName = expenseNames.get(position);
+////                }
+////                Log.d("Transaction Spinner", "Position selected: " + position);
+////                Expense expense = ExpenseLab.get(getActivity()).getExpenseByName(expenseNames[position]);
+////                expense.addTransaction(mTransaction);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                Log.d("Spinner Transaction", "Nothing selected");
+//            }
+//        });
+
         mConfirmBtn = v.findViewById(R.id.confirm_button);
         mConfirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,12 +232,26 @@ public class TransactionFragment extends Fragment {
                 if (merchantName.isEmpty()) {
                     mTitleField.setError("Merchant name must not be empty");
                 } else {
-                    mTransaction.categorize(merchantName);
                     try {
                         Double amount = Double.parseDouble(mAmountField.getText().toString());
+
+                        mTransaction.setMerchant(merchantName);
                         mTransaction.setAmount(amount);
+                        mTransaction.setNotes(mNotesField.getText().toString());
 
                         mTransaction.setDate(mDate);
+
+                        if (mExpenseName != null) {
+                            mTransaction.spendFrom(getActivity(), mExpenseName);
+                        }
+                        //// use the following code instead of the line above when Plaid is integrated
+//                    if (!mTransaction.spendFrom(getActivity(), mExpenseName)) {
+//                        Toast.makeText(getActivity(),
+//                                "Could not spend from " + merchantName + ".\nInsufficient funds.",
+//                                Toast.LENGTH_LONG);
+//                    } else {
+//                        Toast.makeText(getActivity(), mAmountField.toString() + " spent from " + merchantName, Toast.LENGTH_LONG);
+//                    }
 
                         Intent intent = new Intent(getActivity(), TransactionListActivity.class);
                         startActivity(intent);
@@ -193,5 +282,16 @@ public class TransactionFragment extends Fragment {
         DateFormat df = new DateFormat();
         CharSequence formattedDate = df.format("E, MMM d, yyyy", mDate);
         mDateButton.setText(formattedDate);
+    }
+
+    private void updateCategorizeUI() {
+        if (mExpenseName != null) {
+            mSpendFromText.setVisibility(View.VISIBLE);
+            mSpendFromText.setText("Spent from: " + mExpenseName);
+            mCategorizeButton.setText("Change Expense");
+        } else {
+            mSpendFromText.setVisibility(View.INVISIBLE);
+            mCategorizeButton.setText("Spend from Expense");
+        }
     }
 }

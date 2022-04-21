@@ -11,16 +11,18 @@ public abstract class Category {
     protected Date mDate;
     protected Frequency mFrequency;
     protected Double mProposedAmount;
-    protected Double mCurrentAmount;
+//    protected Double mCurrentAmount;
+    protected Double mAmountSpent;
     protected int mNotifyPercent;
 
-    public Category(String title, Frequency frequency, Double proposedAmount, Double currentAmount) {
+    public Category(String title, Frequency frequency, Double proposedAmount) {
         mTitle = title;
         mId = UUID.randomUUID();
         mDate = new Date();
         mFrequency = frequency;
         mProposedAmount = proposedAmount;
-        mCurrentAmount = currentAmount;
+//        mCurrentAmount = currentAmount;
+        mAmountSpent = 0.0;
     }
 
     public Category(){
@@ -48,7 +50,15 @@ public abstract class Category {
     }
 
     public Double getCurrentAmount() {
-        return mCurrentAmount;
+        return mProposedAmount - mAmountSpent;
+    }
+
+    public Double getAmountSpent() {
+        return mAmountSpent;
+    }
+
+    public void setAmountSpent(Double amountSpent) {
+        mAmountSpent = amountSpent;
     }
 
     public Double getProposedAmount() {
