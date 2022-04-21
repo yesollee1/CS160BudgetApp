@@ -148,7 +148,7 @@ public class UITest {
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getTargetContext());
         onView(withText("Expenses")).perform(click());
 
-        onView(ViewMatchers.withId(R.id.expense_amount)).perform(click());
+        onView(ViewMatchers.withId(R.id.expense_title)).perform(click());
         onView(ViewMatchers.withId(R.id.expense_amount)).perform(replaceText("200"))
                 .check(matches(withText("200")));
     }
