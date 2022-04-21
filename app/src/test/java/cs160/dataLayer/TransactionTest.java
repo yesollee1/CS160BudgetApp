@@ -7,6 +7,32 @@ import org.junit.Test;
 import java.util.Date;
 
 public class TransactionTest extends TestCase {
+
+    @Test
+    public void testGetMerchantWithDefaultContructor(){
+        // Given
+        Transaction testedTransaction= new Transaction();
+
+        // When
+        String actualMerchant = testedTransaction.getMerchant();
+
+        // Then
+        assertNull(actualMerchant);
+    }
+
+    @Test
+    public void testGetMerchantWithParameterizedContructor(){
+        // Given
+        String expectMerchant = "Test Title";
+        Transaction testedTransaction= new Transaction(expectMerchant, 0.0);
+
+        // When
+        String actualMerchant = testedTransaction.getMerchant();
+
+        // Then
+        assertEquals(expectMerchant, actualMerchant);
+    }
+
     @Test
     public void testSetDateForTransactionWithProvidedDate(){
         // Given
