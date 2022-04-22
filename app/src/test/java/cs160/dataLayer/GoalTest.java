@@ -34,12 +34,7 @@ public class GoalTest extends TestCase {
         // Given
         Date testedDate = new Date();
 
-        Goal testedGoal = new Goal(
-                "Actual Goal Title",
-                Frequency.MONTHLY,
-                100.0,
-                testedDate
-        );
+        Goal testedGoal = new Goal("Actual Goal Title", Frequency.MONTHLY, 100.0, testedDate);
         String actualTitle = testedGoal.getTitle();
         Frequency actualFrequency = testedGoal.getFrequency();
         Double actualProposedAmount = testedGoal.getProposedAmount();
@@ -132,11 +127,8 @@ public class GoalTest extends TestCase {
     public void testGetDateForGoalWithDateInitialized(){
         // Given
         Date expectedDate = new Date();
-        Goal testedGoal = new Goal(
-                "Actual Goal Title",
-                Frequency.MONTHLY,
-                100.0,
-                100.0,
+        Goal testedGoal = new Goal("Actual Goal Title", Frequency.MONTHLY, 100.0,
+
                 expectedDate
         );
 
@@ -154,7 +146,6 @@ public class GoalTest extends TestCase {
         Goal testedGoal = new Goal(
                 "Actual Goal Title",
                 Frequency.MONTHLY,
-                100.0,
                 100.0,
             null
         );
