@@ -1,4 +1,4 @@
-package cs160.dataLayer;
+package cs160.UILayer;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("edu.sjsu.android.cs160budgetapp", appContext.getPackageName());
+        assertEquals("cs160.UILayer", appContext.getPackageName());
     }
 }

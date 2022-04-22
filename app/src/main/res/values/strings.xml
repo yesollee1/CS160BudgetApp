@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">CS160BudgetApp</string>
+    <string name="expense_title_hint">Enter a title for the expense.</string>
+    <string name="expense_amount_hint">Enter an amount for the expense.</string>
+    <string name="expense_title_label">Title</string>
+    <string name="expense_amount_label">Amount</string>
+    <string name="expense_details_label">Details</string>
+    <string name="goal_title_hint">Enter a title for the goal.</string>
+    <string name="goal_amount_hint">Enter an amount for the goal.</string>
+    <string name="goal_title_label">Title</string>
+    <string name="goal_amount_label">Amount</string>
+    <string name="goal_details_label">Details</string>
+    <string name="transaction_title_hint">Enter the merchant name for the transaction</string>
+    <string name="transaction_amount_hint">Enter an amount for the transaction.</string>
+    <string name="transaction_title_label">Title</string>
+    <string name="transaction_amount_label">Amount</string>
+    <!--    <string name="transaction_details_label">Details</string>-->
+    <string name="date_picker_title">Choose a date: </string>
+    <string name="expense_list_name">Expenses</string>
+    <string name="goal_list_name">Goals</string>
+    <string name="transaction_list_name">Transactions</string>
 </resources>

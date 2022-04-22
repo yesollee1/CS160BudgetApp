@@ -1,4 +1,4 @@
-package cs160.dataLayer;
+package cs160.UILayer;
 
 import org.junit.Test;
 
