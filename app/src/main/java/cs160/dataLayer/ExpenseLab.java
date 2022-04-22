@@ -43,4 +43,32 @@ public class ExpenseLab {
     public void autocategorize(String merchant) {
         // search expenses merchant lists for merchant name each time a transaction is added
     }
+
+//    public String[] getExpenseNames() {
+//        String[] expenseNames = new String[mExpenses.size()];
+//        for (int i = 0; i < mExpenses.size(); i++) {
+//            expenseNames[i] = mExpenses.get(i).getTitle();
+//        }
+//        return expenseNames;
+//    }
+
+    public ArrayList<String> getExpenseNames() {
+        ArrayList<String> expenseNames = new ArrayList<>();
+        for (Expense expense : mExpenses) {
+            expenseNames.add(expense.getTitle());
+        }
+//        for (int i = 0; i < mExpenses.size(); i++) {
+//            expenseNames[i] = mExpenses.get(i).getTitle();
+//        }
+        return expenseNames;
+    }
+
+    public Expense getExpenseByName(String expenseName) {
+        for (Expense expense : mExpenses) {
+            if (expense.getTitle().equals(expenseName)) {
+                return expense;
+            }
+        }
+        return null;
+    }
 }

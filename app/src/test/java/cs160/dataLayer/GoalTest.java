@@ -38,7 +38,6 @@ public class GoalTest extends TestCase {
                 "Actual Goal Title",
                 Frequency.MONTHLY,
                 100.0,
-                100.0,
                 testedDate
         );
         String actualTitle = testedGoal.getTitle();

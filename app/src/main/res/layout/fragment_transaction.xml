@@ -31,7 +31,7 @@
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Notes" />
+        android:text="@string/transaction_notes_label" />
 
     <EditText android:id="@+id/transaction_notes"
         android:layout_width="match_parent"
@@ -43,14 +43,26 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
-    <Spinner android:id="@+id/expense_list"
+    <TextView android:id="@+id/spend_from_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/expense_list_prompt" />
+
+    <Button android:id="@+id/categorize_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Categorize transaction" />
+
+<!--    <Spinner android:id="@+id/expense_list"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:spinnerMode="dialog"/>-->
 
     <Button
         android:id="@+id/confirm_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Confirm" />
+        android:text="@string/save_button_label" />
 
 </LinearLayout>

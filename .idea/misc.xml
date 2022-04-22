@@ -8,12 +8,13 @@
         <entry key="app/src/main/res/layout/activity_fragment.xml" value="0.24486846923828126" />
         <entry key="app/src/main/res/layout/activity_start_up.xml" value="0.10643115942028986" />
         <entry key="app/src/main/res/layout/dialog_date.xml" value="0.16750756811301715" />
+        <entry key="app/src/main/res/layout/dialog_spinner.xml" value="0.10643115942028986" />
         <entry key="app/src/main/res/layout/fragment_button.xml" value="0.24693436395554305" />
         <entry key="app/src/main/res/layout/fragment_expense.xml" value="0.3327556325823224" />
         <entry key="app/src/main/res/layout/fragment_expense_list.xml" value="0.16750756811301715" />
-        <entry key="app/src/main/res/layout/fragment_goal.xml" value="0.10643115942028986" />
+        <entry key="app/src/main/res/layout/fragment_goal.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_goal_list.xml" value="0.10643115942028986" />
-        <entry key="app/src/main/res/layout/fragment_item_list.xml" value="0.10643115942028986" />
+        <entry key="app/src/main/res/layout/fragment_item_list.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_transaction.xml" value="0.33889881078747736" />
         <entry key="app/src/main/res/layout/list_item_expense.xml" value="0.16750756811301715" />
         <entry key="app/src/main/res/layout/list_item_goal.xml" value="0.2962489694788837" />

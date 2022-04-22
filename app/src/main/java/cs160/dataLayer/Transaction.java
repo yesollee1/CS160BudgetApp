@@ -1,5 +1,7 @@
 package cs160.dataLayer;
 
+import android.content.Context;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -12,6 +14,7 @@ public class Transaction {
     private Date mDate;
     private String mExpenseName;
     private String mNotes;
+    private boolean mIsCategorized;
 
     public Transaction() {
         mId = UUID.randomUUID();
@@ -39,8 +42,19 @@ public class Transaction {
         return mMerchant;
     }
 
-    public void categorize(String merchant) { // setMerchant()
+    public void setMerchant(String merchant) {
         mMerchant = merchant;
+    }
+
+//    public void categorize(String merchant) { // setMerchant()
+//        mMerchant = merchant;
+//    }
+
+    public boolean spendFrom(Context context, String expenseName) {
+        mExpenseName = expenseName;
+        Expense expense = ExpenseLab.get(context).getExpenseByName(expenseName);
+//        expense.addTransaction(); // may be unnecessary
+        return expense.spend(mAmount);
     }
 
     public Double getAmount() {
@@ -78,5 +92,13 @@ public class Transaction {
 
     public void setNotes(String notes) {
         mNotes = notes;
+    }
+
+    public void setCategorized(boolean categorized) {
+        mIsCategorized = categorized;
+    }
+
+    public boolean isCategorized() {
+        return mIsCategorized;
     }
 }

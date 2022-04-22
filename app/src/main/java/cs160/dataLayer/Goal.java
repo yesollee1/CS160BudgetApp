@@ -6,11 +6,11 @@ public class Goal extends Category {
     private Date mEndDate;
 
     public Goal() {
-        super(null, Frequency.MONTHLY, 0.0, 0.0);
+        super(null, Frequency.MONTHLY, 0.0);
     }
 
-    public Goal(String title, Frequency frequency, Double proposedAmount, Double currentAmount, Date endDate) {
-        super(title, frequency, proposedAmount, currentAmount);
+    public Goal(String title, Frequency frequency, Double proposedAmount, Date endDate) {
+        super(title, frequency, proposedAmount);
         mEndDate = endDate;
     }
 
