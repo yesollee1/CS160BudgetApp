@@ -8,11 +8,11 @@ public class Expense extends Category {
     private ArrayList<String> mMerchants;
 
     public Expense() {
-        super(null, Frequency.MONTHLY, 0.0);
+        super(null, Frequency.MONTHLY, 0.0, 0.0);
     }
 
     public Expense(String title, Frequency frequency, Double proposedAmount) {
-        super(title, frequency, proposedAmount);
+        super(title, frequency, proposedAmount, proposedAmount);
     }
 
     public ArrayList<String> getMerchants() {
@@ -27,12 +27,13 @@ public class Expense extends Category {
         return mMerchants.contains(merchant);
     }
 
-    public boolean spend(Double amount) {
-        if (getCurrentAmount() - amount < 0) {
-            return false;
-        } else {
-            setAmountSpent(getAmountSpent() + amount);
-            return true;
-        }
-    }
+//    this method exists in the Category class
+//    public boolean spend(Double amount) {
+//        if (mCurrentAmount - amount < 0) {
+//            return false;
+//        } else {
+//            mCurrentAmount -= amount;
+//            return true;
+//        }
+//    }
 }

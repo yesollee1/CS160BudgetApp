@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/goal_title"
@@ -15,29 +15,40 @@
         android:text="Goal Title"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@id/goal_date"
+        app:layout_constraintEnd_toStartOf="@id/goal_amount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/goal_amount"
+        android:id="@+id/goal_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:text="Goal Amount"
-        app:layout_constraintEnd_toStartOf="@id/goal_date"
+        android:text="Goal Date"
+        app:layout_constraintEnd_toStartOf="@id/goal_amount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/goal_title" />
 
     <TextView
-        android:id="@+id/goal_date"
+        android:id="@+id/goal_amount"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="right"
-        android:text="Goal Date"
+        android:text="Goal Amount"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar android:id="@+id/goal_progress_bar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/goal_date"
+        tools:layout_editor_absoluteX="8dp" />
 
     <!--    <ImageView-->
     <!--        android:id="@+id/goal_complete"-->

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -92,6 +93,7 @@ public class ExpenseListFragment extends Fragment {
         private TextView mTitleTextView;
         private TextView mCurrentAmountTextView;
         private TextView mAmountSpentTextView;
+        private ProgressBar mProgressBar;
 
         private Expense mExpense;
 
@@ -101,13 +103,16 @@ public class ExpenseListFragment extends Fragment {
             mTitleTextView = (TextView) itemView.findViewById(R.id.expense_title);
             mCurrentAmountTextView = (TextView) itemView.findViewById(R.id.expense_current_amount);
             mAmountSpentTextView = (TextView) itemView.findViewById(R.id.expense_spent_amount);
+            mProgressBar = (ProgressBar) itemView.findViewById(R.id.expense_progress_bar);
         }
 
         public void bind(Expense expense) {
             mExpense = expense;
             mTitleTextView.setText(mExpense.getTitle());
-            mCurrentAmountTextView.setText("$" + mExpense.getCurrentAmount().toString());
+            mCurrentAmountTextView.setText("$" + mExpense.getCurrentAmount().toString() + " left");
             mAmountSpentTextView.setText("$" + (mExpense.getProposedAmount()-mExpense.getCurrentAmount()) + " spent of $" + mExpense.getProposedAmount());
+            mProgressBar.setMax((int) Math.round(mExpense.getProposedAmount()));
+            mProgressBar.setProgress((int) Math.round(mExpense.getCurrentAmount()));
         }
 
         @Override

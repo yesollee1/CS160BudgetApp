@@ -157,7 +157,14 @@ public class TransactionFragment extends Fragment {
                 dialog.show(manager, DIALOG_DATE);
             }
         });
+//        String catBtnLabel;
+//        if (mExpenseName != null) {
+//            catBtnLabel = String.format(getResources().getString(R.string.categorize_button_label), mExpenseName);
+//        } else {
+//            catBtnLabel = "Categorize Transaction";
+//        }
 
+        updateCategorizeUI();
         mCategorizeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -286,12 +293,9 @@ public class TransactionFragment extends Fragment {
 
     private void updateCategorizeUI() {
         if (mExpenseName != null) {
-            mSpendFromText.setVisibility(View.VISIBLE);
-            mSpendFromText.setText("Spent from: " + mExpenseName);
-            mCategorizeButton.setText("Change Expense");
+            mCategorizeButton.setText(mExpenseName);
         } else {
-            mSpendFromText.setVisibility(View.INVISIBLE);
-            mCategorizeButton.setText("Spend from Expense");
+            mCategorizeButton.setText("None");
         }
     }
 }
