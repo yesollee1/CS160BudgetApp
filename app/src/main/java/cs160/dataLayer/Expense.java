@@ -28,7 +28,8 @@ public class Expense extends Category {
     }
 
     public boolean spend(Double amount) {
-        if (getCurrentAmount() - amount < 0) {
+
+        if (amount == null || getCurrentAmount() - amount < 0 || amount == Double.MAX_VALUE || amount == Double.MIN_VALUE) {
             return false;
         } else {
             setAmountSpent(getAmountSpent() + amount);

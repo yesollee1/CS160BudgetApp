@@ -18,7 +18,7 @@ public class Transaction {
 
     public Transaction() {
         mId = UUID.randomUUID();
-        mMerchant = null;
+        mMerchant = "Untitled Transaction";
         mDate = new Date();
         mAmount = 0.0;
         mExpenseName = null;
@@ -26,9 +26,17 @@ public class Transaction {
     }
 
     public Transaction(String title, Double amount) {
-        mMerchant = title;
+        if(stringValidation(title)){
+            mMerchant = title;
+        }else{
+            mMerchant = "Untitled Transaction";
+        }
         mId = UUID.randomUUID();
-        mAmount = amount;
+        if(doubleValidation(amount)){
+            mAmount = amount;
+        }else{
+            mAmount = 0.0;
+        }
         mDate = new Date();
         mExpenseName = null;
         mNotes = null;
@@ -39,33 +47,33 @@ public class Transaction {
     }
 
     public String getMerchant() {
+        // Has tests
         return mMerchant;
     }
 
     public void setMerchant(String merchant) {
-        mMerchant = merchant;
+        // Has tests
+        if(stringValidation(merchant)){
+            mMerchant = merchant;
+        }
     }
-
-//    public void categorize(String merchant) { // setMerchant()
-//        mMerchant = merchant;
-//    }
 
     public boolean spendFrom(Context context, String expenseName) {
         mExpenseName = expenseName;
         Expense expense = ExpenseLab.get(context).getExpenseByName(expenseName);
-//        expense.addTransaction(); // may be unnecessary
         return expense.spend(mAmount);
     }
 
     public Double getAmount() {
+        // Has tests
         return mAmount;
     }
 
     public void setAmount(Double amount) {
-        if(amount == null || amount < 0 || amount == Double.MIN_VALUE || amount == Double.MAX_VALUE){
-            return;
+        // Has tests
+        if(doubleValidation(amount)){
+            mAmount = amount;
         }
-        mAmount = amount;
     }
 
     public Date getDate() {
@@ -83,7 +91,9 @@ public class Transaction {
     }
 
     public void setExpenseName(String expenseName) {
-        mExpenseName = expenseName;
+        if(stringValidation(expenseName)){
+            mExpenseName = expenseName;
+        }
     }
 
     public String getNotes() {
@@ -91,7 +101,9 @@ public class Transaction {
     }
 
     public void setNotes(String notes) {
-        mNotes = notes;
+        if(stringValidation(notes)){
+            mNotes = notes;
+        }
     }
 
     public void setCategorized(boolean categorized) {
@@ -100,5 +112,16 @@ public class Transaction {
 
     public boolean isCategorized() {
         return mIsCategorized;
+    }
+
+    private boolean stringValidation(String msg){
+        return msg == null || msg == ""? false: true;
+    }
+
+    private boolean doubleValidation(Double amount){
+        if(amount == null || amount < 0 || amount == Double.MIN_VALUE || amount == Double.MAX_VALUE){
+            return false;
+        }
+        return true;
     }
 }
