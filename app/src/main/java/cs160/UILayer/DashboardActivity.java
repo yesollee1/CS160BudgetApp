@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth mAuth;
 
     private Button goalList;
     private Button expenseList;
@@ -27,7 +27,7 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dummy);
 
         //init firebaseAuth
-        firebaseAuth = FirebaseAuth.getInstance();
+       // firebaseAuth = FirebaseAuth.getInstance();
         //checkUser();
 
 
@@ -40,12 +40,19 @@ public class DashboardActivity extends AppCompatActivity {
         logoutBtn = findViewById(R.id.logoutBtn);
         signedInUser = findViewById(R.id.signedInUser);
 
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                firebaseAuth.signOut();
-                checkUser();
-            }
+//        logoutBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                firebaseAuth.signOut();
+//                checkUser();
+//            }
+//        });
+
+        mAuth = FirebaseAuth.getInstance();
+
+        logoutBtn.setOnClickListener(view ->{
+            mAuth.signOut();
+            startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
         });
 
         goalList.setOnClickListener(new View.OnClickListener() {
@@ -75,20 +82,20 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
-    private void checkUser() {
-        //get current user
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        if(firebaseUser == null){
-            // user not logged in
-            startActivity(new Intent(this, SignIn_Activity.class));
-            finish();
-        }
-        else{
-            //user logged in
-            // get user info
-            String email = firebaseUser.getEmail();
-            //set email
-            signedInUser.setText(email);
-        }
-    }
+//    private void checkUser() {
+//        //get current user
+//        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+//        if(firebaseUser == null){
+//            // user not logged in
+//            startActivity(new Intent(this, SignIn_Activity.class));
+//            finish();
+//        }
+//        else{
+//            //user logged in
+//            // get user info
+//            String email = firebaseUser.getEmail();
+//            //set email
+//            signedInUser.setText(email);
+//        }
+//    }
 }

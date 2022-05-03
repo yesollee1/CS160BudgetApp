@@ -13,58 +13,27 @@
         android:theme="@style/Theme.CS160BudgetApp"
         android:usesCleartextTraffic="true">
 
-
-
-
-
-
-<!--        <activity-->
-<!--            android:name=".DashboardActivity"-->
-<!--            android:exported="false" />-->
-
-
-<!--         <activity-->
-<!--         android:name=".SignIn_Activity"-->
-<!--             android:exported="true">-->
-
-<!--             <intent-filter>-->
-<!--                 <action android:name="android.intent.action.MAIN" />-->
-<!--                 <category android:name="android.intent.category.LAUNCHER" />-->
-<!--             </intent-filter>-->
-<!--         </activity>-->
         <activity
-            android:name=".SignIn_Activity"
+            android:name=".RegisterActivity"
             android:exported="true">
 
-            <!-- android:parentActivityName=".DummyActivity"> -->
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!-- <meta-data android:name="android.support.PARENT_ACTIVITY" -->
-            <!-- android:value=".DashboardActivity"/> -->
+
         </activity>
 
         <activity
             android:name=".DashboardActivity"
             android:exported="false"
-            android:parentActivityName=".SignIn_Activity"></activity>
+            android:parentActivityName=".RegisterActivity"></activity>
 
         <activity
             android:name=".ExpenseListActivity"
             android:exported="false" />
-
-<!--        <activity-->
-<!--            android:name=".DashboardActivity"-->
-<!--            android:exported="false"-->
-<!--            android:parentActivityName=".ExpenseListActivity">-->
-<!--            <meta-data-->
-<!--                android:name="android.support.PARENT_ACTIVITY"-->
-<!--                android:value=".ExpenseListActivity" />-->
-<!--        </activity>-->
-
-
 
         <activity
             android:name=".ExpenseActivity"
@@ -78,9 +47,6 @@
             android:name=".GoalListActivity"
             android:exported="false">
 
-            <!-- android:parentActivityName=".DummyActivity"> -->
-            <!-- <meta-data android:name="android.support.PARENT_ACTIVITY" -->
-            <!-- android:value=".DashboardActivity"/> -->
         </activity>
         <activity
             android:name=".GoalActivity"
@@ -95,8 +61,7 @@
             android:exported="false"
             android:parentActivityName=".DashboardActivity">
 
-            <!-- <meta-data android:name="android.support.PARENT_ACTIVITY" -->
-            <!-- android:value=".DashboardActivity"/> -->
+
         </activity>
         <activity
             android:name=".TransactionActivity"
@@ -105,6 +70,12 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".TransactionListActivity" />
+        </activity>
+
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false">
+
         </activity>
 
 
