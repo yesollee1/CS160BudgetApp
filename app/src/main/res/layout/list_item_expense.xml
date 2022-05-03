@@ -9,8 +9,9 @@
 
     <TextView
         android:id="@+id/expense_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="252dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="Expense Title"
         android:textColor="@android:color/black"
@@ -20,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+
         android:id="@+id/expense_spent_amount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
