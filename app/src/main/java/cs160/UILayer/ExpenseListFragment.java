@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -107,10 +108,13 @@ public class ExpenseListFragment extends Fragment {
         }
 
         public void bind(Expense expense) {
+            DecimalFormat df = new DecimalFormat("#.00");
             mExpense = expense;
             mTitleTextView.setText(mExpense.getTitle());
-            mCurrentAmountTextView.setText("$" + mExpense.getCurrentAmount().toString() + " left");
-            mAmountSpentTextView.setText("$" + (mExpense.getProposedAmount()-mExpense.getCurrentAmount()) + " spent of $" + mExpense.getProposedAmount());
+            mCurrentAmountTextView.setText("$" + df.format(mExpense.getCurrentAmount()) + " left");
+            mAmountSpentTextView.setText("$" +
+                    Math.round(mExpense.getProposedAmount()-mExpense.getCurrentAmount()) +
+                    " spent of $" + Math.round(mExpense.getProposedAmount()));
             mProgressBar.setMax((int) Math.round(mExpense.getProposedAmount()));
             mProgressBar.setProgress((int) Math.round(mExpense.getCurrentAmount()));
         }
