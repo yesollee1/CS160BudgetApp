@@ -4,6 +4,7 @@ import cs160.dataLayer.*;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -89,7 +90,8 @@ public class ExpenseListFragment extends Fragment {
 
     private class ExpenseHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTitleTextView;
-        private TextView mAmountTextView;
+        private TextView mCurrentAmountTextView;
+        private TextView mAmountSpentTextView;
 
         private Expense mExpense;
 
@@ -97,13 +99,15 @@ public class ExpenseListFragment extends Fragment {
             super(inflater.inflate(R.layout.list_item_expense, parent, false));
             itemView.setOnClickListener(this);
             mTitleTextView = (TextView) itemView.findViewById(R.id.expense_title);
-            mAmountTextView = (TextView) itemView.findViewById(R.id.expense_amount);
+            mCurrentAmountTextView = (TextView) itemView.findViewById(R.id.expense_current_amount);
+            mAmountSpentTextView = (TextView) itemView.findViewById(R.id.expense_spent_amount);
         }
 
         public void bind(Expense expense) {
             mExpense = expense;
             mTitleTextView.setText(mExpense.getTitle());
-            mAmountTextView.setText(mExpense.getProposedAmount().toString());
+            mCurrentAmountTextView.setText("$" + mExpense.getCurrentAmount().toString());
+            mAmountSpentTextView.setText("$" + (mExpense.getProposedAmount()-mExpense.getCurrentAmount()) + " spent of $" + mExpense.getProposedAmount());
         }
 
         @Override
