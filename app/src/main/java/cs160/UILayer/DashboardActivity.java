@@ -26,27 +26,12 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dummy);
 
-        //init firebaseAuth
-       // firebaseAuth = FirebaseAuth.getInstance();
-        //checkUser();
-
-
-
-
 
         goalList = findViewById(R.id.linkToGoal);
         expenseList = findViewById(R.id.linkToExpense);
         transactionList = findViewById(R.id.linkToTransaction);
         logoutBtn = findViewById(R.id.logoutBtn);
         signedInUser = findViewById(R.id.signedInUser);
-
-//        logoutBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                firebaseAuth.signOut();
-//                checkUser();
-//            }
-//        });
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -82,20 +67,4 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
-//    private void checkUser() {
-//        //get current user
-//        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-//        if(firebaseUser == null){
-//            // user not logged in
-//            startActivity(new Intent(this, SignIn_Activity.class));
-//            finish();
-//        }
-//        else{
-//            //user logged in
-//            // get user info
-//            String email = firebaseUser.getEmail();
-//            //set email
-//            signedInUser.setText(email);
-//        }
-//    }
 }
