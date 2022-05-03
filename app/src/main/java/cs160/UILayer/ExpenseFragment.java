@@ -110,20 +110,21 @@ public class ExpenseFragment extends Fragment {
         mConfirmBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mExpense == null) {
-                    Expense expense = new Expense();
-                    ExpenseLab expenseLab = ExpenseLab.get(getActivity());
-                    expenseLab.addExpense(expense);
-                    mExpense = expense;
-                }
                 String title = mTitleField.getText().toString();
                 if (title.isEmpty()) {
                     mTitleField.setError("Title must not be empty");
                 } else {
-                    mExpense.setTitle(title);
                     try {
                         Double amount = Double.parseDouble(mAmountField.getText().toString());
+                        if (mExpense == null) {
+                            Expense expense = new Expense(title, Frequency.MONTHLY, amount);
+                            ExpenseLab expenseLab = ExpenseLab.get(getActivity());
+                            expenseLab.addExpense(expense);
+                            mExpense = expense;
+                        }
+                        mExpense.setTitle(title);
                         mExpense.setProposedAmount(amount);
+                        mExpense.setCurrentAmount(mExpense.getProposedAmount() - mExpense.getAmountSpent());
 
                         Intent intent = new Intent(ExpenseFragment.this.getActivity(), ExpenseListActivity.class);
                         startActivity(intent);

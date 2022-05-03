@@ -22,4 +22,5 @@
     <string name="goal_list_name">Goals</string>
     <string name="transaction_list_name">Transactions</string>
     <string name="expense_list_prompt">Spend from: </string>
+    <string name="categorize_button_label">Spend from: %1$s</string>
 </resources>

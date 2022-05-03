@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -92,6 +93,7 @@ public class GoalListFragment extends Fragment {
         private TextView mAmountTextView;
         private TextView mDateTextView;
         private Goal mGoal;
+        private ProgressBar mProgressBar;
 
         public GoalHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_goal, parent, false));
@@ -99,15 +101,18 @@ public class GoalListFragment extends Fragment {
             mTitleTextView = (TextView) itemView.findViewById(R.id.goal_title);
             mAmountTextView = (TextView) itemView.findViewById(R.id.goal_amount);
             mDateTextView = (TextView) itemView.findViewById(R.id.goal_date);
+            mProgressBar = (ProgressBar) itemView.findViewById(R.id.goal_progress_bar);
         }
 
         public void bind(Goal goal) {
             mGoal = goal;
             mTitleTextView.setText(mGoal.getTitle());
-            mAmountTextView.setText(mGoal.getProposedAmount().toString());
+            mAmountTextView.setText(String.format("$%1f saved of $%2f", mGoal.getCurrentAmount().toString(), mGoal.getProposedAmount().toString()));
             DateFormat df = new DateFormat();
             CharSequence formattedDate = df.format("MMM d, yyyy", mGoal.getDate());
             mDateTextView.setText(formattedDate);
+            mProgressBar.setMax((int) Math.round(mGoal.getProposedAmount()));
+            mProgressBar.setProgress((int) Math.round(mGoal.getCurrentAmount()));
         }
 
         @Override
