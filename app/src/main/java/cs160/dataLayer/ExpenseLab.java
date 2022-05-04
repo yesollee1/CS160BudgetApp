@@ -13,6 +13,7 @@ public class ExpenseLab {
     private static ExpenseLab sExpenseLab;
     private List<Expense> mExpenses;
     private Map<UUID, Expense> mExpenseMap; // For more efficient expense lookup
+    private final DatabaseManager databaseManager = new DatabaseManager();
 
     public static ExpenseLab get(Context context) {
         if (sExpenseLab == null) {
@@ -29,6 +30,7 @@ public class ExpenseLab {
     public void addExpense(Expense expense) {
         mExpenses.add(expense);
         mExpenseMap.put(expense.getId(), expense);
+        databaseManager.addDataToDatabase(expense);
     }
 
     public List<Expense> getExpenses() {
