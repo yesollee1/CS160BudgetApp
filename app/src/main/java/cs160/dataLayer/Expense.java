@@ -16,17 +16,11 @@ public class Expense extends Category {
         super(title, frequency, proposedAmount);
     }
 
-    public List<String> getMerchants() {
-        return mMerchants;
-    }
+    public List<String> getMerchants() { return mMerchants; }
 
-    public void addMerchant(String merchant) {
-        mMerchants.add(merchant);
-    }
+    public void addMerchant(String merchant) { mMerchants.add(merchant); }
 
-    public boolean containsMerchant(String merchant) {
-        return mMerchants.contains(merchant);
-    }
+    public boolean containsMerchant(String merchant) { return mMerchants.contains(merchant); }
 
     public boolean spend(Double amount) {
         if(validateDouble(amount)){
