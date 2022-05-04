@@ -29,6 +29,7 @@ public class ExpenseLab {
     public void addExpense(Expense expense) {
         mExpenses.add(expense);
         mExpenseMap.put(expense.getId(), expense);
+        //databaseManager.addToGoals(expense);
     }
 
     public List<Expense> getExpenses() {
