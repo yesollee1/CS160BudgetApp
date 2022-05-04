@@ -1,11 +1,12 @@
 package cs160.dataLayer;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Expense extends Category {
 
-    private ArrayList<String> mMerchants;
+    private List<String> mMerchants = new ArrayList<>();
 
     public Expense() {
         super(null, Frequency.MONTHLY, 0.0);
@@ -15,7 +16,7 @@ public class Expense extends Category {
         super(title, frequency, proposedAmount);
     }
 
-    public ArrayList<String> getMerchants() {
+    public List<String> getMerchants() {
         return mMerchants;
     }
 
@@ -28,12 +29,17 @@ public class Expense extends Category {
     }
 
     public boolean spend(Double amount) {
-
-        if (amount == null || getCurrentAmount() - amount < 0 || amount == Double.MAX_VALUE || amount == Double.MIN_VALUE) {
-            return false;
-        } else {
+        if(validateDouble(amount)){
             setAmountSpent(getAmountSpent() + amount);
             return true;
         }
+        return false;
+    }
+
+    private boolean validateDouble(Double amount){
+        if (amount == null || getCurrentAmount() - amount < 0 || amount == Double.MAX_VALUE || amount == Double.MIN_VALUE) {
+            return false;
+        }
+        return true;
     }
 }

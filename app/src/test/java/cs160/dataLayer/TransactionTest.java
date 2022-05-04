@@ -170,7 +170,6 @@ public class TransactionTest extends TestCase {
         Double testedTransactionAmount = null;
         Transaction testedTransaction= new Transaction(testedTransactionMerchant, testedTransactionAmount);
 
-
         // When
         Double actualAmount = testedTransaction.getAmount();
         Double expectAmount = 0.0 ;
@@ -212,52 +211,12 @@ public class TransactionTest extends TestCase {
 
     // Merchant Test
     @Test
-    public void testGetMerchantForTransactionWithDefaultConstructor(){
+    public void testGetMerchantWithDefaultConstructor(){
         // Given
         Transaction testedTransaction = new Transaction();
 
         // When
         String expectedMerchant = "Untitled Transaction";
-        String actualMerchant = testedTransaction.getMerchant();
-
-        // Then
-        assertEquals(expectedMerchant, actualMerchant);
-    }
-
-    @Test
-    public void testSetMerchantForTransactionWithValidInput(){
-        // Given
-        Transaction testedTransaction = new Transaction();
-
-        // When
-        String expectedMerchant = "Test Merchant";
-        testedTransaction.setMerchant(expectedMerchant);
-        String actualMerchant = testedTransaction.getMerchant();
-
-        // Then
-        assertEquals(expectedMerchant, actualMerchant);
-    }
-
-    public void testSetMerchantForTransactionWithNull(){
-        // Given
-        Transaction testedTransaction = new Transaction();
-
-        // When
-        String expectedMerchant = "Untitled Transaction";
-        testedTransaction.setMerchant(null);
-        String actualMerchant = testedTransaction.getMerchant();
-
-        // Then
-        assertEquals(expectedMerchant, actualMerchant);
-    }
-
-    public void testSetMerchantForTransactionWithEmptyString(){
-        // Given
-        Transaction testedTransaction = new Transaction();
-
-        // When
-        String expectedMerchant = "Untitled Transaction";
-        testedTransaction.setMerchant("");
         String actualMerchant = testedTransaction.getMerchant();
 
         // Then
@@ -266,6 +225,48 @@ public class TransactionTest extends TestCase {
 
     @Test
     public void testSetMerchantWithValidInput(){
+        // Given
+        Transaction testedTransaction = new Transaction();
+
+        // When
+        String expectedMerchant = "Test Merchant";
+        testedTransaction.setMerchant(expectedMerchant);
+        String actualMerchant = testedTransaction.getMerchant();
+
+        // Then
+        assertEquals(expectedMerchant, actualMerchant);
+    }
+
+    @Test
+    public void testSetMerchantWithNull(){
+        // Given
+        Transaction testedTransaction = new Transaction();
+
+        // When
+        String expectedMerchant = "Untitled Transaction";
+        testedTransaction.setMerchant(null);
+        String actualMerchant = testedTransaction.getMerchant();
+
+        // Then
+        assertEquals(expectedMerchant, actualMerchant);
+    }
+
+    @Test
+    public void testSetMerchantWithEmptyString(){
+        // Given
+        Transaction testedTransaction = new Transaction();
+
+        // When
+        String expectedMerchant = "Untitled Transaction";
+        testedTransaction.setMerchant("");
+        String actualMerchant = testedTransaction.getMerchant();
+
+        // Then
+        assertEquals(expectedMerchant, actualMerchant);
+    }
+
+    @Test
+    public void testSetMerchantWithValidInput_(){
         // Given Transaction(Title, Amount)
         String testedTransactionMerchant = "Untitled";
         Double testedTransactionAmount = 100.0;
@@ -280,7 +281,8 @@ public class TransactionTest extends TestCase {
         assertEquals(expectedMerchant, actualMerchant);
     }
 
-    public void testSetMerchantWithNull(){
+    @Test
+    public void testSetMerchantWithNull_(){
         // Given Transaction(Title, Amount)
         String testedTransactionMerchant = "Untitled";
         Double testedTransactionAmount = 100.0;
@@ -295,7 +297,8 @@ public class TransactionTest extends TestCase {
         assertEquals(expectedMerchant, actualMerchant);
     }
 
-    public void testSetMerchantWithEmptyString(){
+    @Test
+    public void testSetMerchantWithEmptyString_(){
         // Given
         String testedTransactionMerchant = "Untitled";
         Double testedTransactionAmount = 100.0;
@@ -308,6 +311,147 @@ public class TransactionTest extends TestCase {
 
         // Then
         assertEquals(expectedMerchant, actualMerchant);
+    }
+
+    // ExpenseName Test
+    @Test
+    public void testGetExpenseNameWithDefaultConstructor(){
+        // Given
+        Transaction testedTransaction = new Transaction();
+
+        // When
+        String actualExpenseName = testedTransaction.getExpenseName();
+
+        // Then
+        assertNull(actualExpenseName);
+    }
+
+    @Test
+    public void testSetExpenseNameWithValidInput(){
+        // Given
+        Transaction testedTransaction = new Transaction();
+
+        // When
+        String expectedExpenseName = "Test Expense Name";
+        testedTransaction.setExpenseName(expectedExpenseName);
+        String actualExpense = testedTransaction.getExpenseName();
+
+        // Then
+        assertEquals(expectedExpenseName, actualExpense);
+    }
+
+    @Test
+    public void testSetExpenseNameWithNull(){
+        // Given
+        Transaction testedTransaction = new Transaction();
+
+        // When
+        String expectedExpenseName = "Test Expense Name";
+        testedTransaction.setExpenseName(expectedExpenseName);
+        testedTransaction.setExpenseName(null);
+        String actualExpense = testedTransaction.getExpenseName();
+
+        // Then
+        assertEquals(expectedExpenseName, actualExpense);
+
+    }
+
+    @Test
+    public void testSetExpenseNameWithEmptyString(){
+        // Given
+        Transaction testedTransaction = new Transaction();
+
+        // When
+        String expectedExpenseName = "Test Expense Name";
+        testedTransaction.setExpenseName(expectedExpenseName);
+        testedTransaction.setExpenseName("");
+        String actualExpense = testedTransaction.getExpenseName();
+
+        // Then
+        assertEquals(expectedExpenseName, actualExpense);
+    }
+
+    // Note Test
+    @Test
+    public void testGetNoteWithDefaultConstructor(){
+        // Given
+        Transaction testedTransaction = new Transaction();
+
+        // When
+        String actualNotes = testedTransaction.getNotes();
+
+        // Then
+        assertNull(actualNotes);
+    }
+
+    @Test
+    public void testSetNotesWithValidInput(){
+        // Given
+        Transaction testedTransaction = new Transaction();
+
+        // When
+        String expectedNotes = "Test Notes";
+        testedTransaction.setNotes(expectedNotes);
+        String actualNotes = testedTransaction.getNotes();
+
+        // Then
+        assertEquals(expectedNotes, actualNotes);
+    }
+
+    @Test
+    public void testSetNoteWithNull(){
+        // Given
+        Transaction testedTransaction = new Transaction();
+
+        // When
+        String expectedNotes = "Test Notes";
+        testedTransaction.setNotes(expectedNotes);
+        testedTransaction.setNotes(null);
+        String actualNotes = testedTransaction.getNotes();
+
+        // Then
+        assertEquals(expectedNotes, actualNotes);
+
+    }
+
+    @Test
+    public void testSetNoteWithEmptyString(){
+        // Given
+        Transaction testedTransaction = new Transaction();
+
+        // When
+        String expectedNotes = "Test Notes";
+        testedTransaction.setNotes(expectedNotes);
+        testedTransaction.setNotes("");
+        String actualNotes = testedTransaction.getNotes();
+
+        // Then
+        assertEquals(expectedNotes, actualNotes);
+    }
+
+    // Categorized tests
+    @Test
+    public void testIsCategorizedForTransaction(){
+        // Given
+        Transaction testedTransaction = new Transaction();
+
+        // When
+
+
+        // Then
+        assertFalse(testedTransaction.isCategorized());
+    }
+
+    @Test
+    public void testsetIsCategorizedForTransaction(){
+        // Given
+        Transaction testedTransaction = new Transaction();
+
+        // When
+        testedTransaction.setCategorized(true);
+
+        // Then
+        assertTrue(testedTransaction.isCategorized());
     }
 
 }

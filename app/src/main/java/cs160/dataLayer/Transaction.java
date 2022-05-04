@@ -23,6 +23,7 @@ public class Transaction {
         mAmount = 0.0;
         mExpenseName = null;
         mNotes = null;
+
     }
 
     public Transaction(String title, Double amount) {
@@ -87,10 +88,12 @@ public class Transaction {
     }
 
     public String getExpenseName() {
+        // Has tests
         return mExpenseName;
     }
 
     public void setExpenseName(String expenseName) {
+        // Has tests
         if(stringValidation(expenseName)){
             mExpenseName = expenseName;
         }
@@ -107,10 +110,12 @@ public class Transaction {
     }
 
     public void setCategorized(boolean categorized) {
+        // Has tests
         mIsCategorized = categorized;
     }
 
     public boolean isCategorized() {
+        // Has tests
         return mIsCategorized;
     }
 

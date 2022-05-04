@@ -16,11 +16,17 @@ public abstract class Category {
     protected int mNotifyPercent;
 
     public Category(String title, Frequency frequency, Double proposedAmount) {
+
         mTitle = title;
         mId = UUID.randomUUID();
         mDate = new Date();
         mFrequency = frequency;
-        mProposedAmount = proposedAmount;
+        if(validateDouble(proposedAmount)){
+            mProposedAmount = proposedAmount;
+        }else{
+            mProposedAmount = 0.0;
+        }
+
 //        mCurrentAmount = currentAmount;
         mAmountSpent = 0.0;
     }
@@ -79,4 +85,11 @@ public abstract class Category {
 
     //TODO: Implement delete for Expenses, Goals, and Transactions
 //    public abstract void delete();
+
+    private boolean validateDouble(Double amount){
+        if (amount == null || amount == Double.MAX_VALUE || amount == Double.MIN_VALUE) {
+            return false;
+        }
+        return true;
+    }
 }
