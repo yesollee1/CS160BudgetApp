@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class GoalListFragment extends Fragment {
@@ -105,11 +106,12 @@ public class GoalListFragment extends Fragment {
         }
 
         public void bind(Goal goal) {
+            DecimalFormat numFormat = new DecimalFormat("#.00");
             mGoal = goal;
             mTitleTextView.setText(mGoal.getTitle());
-            mAmountTextView.setText("$" + mGoal.getCurrentAmount().toString() + " saved of $" + mGoal.getProposedAmount().toString());
-            DateFormat df = new DateFormat();
-            CharSequence formattedDate = df.format("MMM d, yyyy", mGoal.getDate());
+            mAmountTextView.setText("$" + numFormat.format(mGoal.getCurrentAmount()) + " saved of $" + numFormat.format(mGoal.getProposedAmount()));
+            DateFormat dateFormat = new DateFormat();
+            CharSequence formattedDate = dateFormat.format("MMM d, yyyy", mGoal.getDate());
             mDateTextView.setText(formattedDate);
             mProgressBar.setMax((int) Math.round(mGoal.getProposedAmount()));
             mProgressBar.setProgress((int) Math.round(mGoal.getCurrentAmount()));

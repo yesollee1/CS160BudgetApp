@@ -229,18 +229,18 @@ public class TransactionFragment extends Fragment {
         mConfirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mTransaction == null) {
-                    Transaction transaction = new Transaction();
-                    TransactionLab transactionLab = TransactionLab.get(getActivity());
-                    transactionLab.addTransaction(transaction);
-                    mTransaction = transaction;
-                }
                 String merchantName = mTitleField.getText().toString();
                 if (merchantName.isEmpty()) {
                     mTitleField.setError("Merchant name must not be empty");
                 } else {
                     try {
                         Double amount = Double.parseDouble(mAmountField.getText().toString());
+                        if (mTransaction == null) {
+                            Transaction transaction = new Transaction();
+                            TransactionLab transactionLab = TransactionLab.get(getActivity());
+                            transactionLab.addTransaction(transaction);
+                            mTransaction = transaction;
+                        }
 
                         mTransaction.setMerchant(merchantName);
                         mTransaction.setAmount(amount);

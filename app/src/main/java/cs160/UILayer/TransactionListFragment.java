@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import cs160.dataLayer.*;
@@ -102,11 +103,12 @@ public class TransactionListFragment extends Fragment {
         }
 
         public void bind(Transaction transaction) {
+            DecimalFormat numFormat = new DecimalFormat("#.00");
             mTransaction = transaction;
             mTitleTextView.setText(mTransaction.getMerchant());
-            mAmountTextView.setText(mTransaction.getAmount().toString());
-            DateFormat df = new DateFormat();
-            CharSequence formattedDate = df.format("MMM d, yyyy", mTransaction.getDate());
+            mAmountTextView.setText("$" + numFormat.format(mTransaction.getAmount()));
+            DateFormat dateFormat = new DateFormat();
+            CharSequence formattedDate = dateFormat.format("MMM d, yyyy", mTransaction.getDate());
             mDateTextView.setText(formattedDate);
         }
 

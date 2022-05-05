@@ -74,5 +74,4 @@ public class ExpenseLab {
         return null;
     }
 
-    private final DatabaseManager databaseManager = new DatabaseManager();
 }

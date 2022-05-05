@@ -148,19 +148,19 @@ public class GoalFragment extends Fragment {
         mConfirmBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mGoal == null) {
-                    Goal goal = new Goal();
-                    GoalLab goalLab = GoalLab.get(getActivity());
-                    goalLab.addGoal(goal);
-                    mGoal = goal;
-                }
                 String title = mTitleField.getText().toString();
                 if (title.isEmpty()) {
                     mTitleField.setError("Title must not be empty");
                 } else {
-                    mGoal.setTitle(title);
                     try {
                         Double amount = Double.parseDouble(mAmountField.getText().toString());
+                        if (mGoal == null) {
+                            Goal goal = new Goal();
+                            GoalLab goalLab = GoalLab.get(getActivity());
+                            goalLab.addGoal(goal);
+                            mGoal = goal;
+                        }
+                        mGoal.setTitle(title);
                         mGoal.setProposedAmount(amount);
 
                         mGoal.setDate(mDate);
