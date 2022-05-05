@@ -37,10 +37,10 @@ public class TestHelper {
     // Helper method for testing date picker.
     public static void setDate(int datePickerLaunchViewId, int year, int monthOfYear, int dayOfMonth) {
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getTargetContext());
-        onView(withText("Goals")).perform(click());
+        onView(withText("Transactions")).perform(click());
 
-        onView(ViewMatchers.withId(R.id.goal_amount)).perform(click());
-        onView(withId(R.id.goal_date)).perform(click());
+        onView(ViewMatchers.withId(R.id.transaction_amount)).perform(click());
+        onView(withId(R.id.transaction_date)).perform(click());
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(year, monthOfYear, dayOfMonth));
         onView(withId(android.R.id.button1)).perform(click());
     }
