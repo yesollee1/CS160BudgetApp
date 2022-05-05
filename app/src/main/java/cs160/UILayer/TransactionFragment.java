@@ -251,6 +251,9 @@ public class TransactionFragment extends Fragment {
                         if (mExpenseName != null) {
                             mTransaction.spendFrom(getActivity(), mExpenseName);
                         }
+
+                        databaseManager.addToTransactions(mTransaction);
+
                         //// use the following code instead of the line above when Plaid is integrated
 //                    if (!mTransaction.spendFrom(getActivity(), mExpenseName)) {
 //                        Toast.makeText(getActivity(),
@@ -298,4 +301,5 @@ public class TransactionFragment extends Fragment {
             mCategorizeButton.setText("None");
         }
     }
+    private final DatabaseManager databaseManager = new DatabaseManager();
 }

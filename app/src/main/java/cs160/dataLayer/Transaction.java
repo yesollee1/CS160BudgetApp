@@ -34,6 +34,8 @@ public class Transaction {
         mNotes = null;
     }
 
+    public String getTitle() {return mMerchant;}
+
     public UUID getId() {
         return mId;
     }
