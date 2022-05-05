@@ -1,9 +1,13 @@
 package cs160.dataLayer;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 public class Goal extends Category {
+
     private Date mEndDate;
+    private ArrayList<String> listOfGoals;
 
     public Goal() {
         super(null, Frequency.MONTHLY, 0.0, 0.0);
@@ -13,6 +17,7 @@ public class Goal extends Category {
         super(title, frequency, proposedAmount, 0.0);
         mEndDate = endDate;
     }
+
 
     public Date getDate() {
         return mDate;
