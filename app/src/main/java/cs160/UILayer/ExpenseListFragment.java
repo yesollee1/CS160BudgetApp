@@ -1,10 +1,13 @@
 package cs160.UILayer;
 
+import static android.content.ContentValues.TAG;
+
 import cs160.dataLayer.*;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +24,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.UUID;
@@ -30,11 +43,33 @@ public class ExpenseListFragment extends Fragment {
     private ExpenseAdapter mAdapter;
     private int mLastClickedPosition;
 
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static boolean dataPopulated = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Expenses");
+        FirebaseUser current = mAuth.getCurrentUser();
+        db.collection("Users").document(current.getUid()).collection("Budget").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful() && !dataPopulated){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Expense expense = new Expense(document.getId(), Frequency.MONTHLY, document.getDouble("currentAmount"));
+                        ExpenseLab expenseLab = ExpenseLab.get(getActivity());
+                        expenseLab.addExpense(expense);
+                        updateUI();
+                        Log.d(TAG, document.getId() + " => " + document.getData());
+                    }
+                    dataPopulated = true;
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
     }
 
     @Override
