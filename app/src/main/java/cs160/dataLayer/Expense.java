@@ -18,7 +18,11 @@ public class Expense extends Category {
 
     public List<String> getMerchants() { return mMerchants; }
 
-    public void addMerchant(String merchant) { mMerchants.add(merchant); }
+    public void addMerchant(String merchant) {
+        if(stringValidation(merchant)){
+            mMerchants.add(merchant);
+        }
+    }
 
     public boolean containsMerchant(String merchant) { return mMerchants.contains(merchant); }
 
@@ -35,5 +39,9 @@ public class Expense extends Category {
             return false;
         }
         return true;
+    }
+
+    private boolean stringValidation(String msg){
+        return msg == null || msg == ""? false: true;
     }
 }

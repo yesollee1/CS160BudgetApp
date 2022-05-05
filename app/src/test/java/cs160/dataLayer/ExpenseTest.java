@@ -28,11 +28,10 @@ public class ExpenseTest extends TestCase {
     }
 
     @Test
-    public void testAddMerchant() {
+    public void testAddMerchantWithValidInput() {
         // Given
-        List<String> expectedMerchants = new ArrayList<>();
+
         String testedMerchant = "Test Expense 1";
-        expectedMerchants.add(testedMerchant);
         Expense testedExpense = new Expense();
         testedExpense.addMerchant(testedMerchant);
 
@@ -46,11 +45,37 @@ public class ExpenseTest extends TestCase {
     }
 
     @Test
+    public void testAddMerchantWithNull() {
+        // Given
+        Expense testedExpense = new Expense();
+        testedExpense.addMerchant(null);
+
+        // When
+        Integer numberOfMerchants = testedExpense.getMerchants().size();
+        Integer expectedSize = 0;
+        // Then
+
+        assertEquals(expectedSize, numberOfMerchants);
+    }
+
+    @Test
+    public void testAddMerchantWithEmptyString() {
+        // Given
+        Expense testedExpense = new Expense();
+        testedExpense.addMerchant("");
+
+        // When
+        Integer numberOfMerchants = testedExpense.getMerchants().size();
+        Integer expectedSize = 0;
+        // Then
+
+        assertEquals(expectedSize, numberOfMerchants);
+    }
+
+    @Test
     public void testContainsMerchant() {
         // Given
-        List<String> expectedMerchants = new ArrayList<>();
         String testedMerchant = "Test Expense 1";
-        expectedMerchants.add(testedMerchant);
         Expense testedExpense = new Expense();
         testedExpense.addMerchant(testedMerchant);
 
@@ -79,6 +104,17 @@ public class ExpenseTest extends TestCase {
         Boolean spent = testedExpense.spend(10.00);
 
         assertTrue(spent);
+    }
+
+    @Test
+    public void testSpendWithNull() {
+        String expectedTitle = "Test Title";
+        Double expectedAmount = 100.00;
+        Expense testedExpense = new Expense(expectedTitle, Frequency.MONTHLY, expectedAmount);
+
+        Boolean spent = testedExpense.spend(null);
+
+        assertFalse(spent);
     }
 
     @Test
