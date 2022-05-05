@@ -31,7 +31,6 @@ public class GoalLab {
     public void addGoal(Goal goal) {
         mGoals.add(goal);
         mGoalMap.put(goal.getId(), goal);
-        //databaseManager.addToGoals(goal);
     }
 
     public List<Goal> getGoals() {

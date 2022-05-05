@@ -250,6 +250,7 @@ public class TransactionFragment extends Fragment {
 
                         if (mExpenseName != null) {
                             mTransaction.spendFrom(getActivity(), mExpenseName);
+                            databaseManager.updateExpenses(getActivity(), mExpenseName);
                         }
 
                         databaseManager.addToTransactions(mTransaction);

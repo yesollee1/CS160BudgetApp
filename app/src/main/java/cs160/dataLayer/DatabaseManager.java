@@ -1,5 +1,6 @@
 package cs160.dataLayer;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,8 +17,18 @@ public class DatabaseManager {
 
     public void addToExpenses(Category category) {
         FirebaseUser current = mAuth.getCurrentUser();
+
         db.collection("Users").document(current.getUid()).collection("Budget").
                 document(category.getTitle()).set(category,SetOptions.merge());
+    }
+
+    public void updateExpenses(Context context, String expenseName) {
+        FirebaseUser current = mAuth.getCurrentUser();
+
+        Expense expense = ExpenseLab.get(context).getExpenseByName(expenseName);
+
+        db.collection("Users").document(current.getUid()).collection("Budget").
+                document(expense.getTitle()).set(expense,SetOptions.merge());
     }
 
     public void addToGoals(Category category) {
@@ -29,15 +40,9 @@ public class DatabaseManager {
     public void addToTransactions(Transaction receipt) {
         FirebaseUser current = mAuth.getCurrentUser();
 
-        /**Map<String, Object> transact = new HashMap<>();
-        transact.put("Title", receipt.getMerchant());
-        transact.put("Amount", receipt.getAmount());
-        transact.put("Date", receipt.getDate());
-        transact.put("Merchant", receipt.getMerchant());
-        transact.put("Notes", receipt.getNotes());**/
-
         db.collection("Users").document(current.getUid()).collection("Transactions").
                 document(String.valueOf(receipt.getId())).set(receipt,SetOptions.merge());
+
     }
 
     public static void addNewUser(String uid, String name) {
