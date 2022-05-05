@@ -13,6 +13,7 @@ public class ExpenseLab {
     private static ExpenseLab sExpenseLab;
     private List<Expense> mExpenses;
     private Map<UUID, Expense> mExpenseMap; // For more efficient expense lookup
+    private final DatabaseManager databaseManager = new DatabaseManager();
 
     public static ExpenseLab get(Context context) {
         if (sExpenseLab == null) {
