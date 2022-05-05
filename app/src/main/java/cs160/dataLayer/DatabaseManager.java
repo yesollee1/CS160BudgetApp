@@ -14,17 +14,10 @@ public class DatabaseManager {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-    public void addToGoals(Category category) {
+    public void addToExpenses(Category category) {
         FirebaseUser current = mAuth.getCurrentUser();
-        if (current == null) {
-            db.collection("Users").document("Null User Alert").
-                    set(category, SetOptions.merge());
-            Log.d("error", "login not workin");
-        }
-       else {
-            db.collection("Users").document(current.getUid()).collection("Goals").
-                    document(category.getTitle()).set(category,SetOptions.merge());
-        }
+        db.collection("Users").document(current.getUid()).collection("Budget").
+                document(category.getTitle()).set(category,SetOptions.merge());
     }
 
     public static void addNewUser(String uid, String name) {
