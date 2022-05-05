@@ -38,4 +38,6 @@ public class TransactionLab {
     public Transaction getTransaction(UUID id) {
         return mTransactionMap.get(id);
     }
+
+    private final DatabaseManager databaseManager = new DatabaseManager();
 }

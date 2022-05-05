@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+
+
 public class GoalLab {
     private static GoalLab sGoalLab;
     private List<Goal> mGoals;
@@ -29,6 +31,7 @@ public class GoalLab {
     public void addGoal(Goal goal) {
         mGoals.add(goal);
         mGoalMap.put(goal.getId(), goal);
+        //databaseManager.addToGoals(goal);
     }
 
     public List<Goal> getGoals() {
@@ -38,4 +41,6 @@ public class GoalLab {
     public Goal getGoal(UUID id) {
         return mGoalMap.get(id);
     }
+
+    private final DatabaseManager databaseManager = new DatabaseManager();
 }

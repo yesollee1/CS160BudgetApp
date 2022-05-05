@@ -107,7 +107,7 @@ public class GoalListFragment extends Fragment {
         public void bind(Goal goal) {
             mGoal = goal;
             mTitleTextView.setText(mGoal.getTitle());
-            mAmountTextView.setText(String.format("$%1f saved of $%2f", mGoal.getCurrentAmount().toString(), mGoal.getProposedAmount().toString()));
+            mAmountTextView.setText("$" + mGoal.getCurrentAmount().toString() + " saved of $" + mGoal.getProposedAmount().toString());
             DateFormat df = new DateFormat();
             CharSequence formattedDate = df.format("MMM d, yyyy", mGoal.getDate());
             mDateTextView.setText(formattedDate);

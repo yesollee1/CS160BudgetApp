@@ -30,7 +30,7 @@ public class ExpenseLab {
     public void addExpense(Expense expense) {
         mExpenses.add(expense);
         mExpenseMap.put(expense.getId(), expense);
-        databaseManager.addDataToDatabase(expense);
+        databaseManager.addToExpenses(expense);
     }
 
     public List<Expense> getExpenses() {
@@ -73,4 +73,6 @@ public class ExpenseLab {
         }
         return null;
     }
+
+    private final DatabaseManager databaseManager = new DatabaseManager();
 }
