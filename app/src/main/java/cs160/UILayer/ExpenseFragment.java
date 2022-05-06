@@ -6,9 +6,6 @@ import static android.widget.CompoundButton.*;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,18 +13,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentResultListener;
 
-import java.util.Date;
 import java.util.UUID;
 
 public class ExpenseFragment extends Fragment {
@@ -124,7 +114,7 @@ public class ExpenseFragment extends Fragment {
                             expenseAdded = expenseLab.addExpense(expense);
                             if (!expenseAdded) {
 //                                Toast.makeText("You only have $" + expenseLab.getBalance() + " to use.", Toast.LENGTH_LONG).show();
-                                mAmountField.setError("You only have $" + Balance.getBalance() + " to use.");
+                                mAmountField.setError("You only have $" + Budget.getBalance() + " to use.");
                             } else {
                                 mExpense = expense;
                             }

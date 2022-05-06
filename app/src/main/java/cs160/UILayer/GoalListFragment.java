@@ -109,6 +109,11 @@ public class GoalListFragment extends Fragment {
             DecimalFormat numFormat = new DecimalFormat("#.00");
             mGoal = goal;
             mTitleTextView.setText(mGoal.getTitle());
+            if (mGoal.getCurrentAmount() % 1 == 0) {
+                numFormat = new DecimalFormat("##.##");
+            } else {
+                numFormat = new DecimalFormat("#.00");
+            }
             mAmountTextView.setText("$" + numFormat.format(mGoal.getCurrentAmount()) + " saved of $" + numFormat.format(mGoal.getProposedAmount()));
             DateFormat dateFormat = new DateFormat();
             CharSequence formattedDate = dateFormat.format("MMM d, yyyy", mGoal.getDate());

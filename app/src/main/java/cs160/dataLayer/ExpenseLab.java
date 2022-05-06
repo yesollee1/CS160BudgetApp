@@ -28,13 +28,13 @@ public class ExpenseLab {
     }
 
     public boolean addExpense(Expense expense) {
-        if (expense.getProposedAmount() > Balance.getBalance()) {
+        if (expense.getProposedAmount() > Budget.getBalance()) {
             return false;
         } else {
             mExpenses.add(expense);
             mExpenseMap.put(expense.getId(), expense);
             databaseManager.addToExpenses(expense);
-            Balance.subtractBalance(expense.getProposedAmount());
+            Budget.subtractBalance(expense.getProposedAmount());
             return true;
         }
     }

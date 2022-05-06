@@ -6,7 +6,6 @@ import cs160.dataLayer.*;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,7 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -28,15 +26,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DecimalFormat;
 import java.util.List;
-import java.util.UUID;
 
 public class ExpenseListFragment extends Fragment {
     private RecyclerView mExpenseRecyclerView;
@@ -51,10 +46,15 @@ public class ExpenseListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-//        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Expenses");
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("#0.00");
 //        ExpenseLab expenseLab = ExpenseLab.get(getActivity());
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Free to Use: " + df.format(Balance.getBalance()));
+        Double balance = Budget.getBalance();
+        //-----------------------------------------------------------------
+        if (balance % 1 == 0) {
+            df = new DecimalFormat("##.##");
+        }
+        //-----------------------------------------------------------------
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Free to Use: $" + df.format(balance));
         FirebaseUser current = mAuth.getCurrentUser();
         db.collection("Users").document(current.getUid()).collection("Budget").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
