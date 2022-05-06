@@ -33,6 +33,7 @@ public class OnCreateApplication extends Application {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+
     }
 
     // This is called when the overall system is running low on memory,

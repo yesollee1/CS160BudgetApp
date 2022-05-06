@@ -27,6 +27,7 @@ public class ExpenseFragment extends Fragment {
     private EditText mTitleField;
     private EditText mAmountField;
     private Button mConfirmBtn;
+    private final DatabaseManager databaseManager = new DatabaseManager();
 
     public static ExpenseFragment newInstance(UUID expenseId) {
         Bundle args = new Bundle();
