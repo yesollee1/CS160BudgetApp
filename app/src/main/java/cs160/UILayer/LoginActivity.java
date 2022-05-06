@@ -15,6 +15,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import cs160.dataLayer.Balance;
 
@@ -26,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
 
     FirebaseAuth mAuth;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +48,19 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         btnLogin.setOnClickListener(view -> {
-            loginUser();
+            loginUser(); loginDate();
         });
         tvRegisterHere.setOnClickListener(view ->{
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
         });
+    }
+
+    public void loginDate() {
+        Map<String, Object> upd = new HashMap<>();
+        upd.put("Date", Calendar.getInstance().getTime());
+
+        db.collection("Users").document(mAuth.getCurrentUser().getUid()).
+                set(upd, SetOptions.merge());
     }
 
     private void loginUser(){
