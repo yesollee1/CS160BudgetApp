@@ -66,12 +66,17 @@ public abstract class Category {
 //    }
 
     public boolean spend(Double spendAmount) {
-        if (mCurrentAmount - spendAmount >= 0) {
+//        if (mCurrentAmount - spendAmount >= 0) {
+//            mCurrentAmount -= spendAmount;
+//            return true;
+//        } else {
+//            return false;
+//        }
+        if(validateDouble(spendAmount)){
             mCurrentAmount -= spendAmount;
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public Double getProposedAmount() {
@@ -92,4 +97,12 @@ public abstract class Category {
 
     //TODO: Implement delete for Expenses, Goals, and Transactions
 //    public abstract void delete();
+
+
+    private boolean validateDouble(Double amount){
+        if (amount == null || getCurrentAmount() - amount < 0 || amount == Double.MAX_VALUE || amount == Double.MIN_VALUE) {
+            return false;
+        }
+        return true;
+    }
 }

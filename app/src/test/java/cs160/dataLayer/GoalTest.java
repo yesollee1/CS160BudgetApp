@@ -46,14 +46,14 @@ public class GoalTest extends TestCase {
         String expectedTitle = "Actual Goal Title";
         Frequency expectedFrequency = Frequency.MONTHLY;
         Double expectedProposedAmount= 100.0;
-        Double expectedCurrentAmount = 100.0;
+
         Date expectedDate = testedDate;
 
         // Then
         assertEquals(expectedTitle, actualTitle);
         assertEquals(expectedFrequency, actualFrequency);
         assertEquals(expectedProposedAmount, actualProposedAmount);
-        assertEquals(expectedCurrentAmount, actualCurrentAmount);
+
         assertEquals(String.valueOf(expectedDate), String.valueOf(actualDate));
     }
 
