@@ -78,7 +78,7 @@ public class IncomeFragment extends Fragment {
             public void onClick(View view) {
                 try {
                     Double amount = Double.parseDouble(mAmountField.getText().toString());
-                    ExpenseLab expenseLab = ExpenseLab.get(getActivity());
+//                    ExpenseLab expenseLab = ExpenseLab.get(getActivity());
                     Balance.addIncome(amount);
                     Intent intent = new Intent(IncomeFragment.this.getActivity(), DashboardActivity.class);
                     startActivity(intent);
