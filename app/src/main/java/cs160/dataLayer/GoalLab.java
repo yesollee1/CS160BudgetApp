@@ -34,6 +34,11 @@ public class GoalLab {
         databaseManager.addToGoals(goal);
     }
 
+    public void populateGoal(Goal goal) {
+        mGoals.add(goal);
+        mGoalMap.put(goal.getId(), goal);
+    }
+
     public List<Goal> getGoals() {
         return mGoals;
     }
