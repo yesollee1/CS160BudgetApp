@@ -29,6 +29,7 @@ public class TransactionLab {
     public void addTransaction(Transaction transaction) {
         mTransactions.add(transaction);
         mTransactionMap.put(transaction.getId(), transaction);
+        databaseManager.addToTransactions(transaction);
     }
 
     public List<Transaction> getTransactions() {
