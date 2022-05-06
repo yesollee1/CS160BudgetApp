@@ -57,7 +57,7 @@ public class GoalListFragment extends Fragment {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Goal goal = new Goal(document.getId(), Frequency.MONTHLY, document.getDouble("amountSpent"), document.getDate("date"));
                         GoalLab goalLab = GoalLab.get(getActivity());
-                        goalLab.addGoal(goal);
+                        goalLab.populateGoal(goal);
                         updateUI();
                         Log.d(TAG, document.getId() + " => " + document.getData());
                     }
