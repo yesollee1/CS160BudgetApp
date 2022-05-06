@@ -11,24 +11,24 @@ public abstract class Category {
     protected Date mDate;
     protected Frequency mFrequency;
     protected Double mProposedAmount;
-//    protected Double mCurrentAmount;
-    protected Double mAmountSpent;
+    protected Double mCurrentAmount;
+//    protected Double mAmountSpent;
     protected int mNotifyPercent;
 
-    public Category(String title, Frequency frequency, Double proposedAmount) {
 
+    public Category(String title, Frequency frequency, Double proposedAmount, Double currentAmount) {
         mTitle = title;
         mId = UUID.randomUUID();
         mDate = new Date();
         mFrequency = frequency;
+
         if(validateDouble(proposedAmount)){
             mProposedAmount = proposedAmount;
         }else{
             mProposedAmount = 0.0;
         }
+        mCurrentAmount = currentAmount;
 
-//        mCurrentAmount = currentAmount;
-        mAmountSpent = 0.0;
     }
 
     public Category(){
@@ -56,15 +56,28 @@ public abstract class Category {
     }
 
     public Double getCurrentAmount() {
-        return mProposedAmount - mAmountSpent;
+        return mCurrentAmount;
+    }
+
+    public void setCurrentAmount(Double currentAmount) {
+        mCurrentAmount = currentAmount;
     }
 
     public Double getAmountSpent() {
-        return mAmountSpent;
+        return mProposedAmount - mCurrentAmount;
     }
 
-    public void setAmountSpent(Double amountSpent) {
-        mAmountSpent = amountSpent;
+//    public void setAmountSpent(Double amountSpent) {
+//        mAmountSpent = amountSpent;
+//    }
+
+    public boolean spend(Double spendAmount) {
+        if (mCurrentAmount - spendAmount >= 0) {
+            mCurrentAmount -= spendAmount;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Double getProposedAmount() {

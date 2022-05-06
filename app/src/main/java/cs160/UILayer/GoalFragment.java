@@ -148,22 +148,24 @@ public class GoalFragment extends Fragment {
         mConfirmBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mGoal == null) {
-                    Goal goal = new Goal();
-                    GoalLab goalLab = GoalLab.get(getActivity());
-                    goalLab.addGoal(goal);
-                    mGoal = goal;
-                }
                 String title = mTitleField.getText().toString();
                 if (title.isEmpty()) {
                     mTitleField.setError("Title must not be empty");
                 } else {
-                    mGoal.setTitle(title);
                     try {
                         Double amount = Double.parseDouble(mAmountField.getText().toString());
-                        mGoal.setProposedAmount(amount);
+                        if (mGoal == null) {
+                            Goal goal = new Goal(title, Frequency.MONTHLY, amount, mDate);
+                            GoalLab goalLab = GoalLab.get(getActivity());
+                            goalLab.addGoal(goal);
+                            mGoal = goal;
+                        } else {
+                            mGoal.setTitle(title);
+                            mGoal.setProposedAmount(amount);
+                            mGoal.setDate(mDate);
+                        }
 
-                        mGoal.setDate(mDate);
+                        databaseManager.addToGoals(mGoal);
 
                         Intent intent = new Intent(GoalFragment.this.getActivity(), GoalListActivity.class);
                         startActivity(intent);
@@ -176,6 +178,8 @@ public class GoalFragment extends Fragment {
 
         return v;
     }
+
+    private final DatabaseManager databaseManager = new DatabaseManager();
 
 //// We should probably use the onPause() method to store info when the date fragment pops up
 //    @Override

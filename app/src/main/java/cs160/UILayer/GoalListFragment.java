@@ -1,10 +1,13 @@
 package cs160.UILayer;
 
+import static android.content.ContentValues.TAG;
+
 import cs160.dataLayer.*;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +24,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class GoalListFragment extends Fragment {
@@ -27,11 +40,33 @@ public class GoalListFragment extends Fragment {
     private GoalAdapter mAdapter;
     private int mLastClickedPosition;
 
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static boolean dataPopulated = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Goals");
+        FirebaseUser current = mAuth.getCurrentUser();
+        db.collection("Users").document(current.getUid()).collection("Goals").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful() && !dataPopulated){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Goal goal = new Goal(document.getId(), Frequency.MONTHLY, document.getDouble("amountSpent"), document.getDate("date"));
+                        GoalLab goalLab = GoalLab.get(getActivity());
+                        goalLab.addGoal(goal);
+                        updateUI();
+                        Log.d(TAG, document.getId() + " => " + document.getData());
+                    }
+                    dataPopulated = true;
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
     }
 
     @Override
@@ -92,6 +127,7 @@ public class GoalListFragment extends Fragment {
         private TextView mAmountTextView;
         private TextView mDateTextView;
         private Goal mGoal;
+        private ProgressBar mProgressBar;
 
         public GoalHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_goal, parent, false));
@@ -99,15 +135,19 @@ public class GoalListFragment extends Fragment {
             mTitleTextView = (TextView) itemView.findViewById(R.id.goal_title);
             mAmountTextView = (TextView) itemView.findViewById(R.id.goal_amount);
             mDateTextView = (TextView) itemView.findViewById(R.id.goal_date);
+            mProgressBar = (ProgressBar) itemView.findViewById(R.id.goal_progress_bar);
         }
 
         public void bind(Goal goal) {
+            DecimalFormat numFormat = new DecimalFormat("#.00");
             mGoal = goal;
             mTitleTextView.setText(mGoal.getTitle());
-            mAmountTextView.setText(mGoal.getProposedAmount().toString());
-            DateFormat df = new DateFormat();
-            CharSequence formattedDate = df.format("MMM d, yyyy", mGoal.getDate());
+            mAmountTextView.setText("$" + numFormat.format(mGoal.getCurrentAmount()) + " saved of $" + numFormat.format(mGoal.getProposedAmount()));
+            DateFormat dateFormat = new DateFormat();
+            CharSequence formattedDate = dateFormat.format("MMM d, yyyy", mGoal.getDate());
             mDateTextView.setText(formattedDate);
+            mProgressBar.setMax((int) Math.round(mGoal.getProposedAmount()));
+            mProgressBar.setProgress((int) Math.round(mGoal.getCurrentAmount()));
         }
 
         @Override

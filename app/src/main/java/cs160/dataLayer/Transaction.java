@@ -26,22 +26,18 @@ public class Transaction {
 
     }
 
-    public Transaction(String title, Double amount) {
-        if(stringValidation(title)){
-            mMerchant = title;
-        }else{
-            mMerchant = "Untitled Transaction";
-        }
+
+    public Transaction(String title, Double amount, String expenseName, Date date) {
+        mMerchant = title;
         mId = UUID.randomUUID();
-        if(doubleValidation(amount)){
-            mAmount = amount;
-        }else{
-            mAmount = 0.0;
-        }
-        mDate = new Date();
-        mExpenseName = null;
+        mAmount = amount;
+        mDate = date;
+        mExpenseName = expenseName;
+
         mNotes = null;
     }
+
+    public String getTitle() {return mMerchant;}
 
     public UUID getId() {
         return mId;

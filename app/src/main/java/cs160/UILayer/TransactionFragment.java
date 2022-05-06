@@ -157,7 +157,14 @@ public class TransactionFragment extends Fragment {
                 dialog.show(manager, DIALOG_DATE);
             }
         });
+//        String catBtnLabel;
+//        if (mExpenseName != null) {
+//            catBtnLabel = String.format(getResources().getString(R.string.categorize_button_label), mExpenseName);
+//        } else {
+//            catBtnLabel = "Categorize Transaction";
+//        }
 
+        updateCategorizeUI();
         mCategorizeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -222,28 +229,31 @@ public class TransactionFragment extends Fragment {
         mConfirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mTransaction == null) {
-                    Transaction transaction = new Transaction();
-                    TransactionLab transactionLab = TransactionLab.get(getActivity());
-                    transactionLab.addTransaction(transaction);
-                    mTransaction = transaction;
-                }
                 String merchantName = mTitleField.getText().toString();
                 if (merchantName.isEmpty()) {
                     mTitleField.setError("Merchant name must not be empty");
                 } else {
                     try {
                         Double amount = Double.parseDouble(mAmountField.getText().toString());
-
-                        mTransaction.setMerchant(merchantName);
-                        mTransaction.setAmount(amount);
+                        if (mTransaction == null) {
+                            Transaction transaction = new Transaction(merchantName, amount, mExpenseName, mDate);
+                            TransactionLab transactionLab = TransactionLab.get(getActivity());
+                            transactionLab.addTransaction(transaction);
+                            mTransaction = transaction;
+                        } else {
+                            mTransaction.setMerchant(merchantName);
+                            mTransaction.setAmount(amount);
+                            mTransaction.setDate(mDate);
+                        }
                         mTransaction.setNotes(mNotesField.getText().toString());
-
-                        mTransaction.setDate(mDate);
 
                         if (mExpenseName != null) {
                             mTransaction.spendFrom(getActivity(), mExpenseName);
+                            databaseManager.updateExpenses(getActivity(), mExpenseName);
                         }
+
+                        databaseManager.addToTransactions(mTransaction);
+
                         //// use the following code instead of the line above when Plaid is integrated
 //                    if (!mTransaction.spendFrom(getActivity(), mExpenseName)) {
 //                        Toast.makeText(getActivity(),
@@ -286,12 +296,10 @@ public class TransactionFragment extends Fragment {
 
     private void updateCategorizeUI() {
         if (mExpenseName != null) {
-            mSpendFromText.setVisibility(View.VISIBLE);
-            mSpendFromText.setText("Spent from: " + mExpenseName);
-            mCategorizeButton.setText("Change Expense");
+            mCategorizeButton.setText(mExpenseName);
         } else {
-            mSpendFromText.setVisibility(View.INVISIBLE);
-            mCategorizeButton.setText("Spend from Expense");
+            mCategorizeButton.setText("None");
         }
     }
+    private final DatabaseManager databaseManager = new DatabaseManager();
 }

@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +37,7 @@ public class ExpenseFragment extends Fragment {
     private EditText mTitleField;
     private EditText mAmountField;
     private Button mConfirmBtn;
+    private final DatabaseManager databaseManager = new DatabaseManager();
 
     public static ExpenseFragment newInstance(UUID expenseId) {
         Bundle args = new Bundle();
@@ -110,23 +112,33 @@ public class ExpenseFragment extends Fragment {
         mConfirmBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mExpense == null) {
-                    Expense expense = new Expense();
-                    ExpenseLab expenseLab = ExpenseLab.get(getActivity());
-                    expenseLab.addExpense(expense);
-                    mExpense = expense;
-                }
                 String title = mTitleField.getText().toString();
                 if (title.isEmpty()) {
                     mTitleField.setError("Title must not be empty");
                 } else {
-                    mExpense.setTitle(title);
+                    boolean expenseAdded = true;
                     try {
                         Double amount = Double.parseDouble(mAmountField.getText().toString());
-                        mExpense.setProposedAmount(amount);
+                        if (mExpense == null) {
+                            Expense expense = new Expense(title, Frequency.MONTHLY, amount);
+                            ExpenseLab expenseLab = ExpenseLab.get(getActivity());
+                            expenseAdded = expenseLab.addExpense(expense);
+                            if (!expenseAdded) {
+//                                Toast.makeText("You only have $" + expenseLab.getBalance() + " to use.", Toast.LENGTH_LONG).show();
+                                mAmountField.setError("You only have $" + Balance.getBalance() + " to use.");
+                            } else {
+                                mExpense = expense;
+                            }
+                        } else {
+                            mExpense.setTitle(title);
+                            mExpense.setProposedAmount(amount);
+                            mExpense.setCurrentAmount(mExpense.getProposedAmount() - mExpense.getAmountSpent());
+                        }
 
-                        Intent intent = new Intent(ExpenseFragment.this.getActivity(), ExpenseListActivity.class);
-                        startActivity(intent);
+                        if (expenseAdded) {
+                            Intent intent = new Intent(ExpenseFragment.this.getActivity(), ExpenseListActivity.class);
+                            startActivity(intent);
+                        }
                     } catch (NumberFormatException e) {
                         mAmountField.setError("Amount must be a valid number");
                     }
