@@ -155,15 +155,15 @@ public class GoalFragment extends Fragment {
                     try {
                         Double amount = Double.parseDouble(mAmountField.getText().toString());
                         if (mGoal == null) {
-                            Goal goal = new Goal();
+                            Goal goal = new Goal(title, Frequency.MONTHLY, amount, mDate);
                             GoalLab goalLab = GoalLab.get(getActivity());
                             goalLab.addGoal(goal);
                             mGoal = goal;
+                        } else {
+                            mGoal.setTitle(title);
+                            mGoal.setProposedAmount(amount);
+                            mGoal.setDate(mDate);
                         }
-                        mGoal.setTitle(title);
-                        mGoal.setProposedAmount(amount);
-
-                        mGoal.setDate(mDate);
 
                         Intent intent = new Intent(GoalFragment.this.getActivity(), GoalListActivity.class);
                         startActivity(intent);

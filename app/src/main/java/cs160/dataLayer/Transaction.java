@@ -25,12 +25,12 @@ public class Transaction {
         mNotes = null;
     }
 
-    public Transaction(String title, Double amount) {
+    public Transaction(String title, Double amount, String expenseName, Date date) {
         mMerchant = title;
         mId = UUID.randomUUID();
         mAmount = amount;
-        mDate = new Date();
-        mExpenseName = null;
+        mDate = date;
+        mExpenseName = expenseName;
         mNotes = null;
     }
 

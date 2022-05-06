@@ -29,11 +29,16 @@
         <activity
             android:name=".DashboardActivity"
             android:exported="false"
-            android:parentActivityName=".RegisterActivity"></activity>
+            android:parentActivityName=".RegisterActivity" />
 
         <activity
             android:name=".ExpenseListActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".DashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
+        </activity>
 
         <activity
             android:name=".ExpenseActivity"
@@ -45,7 +50,11 @@
         </activity>
         <activity
             android:name=".GoalListActivity"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".DashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
 
         </activity>
         <activity
@@ -60,6 +69,9 @@
             android:name=".TransactionListActivity"
             android:exported="false"
             android:parentActivityName=".DashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
 
 
         </activity>
@@ -70,6 +82,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".TransactionListActivity" />
+        </activity>
+
+        <activity
+            android:name=".IncomeActivity"
+            android:exported="false"
+            android:parentActivityName=".DashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
         </activity>
 
         <activity

@@ -51,7 +51,10 @@ public class ExpenseListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Expenses");
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Expenses");
+        DecimalFormat df = new DecimalFormat("#.00");
+//        ExpenseLab expenseLab = ExpenseLab.get(getActivity());
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Free to Use: " + df.format(Balance.getBalance()));
         FirebaseUser current = mAuth.getCurrentUser();
         db.collection("Users").document(current.getUid()).collection("Budget").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

@@ -24,7 +24,9 @@ public class TransactionTest extends TestCase {
     public void testGetMerchantWithParameterizedContructor(){
         // Given
         String expectMerchant = "Test Title";
-        Transaction testedTransaction= new Transaction(expectMerchant, 0.0);
+        String expectExpenseName = "Test Expense";
+        Date expectDate = new Date();
+        Transaction testedTransaction= new Transaction(expectMerchant, 0.0, expectExpenseName, expectDate);
 
         // When
         String actualMerchant = testedTransaction.getMerchant();
