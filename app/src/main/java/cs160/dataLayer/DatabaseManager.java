@@ -45,10 +45,19 @@ public class DatabaseManager {
 
     }
 
+    public void addIncome(Double income) {
+        FirebaseUser current = mAuth.getCurrentUser();
+
+        Map<String, Object> inc = new HashMap<>();
+        inc.put("Income", income);
+
+        db.collection("Users").document(current.getUid()).set(inc,SetOptions.merge());
+    }
+
     public static void addNewUser(String uid, String name) {
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String, Object> data = new HashMap<>();
-        data.put("Name", name);
+        data.put("Income", 0);
         db.collection("Users").document(uid).set(data,SetOptions.merge());
     }
 
