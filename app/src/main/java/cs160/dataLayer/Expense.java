@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class Expense extends Category {
 
-    private ArrayList<String> mMerchants;
+    private ArrayList<String> mMerchants = new ArrayList<>();
 
     public Expense() {
         super(null, Frequency.MONTHLY, 0.0, 0.0);
@@ -20,20 +20,16 @@ public class Expense extends Category {
     }
 
     public void addMerchant(String merchant) {
-        mMerchants.add(merchant);
+        if(stringValidation(merchant)){
+            mMerchants.add(merchant);
+        }
     }
 
     public boolean containsMerchant(String merchant) {
         return mMerchants.contains(merchant);
     }
 
-//    this method exists in the Category class
-//    public boolean spend(Double amount) {
-//        if (mCurrentAmount - amount < 0) {
-//            return false;
-//        } else {
-//            mCurrentAmount -= amount;
-//            return true;
-//        }
-//    }
+    private boolean stringValidation(String msg){
+        return msg == null || msg == ""? false: true;
+    }
 }
