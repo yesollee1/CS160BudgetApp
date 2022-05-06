@@ -39,7 +39,6 @@ that doesn't exist yet.
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(AndroidJUnit4.class)
 
-
 public class RegisterLoginTest {
 
     @Rule
@@ -47,20 +46,7 @@ public class RegisterLoginTest {
             new ActivityTestRule<>(RegisterActivity.class, false, true);
 
     @Test
-    public void A_RegisterTest() {
-        onView(ViewMatchers.withId(R.id.etRegEmail)).perform(typeText("EspressoTest@gmail.com"))
-                .check(matches(withText("EspressoTest@gmail.com")));
-
-        closeSoftKeyboard();
-        onView(ViewMatchers.withId(R.id.etRegPass)).perform(typeText("EspressoPass"))
-                .check(matches(withText("EspressoPass")));
-
-        closeSoftKeyboard();
-        onView(ViewMatchers.withId(R.id.btnRegister)).perform(click());
-    }
-
-    @Test
-    public void B_LoginTest() {
+    public void A_LoginTest() {
         onView(ViewMatchers.withId(R.id.tvLoginHere)).perform(click());
         onView(ViewMatchers.withId(R.id.etLoginEmail)).perform(typeText("EspressoTest@gmail.com"))
                 .check(matches(withText("EspressoTest@gmail.com")));
@@ -73,6 +59,19 @@ public class RegisterLoginTest {
         closeSoftKeyboard();
         onView(ViewMatchers.withId(R.id.btnLogin)).perform(click());
 
+    }
+
+    @Test
+    public void B_RegisterTest() {
+        onView(ViewMatchers.withId(R.id.etRegEmail)).perform(typeText("EspressoTest@gmail.com"))
+                .check(matches(withText("EspressoTest@gmail.com")));
+
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.etRegPass)).perform(typeText("EspressoPass"))
+                .check(matches(withText("EspressoPass")));
+
+        closeSoftKeyboard();
+        onView(ViewMatchers.withId(R.id.btnRegister)).perform(click());
     }
 
     @Test
