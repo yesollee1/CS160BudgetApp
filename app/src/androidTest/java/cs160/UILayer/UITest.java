@@ -175,9 +175,9 @@ public class UITest {
 
     @Test
     public void J_datePickerTest() {
-        TestHelper.setDate(R.id.goal_date, 2022, 1, 1);
+        TestHelper.setDate(R.id.transaction_date, 2022, 1, 1);
         onView(ViewMatchers.withId(R.id.confirm_button)).perform(click());
-        onView(ViewMatchers.withId(R.id.goal_date)).check(matches(withText("Jan 1, 2022")));
+        onView(ViewMatchers.withId(R.id.transaction_date)).check(matches(withText("Jan 1, 2022")));
 
     }
 }
