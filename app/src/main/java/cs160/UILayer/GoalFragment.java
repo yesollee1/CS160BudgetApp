@@ -165,6 +165,8 @@ public class GoalFragment extends Fragment {
 
                         mGoal.setDate(mDate);
 
+                        databaseManager.addToGoals(mGoal);
+
                         Intent intent = new Intent(GoalFragment.this.getActivity(), GoalListActivity.class);
                         startActivity(intent);
                     } catch (NumberFormatException e) {
@@ -176,6 +178,8 @@ public class GoalFragment extends Fragment {
 
         return v;
     }
+
+    private final DatabaseManager databaseManager = new DatabaseManager();
 
 //// We should probably use the onPause() method to store info when the date fragment pops up
 //    @Override
