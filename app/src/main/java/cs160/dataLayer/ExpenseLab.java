@@ -27,10 +27,16 @@ public class ExpenseLab {
         mExpenseMap = new HashMap<>();
     }
 
-    public void addExpense(Expense expense) {
-        mExpenses.add(expense);
-        mExpenseMap.put(expense.getId(), expense);
-        databaseManager.addToExpenses(expense);
+    public boolean addExpense(Expense expense) {
+        if (expense.getProposedAmount() > Balance.getBalance()) {
+            return false;
+        } else {
+            mExpenses.add(expense);
+            mExpenseMap.put(expense.getId(), expense);
+            databaseManager.addToExpenses(expense);
+            Balance.subtractBalance(expense.getProposedAmount());
+            return true;
+        }
     }
 
     public List<Expense> getExpenses() {

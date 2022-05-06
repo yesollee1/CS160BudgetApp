@@ -26,7 +26,6 @@
         android:id="@+id/linkToExpense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:text="Expense List"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -39,7 +38,6 @@
         android:id="@+id/linkToTransaction"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:text="Transaction List"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,16 +45,24 @@
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="392dp" />
 
+    <Button android:id="@+id/addIncome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Add Income"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linkToTransaction" />
+
+
     <Button
         android:id="@+id/logoutBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="148dp"
         android:text="logout"
-        app:layout_constraintBottom_toTopOf="@+id/signedInUser"
+        app:layout_constraintBottom_toTopOf="@id/signedInUser"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/expense_title"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addIncome"
         app:layout_constraintVertical_bias="0.489"
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="134dp" />

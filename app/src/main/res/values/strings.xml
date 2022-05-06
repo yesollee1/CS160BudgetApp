@@ -15,6 +15,8 @@
     <string name="transaction_title_label">Title</string>
     <string name="transaction_amount_label">Amount</string>
     <string name="transaction_notes_label">Notes</string>
+    <string name="income_amount_label">Amount</string>
+    <string name="income_amount_hint">Enter an income amount to add.</string>
     <!--    <string name="transaction_details_label">Details</string>-->
     <string name="date_picker_title">Choose a date: </string>
     <string name="save_button_label">Save</string>

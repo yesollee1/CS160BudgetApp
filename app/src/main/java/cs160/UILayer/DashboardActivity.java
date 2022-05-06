@@ -18,6 +18,7 @@ public class DashboardActivity extends AppCompatActivity {
     private Button goalList;
     private Button expenseList;
     private Button transactionList;
+    private Button addIncomeBtn;
     private Button logoutBtn;
     private TextView signedInUser;
 
@@ -30,6 +31,7 @@ public class DashboardActivity extends AppCompatActivity {
         goalList = findViewById(R.id.linkToGoal);
         expenseList = findViewById(R.id.linkToExpense);
         transactionList = findViewById(R.id.linkToTransaction);
+        addIncomeBtn = findViewById(R.id.addIncome);
         logoutBtn = findViewById(R.id.logoutBtn);
         signedInUser = findViewById(R.id.signedInUser);
 
@@ -60,6 +62,14 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(DashboardActivity.this, TransactionListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        addIncomeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DashboardActivity.this, IncomeActivity.class);
                 startActivity(intent);
             }
         });

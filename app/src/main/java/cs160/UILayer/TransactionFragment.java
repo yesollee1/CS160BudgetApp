@@ -236,17 +236,16 @@ public class TransactionFragment extends Fragment {
                     try {
                         Double amount = Double.parseDouble(mAmountField.getText().toString());
                         if (mTransaction == null) {
-                            Transaction transaction = new Transaction();
+                            Transaction transaction = new Transaction(merchantName, amount, mExpenseName, mDate);
                             TransactionLab transactionLab = TransactionLab.get(getActivity());
                             transactionLab.addTransaction(transaction);
                             mTransaction = transaction;
+                        } else {
+                            mTransaction.setMerchant(merchantName);
+                            mTransaction.setAmount(amount);
+                            mTransaction.setDate(mDate);
                         }
-
-                        mTransaction.setMerchant(merchantName);
-                        mTransaction.setAmount(amount);
                         mTransaction.setNotes(mNotesField.getText().toString());
-
-                        mTransaction.setDate(mDate);
 
                         if (mExpenseName != null) {
                             mTransaction.spendFrom(getActivity(), mExpenseName);
