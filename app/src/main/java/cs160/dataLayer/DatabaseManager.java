@@ -52,5 +52,15 @@ public class DatabaseManager {
         db.collection("Users").document(uid).set(data,SetOptions.merge());
     }
 
+    public void addIncome(Double income) {
+        FirebaseUser current = mAuth.getCurrentUser();
+
+        Map<String, Object> inc = new HashMap<>();
+        inc.put("Income", income);
+
+        db.collection("Users").document(current.getUid()).
+                set(inc,SetOptions.merge());
+    }
+
 }
 
