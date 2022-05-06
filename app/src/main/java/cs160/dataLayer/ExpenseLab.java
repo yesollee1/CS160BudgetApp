@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 
 // ExpenseLab is a singleton class
@@ -28,27 +27,16 @@ public class ExpenseLab {
         mExpenseMap = new HashMap<>();
     }
 
-    public void addExpense(Expense expense) {
-//        if (expense.getProposedAmount() > Balance.getBalance()) {
-//            return false;
-//        } else {
+    public boolean addExpense(Expense expense) {
+        if (expense.getProposedAmount() > Budget.getBalance()) {
+            return false;
+        } else {
             mExpenses.add(expense);
             mExpenseMap.put(expense.getId(), expense);
             databaseManager.addToExpenses(expense);
-//            Balance.subtractBalance(expense.getProposedAmount());
-//            return true;
-//        }
-    }
-
-    public void deleteExpense(UUID id){
-        databaseManager.deleteExpense(Objects.requireNonNull(mExpenseMap.get(id)));
-        mExpenses.remove(mExpenseMap.get(id));
-        mExpenseMap.remove(id);
-    }
-
-    public void populateExpense(Expense expense) {
-        mExpenses.add(expense);
-        mExpenseMap.put(expense.getId(), expense);
+            Budget.subtractBalance(expense.getProposedAmount());
+            return true;
+        }
     }
 
     public List<Expense> getExpenses() {

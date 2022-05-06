@@ -6,9 +6,6 @@ import static android.widget.CompoundButton.*;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,18 +13,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentResultListener;
 
-import java.util.Date;
 import java.util.UUID;
 
 public class ExpenseFragment extends Fragment {
@@ -37,8 +27,6 @@ public class ExpenseFragment extends Fragment {
     private EditText mTitleField;
     private EditText mAmountField;
     private Button mConfirmBtn;
-    private Button mDeleteBtn;
-    private final DatabaseManager databaseManager = new DatabaseManager();
 
     public static ExpenseFragment newInstance(UUID expenseId) {
         Bundle args = new Bundle();
@@ -117,58 +105,35 @@ public class ExpenseFragment extends Fragment {
                 if (title.isEmpty()) {
                     mTitleField.setError("Title must not be empty");
                 } else {
-//                    boolean expenseAdded = true;
+                    boolean expenseAdded = true;
                     try {
                         Double amount = Double.parseDouble(mAmountField.getText().toString());
                         if (mExpense == null) {
                             Expense expense = new Expense(title, Frequency.MONTHLY, amount);
                             ExpenseLab expenseLab = ExpenseLab.get(getActivity());
-//                            expenseAdded = expenseLab.addExpense(expense);
-                            expenseLab.addExpense(expense);
-//                            if (!expenseAdded) {
-////                                Toast.makeText("You only have $" + expenseLab.getBalance() + " to use.", Toast.LENGTH_LONG).show();
-//                                mAmountField.setError("You only have $" + Balance.getBalance() + " to use.");
-//                            } else {
+                            expenseAdded = expenseLab.addExpense(expense);
+                            if (!expenseAdded) {
+//                                Toast.makeText("You only have $" + expenseLab.getBalance() + " to use.", Toast.LENGTH_LONG).show();
+                                mAmountField.setError("You only have $" + Budget.getBalance() + " to use.");
+                            } else {
                                 mExpense = expense;
-//                            }
+                            }
                         } else {
                             mExpense.setTitle(title);
                             mExpense.setProposedAmount(amount);
                             mExpense.setCurrentAmount(mExpense.getProposedAmount() - mExpense.getAmountSpent());
                         }
 
-//                        if (expenseAdded) {
+                        if (expenseAdded) {
                             Intent intent = new Intent(ExpenseFragment.this.getActivity(), ExpenseListActivity.class);
                             startActivity(intent);
-//                        }
+                        }
                     } catch (NumberFormatException e) {
                         mAmountField.setError("Amount must be a valid number");
                     }
                 }
             }
         });
-
-
-        mDeleteBtn = v.findViewById(R.id.expense_delete_btn);
-        mDeleteBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                try {
-                    if (mExpense != null) {
-
-                        ExpenseLab expenseLab = ExpenseLab.get(getActivity());
-                        expenseLab.deleteExpense(mExpense.getId());
-                        Intent intent = new Intent(ExpenseFragment.this.getActivity(), ExpenseListActivity.class);
-                        startActivity(intent);
-                    }
-
-                } catch (NullPointerException e) {
-                    mAmountField.setError("Cannot Delete Non-Saved Expense");
-                }
-            }
-        });
-
 
         return v;
     }
