@@ -53,9 +53,9 @@ public class TransactionListFragment extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful() && !dataPopulated){
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        Transaction transaction = new Transaction(document.getString("title"), document.getDouble("amount"));
+                        Transaction transaction = new Transaction(document.getString("title"), document.getDouble("amount"), document.getString("expenseName"), document.getDate("date"));
                         TransactionLab transactionLab = TransactionLab.get(getActivity());
-                        transactionLab.addTransaction(transaction);
+                        transactionLab.populateTransaction(transaction);
                         updateUI();
                         Log.d(TAG, document.getId() + " => " + document.getData());
                     }

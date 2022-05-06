@@ -63,7 +63,7 @@ public class ExpenseListFragment extends Fragment {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Expense expense = new Expense(document.getId(), Frequency.MONTHLY, document.getDouble("currentAmount"));
                         ExpenseLab expenseLab = ExpenseLab.get(getActivity());
-                        expenseLab.addExpense(expense);
+                        expenseLab.populateExpense(expense);
                         updateUI();
                         Log.d(TAG, document.getId() + " => " + document.getData());
                     }

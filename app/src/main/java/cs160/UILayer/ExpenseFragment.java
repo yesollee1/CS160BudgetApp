@@ -116,29 +116,30 @@ public class ExpenseFragment extends Fragment {
                 if (title.isEmpty()) {
                     mTitleField.setError("Title must not be empty");
                 } else {
-                    boolean expenseAdded = true;
+//                    boolean expenseAdded = true;
                     try {
                         Double amount = Double.parseDouble(mAmountField.getText().toString());
                         if (mExpense == null) {
                             Expense expense = new Expense(title, Frequency.MONTHLY, amount);
                             ExpenseLab expenseLab = ExpenseLab.get(getActivity());
-                            expenseAdded = expenseLab.addExpense(expense);
-                            if (!expenseAdded) {
-//                                Toast.makeText("You only have $" + expenseLab.getBalance() + " to use.", Toast.LENGTH_LONG).show();
-                                mAmountField.setError("You only have $" + Balance.getBalance() + " to use.");
-                            } else {
+//                            expenseAdded = expenseLab.addExpense(expense);
+                            expenseLab.addExpense(expense);
+//                            if (!expenseAdded) {
+////                                Toast.makeText("You only have $" + expenseLab.getBalance() + " to use.", Toast.LENGTH_LONG).show();
+//                                mAmountField.setError("You only have $" + Balance.getBalance() + " to use.");
+//                            } else {
                                 mExpense = expense;
-                            }
+//                            }
                         } else {
                             mExpense.setTitle(title);
                             mExpense.setProposedAmount(amount);
                             mExpense.setCurrentAmount(mExpense.getProposedAmount() - mExpense.getAmountSpent());
                         }
 
-                        if (expenseAdded) {
+//                        if (expenseAdded) {
                             Intent intent = new Intent(ExpenseFragment.this.getActivity(), ExpenseListActivity.class);
                             startActivity(intent);
-                        }
+//                        }
                     } catch (NumberFormatException e) {
                         mAmountField.setError("Amount must be a valid number");
                     }
