@@ -1,8 +1,13 @@
 package cs160.dataLayer;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -86,10 +91,26 @@ public class DatabaseManager {
 
     public Double getIncome() {
         FirebaseUser current = mAuth.getCurrentUser();
+        final Double[] income = {0.0};
 
-        Task<DocumentSnapshot> document = db.collection("Users").document(current.getUid()).get();
-        DocumentSnapshot doc = document.getResult();
-        return (doc.getDouble("Income"));
+        DocumentReference docRef = db.collection("cities").document(current.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot doc = task.getResult();
+                    if (doc.exists()) {
+                        income[0] = doc.getDouble("Income");
+                        Log.d(TAG, "DocumentSnapshot data ");
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+        return (income[0]);
     }
 
 }

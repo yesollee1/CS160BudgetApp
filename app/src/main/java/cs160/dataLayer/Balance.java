@@ -13,6 +13,11 @@ public class Balance {
         return mBalance;
     }
 
+    public static void initIncome() {
+        final DatabaseManager dbM = new DatabaseManager();
+        mBalance += 0;//dbM.getIncome();
+    }
+
     public static void addIncome(Double amount) {
         final DatabaseManager databaseManager = new DatabaseManager();
         mBalance += amount;
