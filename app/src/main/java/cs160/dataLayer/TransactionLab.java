@@ -32,6 +32,12 @@ public class TransactionLab {
         databaseManager.addToTransactions(transaction);
     }
 
+    public void deleteTransaction(UUID id){
+        mTransactions.remove(mTransactionMap.get(id));
+        mTransactionMap.remove(id);
+        // delete in database
+    }
+
     public void populateTransaction(Transaction transaction) {
         mTransactions.add(transaction);
         mTransactionMap.put(transaction.getId(), transaction);

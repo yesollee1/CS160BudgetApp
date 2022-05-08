@@ -37,6 +37,7 @@ public class ExpenseFragment extends Fragment {
     private EditText mTitleField;
     private EditText mAmountField;
     private Button mConfirmBtn;
+    private Button mDeleteBtn;
     private final DatabaseManager databaseManager = new DatabaseManager();
 
     public static ExpenseFragment newInstance(UUID expenseId) {
@@ -146,6 +147,28 @@ public class ExpenseFragment extends Fragment {
                 }
             }
         });
+
+
+        mDeleteBtn = v.findViewById(R.id.expense_delete_btn);
+        mDeleteBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                try {
+                    if (mExpense != null) {
+
+                        ExpenseLab expenseLab = ExpenseLab.get(getActivity());
+                        expenseLab.deleteExpense(mExpense.getId());
+                        Intent intent = new Intent(ExpenseFragment.this.getActivity(), ExpenseListActivity.class);
+                        startActivity(intent);
+                    }
+
+                } catch (NullPointerException e) {
+                    mAmountField.setError("Cannot Delete Non-Saved Expense");
+                }
+            }
+        });
+
 
         return v;
     }

@@ -39,6 +39,12 @@ public class ExpenseLab {
 //        }
     }
 
+    public void deleteExpense(UUID id){
+        mExpenses.remove(mExpenseMap.get(id));
+        mExpenseMap.remove(id);
+        // delete in database
+    }
+
     public void populateExpense(Expense expense) {
         mExpenses.add(expense);
         mExpenseMap.put(expense.getId(), expense);

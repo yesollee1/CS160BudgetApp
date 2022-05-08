@@ -32,4 +32,10 @@
         android:layout_height="wrap_content"
         android:text="@string/save_button_label" />
 
+    <Button
+        android:id="@+id/expense_delete_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete" />
+
 </LinearLayout>

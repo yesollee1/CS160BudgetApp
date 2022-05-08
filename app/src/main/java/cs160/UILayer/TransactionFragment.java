@@ -50,6 +50,7 @@ public class TransactionFragment extends Fragment {
     private TextView mSpendFromText;
     private Button mCategorizeButton;
     private Button mConfirmBtn;
+    private Button mDeleteBtn;
 
     private Date mDate; // this is for saving a date before the transaction has been saved
     private String mExpenseName;
@@ -268,6 +269,26 @@ public class TransactionFragment extends Fragment {
                     } catch (NumberFormatException e) {
                         mAmountField.setError("Amount must be a valid number");
                     }
+                }
+            }
+        });
+
+        mDeleteBtn = v.findViewById(R.id.transaction_delete_btn);
+        mDeleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                try {
+                    if (mTransaction != null) {
+
+                        TransactionLab transactionLab = TransactionLab.get(getActivity());
+                        transactionLab.deleteTransaction(mTransaction.getId());
+                        Intent intent = new Intent(getActivity(), TransactionListActivity.class);
+                        startActivity(intent);
+                    }
+
+                } catch (NullPointerException e) {
+                    mAmountField.setError("Cannot Delete Non-Saved Expense");
                 }
             }
         });
