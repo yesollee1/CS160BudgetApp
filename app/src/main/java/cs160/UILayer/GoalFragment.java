@@ -39,6 +39,7 @@ public class GoalFragment extends Fragment {
     private EditText mAmountField;
     private Button mDateButton;
     private Button mConfirmBtn;
+    private Button mDeleteBtn;
     //TODO: Implement "completed" feature for goals
     private CheckBox mCompletedCheckBox;
 
@@ -174,6 +175,25 @@ public class GoalFragment extends Fragment {
                     }
                 }
             }
+        });
+
+        mDeleteBtn = v.findViewById(R.id.delete_button);
+        mDeleteBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String title = mTitleField.getText().toString();
+                try {
+                    if (mGoal != null) {
+                        GoalLab goalLab = GoalLab.get(getActivity());
+                        goalLab.deleteGoal(mGoal.getId());
+                        Intent intent = new Intent(GoalFragment.this.getActivity(), GoalListActivity.class);
+                        startActivity(intent);
+                    }
+                } catch (NullPointerException e) {
+                    mAmountField.setError("Cannot Delete Non-Saved Goal");
+                }
+            }
+
         });
 
         return v;

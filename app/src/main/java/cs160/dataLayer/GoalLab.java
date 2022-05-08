@@ -33,6 +33,13 @@ public class GoalLab {
         mGoalMap.put(goal.getId(), goal);
         databaseManager.addToGoals(goal);
     }
+    public void deleteGoal(UUID id){
+        // Delete in mGoals
+        mGoals.remove(mGoalMap.get(id));
+        mGoalMap.remove(id);
+        // need delete in database manager
+        //databaseManager.
+    }
 
     public void populateGoal(Goal goal) {
         mGoals.add(goal);
@@ -46,6 +53,8 @@ public class GoalLab {
     public Goal getGoal(UUID id) {
         return mGoalMap.get(id);
     }
+
+
 
     private final DatabaseManager databaseManager = new DatabaseManager();
 }
