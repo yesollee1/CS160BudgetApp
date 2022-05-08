@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 // ExpenseLab is a singleton class
@@ -40,9 +41,9 @@ public class ExpenseLab {
     }
 
     public void deleteExpense(UUID id){
+        databaseManager.deleteExpense(Objects.requireNonNull(mExpenseMap.get(id)));
         mExpenses.remove(mExpenseMap.get(id));
         mExpenseMap.remove(id);
-        // delete in database
     }
 
     public void populateExpense(Expense expense) {

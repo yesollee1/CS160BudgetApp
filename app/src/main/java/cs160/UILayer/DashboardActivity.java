@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import cs160.dataLayer.Balance;
+
 public class DashboardActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;

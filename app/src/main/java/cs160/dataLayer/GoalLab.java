@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -35,10 +36,10 @@ public class GoalLab {
     }
     public void deleteGoal(UUID id){
         // Delete in mGoals
+        databaseManager.deleteGoal(Objects.requireNonNull(mGoalMap.get(id)));
         mGoals.remove(mGoalMap.get(id));
         mGoalMap.remove(id);
         // need delete in database manager
-        //databaseManager.
     }
 
     public void populateGoal(Goal goal) {

@@ -3,9 +3,13 @@ package cs160.dataLayer;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
@@ -31,10 +35,22 @@ public class DatabaseManager {
                 document(expense.getTitle()).set(expense,SetOptions.merge());
     }
 
+    public void deleteExpense(Category category) {
+        FirebaseUser current = mAuth.getCurrentUser();
+        db.collection("Users").document(current.getUid()).collection("Budget").
+                document(category.getTitle()).delete();
+    }
+
     public void addToGoals(Category category) {
         FirebaseUser current = mAuth.getCurrentUser();
         db.collection("Users").document(current.getUid()).collection("Goals").
                 document(category.getTitle()).set(category,SetOptions.merge());
+    }
+
+    public void deleteGoal(Category category) {
+        FirebaseUser current = mAuth.getCurrentUser();
+        db.collection("Users").document(current.getUid()).collection("Goals").
+                document(category.getTitle()).delete();
     }
 
     public void addToTransactions(Transaction receipt) {
@@ -43,6 +59,12 @@ public class DatabaseManager {
         db.collection("Users").document(current.getUid()).collection("Transactions").
                 document(String.valueOf(receipt.getId())).set(receipt,SetOptions.merge());
 
+    }
+
+    public void deleteTransaction(Transaction receipt) {
+        FirebaseUser current = mAuth.getCurrentUser();
+        db.collection("Users").document(current.getUid()).collection("Transactions").
+                document(String.valueOf(receipt.getId())).delete();
     }
 
     public static void addNewUser(String uid, String name) {
@@ -60,6 +82,14 @@ public class DatabaseManager {
 
         db.collection("Users").document(current.getUid()).
                 set(inc,SetOptions.merge());
+    }
+
+    public Double getIncome() {
+        FirebaseUser current = mAuth.getCurrentUser();
+
+        Task<DocumentSnapshot> document = db.collection("Users").document(current.getUid()).get();
+        DocumentSnapshot doc = document.getResult();
+        return (doc.getDouble("Income"));
     }
 
 }

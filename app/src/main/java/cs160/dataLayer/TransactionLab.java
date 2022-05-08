@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class TransactionLab {
@@ -33,9 +34,9 @@ public class TransactionLab {
     }
 
     public void deleteTransaction(UUID id){
+        databaseManager.deleteTransaction(Objects.requireNonNull(mTransactionMap.get(id)));
         mTransactions.remove(mTransactionMap.get(id));
         mTransactionMap.remove(id);
-        // delete in database
     }
 
     public void populateTransaction(Transaction transaction) {

@@ -30,6 +30,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.UUID;
 
 import cs160.dataLayer.*;
 
@@ -53,7 +54,7 @@ public class TransactionListFragment extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful() && !dataPopulated){
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        Transaction transaction = new Transaction(document.getString("title"), document.getDouble("amount"), document.getString("expenseName"), document.getDate("date"));
+                        Transaction transaction = new Transaction(document.getString("title"), document.getDouble("amount"), document.getString("expenseName"), document.getDate("date"), UUID.fromString(document.getId()));
                         TransactionLab transactionLab = TransactionLab.get(getActivity());
                         transactionLab.populateTransaction(transaction);
                         updateUI();

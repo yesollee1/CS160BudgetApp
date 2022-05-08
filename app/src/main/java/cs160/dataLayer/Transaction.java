@@ -38,6 +38,19 @@ public class Transaction {
         mNotes = null;
     }
 
+    public Transaction(String title, Double amount, String expenseName, Date date, UUID id) {
+        mMerchant = title;
+        mId = id;
+        if(doubleValidation(amount)){
+            mAmount = amount;
+        }else{
+            mAmount = 0.0;
+        }
+        mDate = date;
+        mExpenseName = expenseName;
+        mNotes = null;
+    }
+
     public String getTitle() {return mMerchant;}
 
     public UUID getId() {

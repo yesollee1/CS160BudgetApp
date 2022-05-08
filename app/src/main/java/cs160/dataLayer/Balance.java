@@ -1,5 +1,11 @@
 package cs160.dataLayer;
 
+import android.os.Bundle;
+
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+
 public class Balance {
     private static Double mBalance = 0.0;
 
