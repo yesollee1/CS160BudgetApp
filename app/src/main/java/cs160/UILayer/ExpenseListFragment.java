@@ -26,6 +26,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -41,20 +43,13 @@ public class ExpenseListFragment extends Fragment {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static boolean dataPopulated = false;
+    private static boolean incomePopulated = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        DecimalFormat df = new DecimalFormat("#0.00");
-//        ExpenseLab expenseLab = ExpenseLab.get(getActivity());
-        Double balance = Budget.getBalance();
-        //-----------------------------------------------------------------
-        if (balance % 1 == 0) {
-            df = new DecimalFormat("##.##");
-        }
-        //-----------------------------------------------------------------
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Free to Use: $" + df.format(balance));
+        final double[] sumOfBudget = {0.0};
         FirebaseUser current = mAuth.getCurrentUser();
         db.collection("Users").document(current.getUid()).collection("Budget").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -64,6 +59,7 @@ public class ExpenseListFragment extends Fragment {
                         Expense expense = new Expense(document.getId(), Frequency.MONTHLY, document.getDouble("currentAmount"));
                         ExpenseLab expenseLab = ExpenseLab.get(getActivity());
                         expenseLab.addExpense(expense);
+                        sumOfBudget[0] += expense.getCurrentAmount();
                         updateUI();
                         Log.d(TAG, document.getId() + " => " + document.getData());
                     }
@@ -73,6 +69,38 @@ public class ExpenseListFragment extends Fragment {
                 }
             }
         });
+        DocumentReference docRef = db.collection("Users").document(current.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful() && !incomePopulated) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        double total = 0.0;
+                        for(double amount:sumOfBudget){
+                            total += amount;
+                        }
+                        Budget.addIncome(document.getDouble("Income")-total);
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        incomePopulated = true;
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+//      ------------------------------------------------------------------
+        DecimalFormat df = new DecimalFormat("#0.00");
+//        ExpenseLab expenseLab = ExpenseLab.get(getActivity());
+        Double balance = Budget.getBalance();
+        //-----------------------------------------------------------------
+        if (balance % 1 == 0) {
+            df = new DecimalFormat("##.##");
+        }
+        //-----------------------------------------------------------------
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Free to Use: $" + df.format(balance));
     }
 
     @Override
