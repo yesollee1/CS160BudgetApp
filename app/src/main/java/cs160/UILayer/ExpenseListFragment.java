@@ -33,6 +33,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseListFragment extends Fragment {
@@ -49,7 +50,7 @@ public class ExpenseListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        final double[] sumOfBudget = {0.0};
+        //ArrayList<Double> sumOfBudget = new ArrayList<>();
         FirebaseUser current = mAuth.getCurrentUser();
         db.collection("Users").document(current.getUid()).collection("Budget").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -59,7 +60,7 @@ public class ExpenseListFragment extends Fragment {
                         Expense expense = new Expense(document.getId(), Frequency.MONTHLY, document.getDouble("currentAmount"));
                         ExpenseLab expenseLab = ExpenseLab.get(getActivity());
                         expenseLab.addExpense(expense);
-                        sumOfBudget[0] += expense.getCurrentAmount();
+                        //sumOfBudget.add(expense.getCurrentAmount());
                         updateUI();
                         Log.d(TAG, document.getId() + " => " + document.getData());
                     }
@@ -76,11 +77,11 @@ public class ExpenseListFragment extends Fragment {
                 if (task.isSuccessful() && !incomePopulated) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        double total = 0.0;
-                        for(double amount:sumOfBudget){
-                            total += amount;
-                        }
-                        Budget.addIncome(document.getDouble("Income")-total);
+//                        double total = 0.0;
+//                        for(double amount:sumOfBudget){
+//                            total += amount;
+//                        }
+                        Budget.addIncome(document.getDouble("Income"));
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         incomePopulated = true;
                     } else {

@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import cs160.dataLayer.Balance;
+import cs160.dataLayer.Budget;
 
 public class LoginActivity extends AppCompatActivity {
 

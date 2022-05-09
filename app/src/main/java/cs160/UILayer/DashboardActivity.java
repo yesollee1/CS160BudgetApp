@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import cs160.dataLayer.Balance;
+import cs160.dataLayer.Budget;
 
 public class DashboardActivity extends AppCompatActivity {
 
