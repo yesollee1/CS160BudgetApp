@@ -121,16 +121,16 @@ public class ExpenseFragment extends Fragment {
                     try {
                         Double amount = Double.parseDouble(mAmountField.getText().toString());
                         if (mExpense == null) {
-                            Expense expense = new Expense(title, Frequency.MONTHLY, amount);
+                            Expense expense = new Expense(title, Frequency.MONTHLY, amount, 0.0);
+                            if (!(amount > Balance.getBalance())) {
+                                expense.setCurrentAmount(amount);
+                                Balance.subtractBalance(amount);
+                            } else {
+                                Toast.makeText(getActivity(), "Not enough money to fund expense", Toast.LENGTH_LONG);
+                            }
                             ExpenseLab expenseLab = ExpenseLab.get(getActivity());
-//                            expenseAdded = expenseLab.addExpense(expense);
                             expenseLab.addExpense(expense);
-//                            if (!expenseAdded) {
-////                                Toast.makeText("You only have $" + expenseLab.getBalance() + " to use.", Toast.LENGTH_LONG).show();
-//                                mAmountField.setError("You only have $" + Balance.getBalance() + " to use.");
-//                            } else {
-                                mExpense = expense;
-//                            }
+                            mExpense = expense;
                         } else {
                             mExpense.setTitle(title);
                             mExpense.setProposedAmount(amount);

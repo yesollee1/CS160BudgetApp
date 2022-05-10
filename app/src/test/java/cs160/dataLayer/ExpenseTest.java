@@ -99,7 +99,7 @@ public class ExpenseTest extends TestCase {
     public void testSpendWithValidInput() {
         String expectedTitle = "Test Title";
         Double expectedAmount = 100.00;
-        Expense testedExpense = new Expense(expectedTitle, Frequency.MONTHLY, expectedAmount);
+        Expense testedExpense = new Expense(expectedTitle, Frequency.MONTHLY, expectedAmount, expectedAmount);
 
         Boolean spent = testedExpense.spend(10.00);
 
@@ -110,7 +110,7 @@ public class ExpenseTest extends TestCase {
     public void testSpendWithNull() {
         String expectedTitle = "Test Title";
         Double expectedAmount = 100.00;
-        Expense testedExpense = new Expense(expectedTitle, Frequency.MONTHLY, expectedAmount);
+        Expense testedExpense = new Expense(expectedTitle, Frequency.MONTHLY, expectedAmount, expectedAmount);
 
         Boolean spent = testedExpense.spend(null);
 
@@ -121,7 +121,7 @@ public class ExpenseTest extends TestCase {
     public void testSpendWithOverflowInput() {
         String expectedTitle = "Test Title";
         Double expectedAmount = 100.00;
-        Expense testedExpense = new Expense(expectedTitle, Frequency.MONTHLY, expectedAmount);
+        Expense testedExpense = new Expense(expectedTitle, Frequency.MONTHLY, expectedAmount, expectedAmount);
 
         Boolean spent = testedExpense.spend(Double.MAX_VALUE);
 
@@ -132,7 +132,7 @@ public class ExpenseTest extends TestCase {
     public void testSpendWithUnderflowInput() {
         String expectedTitle = "Test Title";
         Double expectedAmount = 100.00;
-        Expense testedExpense = new Expense(expectedTitle, Frequency.MONTHLY, expectedAmount);
+        Expense testedExpense = new Expense(expectedTitle, Frequency.MONTHLY, expectedAmount, expectedAmount);
 
         Boolean spent = testedExpense.spend(Double.MIN_VALUE);
 
@@ -143,7 +143,7 @@ public class ExpenseTest extends TestCase {
     public void testSpendWithLargerInput() {
         String expectedTitle = "Test Title";
         Double expectedAmount = 100.00;
-        Expense testedExpense = new Expense(expectedTitle, Frequency.MONTHLY, expectedAmount);
+        Expense testedExpense = new Expense(expectedTitle, Frequency.MONTHLY, expectedAmount, expectedAmount);
 
         Boolean spent = testedExpense.spend(110.00);
 

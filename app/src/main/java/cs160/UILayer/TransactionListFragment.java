@@ -125,6 +125,7 @@ public class TransactionListFragment extends Fragment {
         private TextView mTitleTextView;
         private TextView mAmountTextView;
         private TextView mDateTextView;
+        private TextView mExpenseName;
 
         private Transaction mTransaction;
 
@@ -134,6 +135,7 @@ public class TransactionListFragment extends Fragment {
             mTitleTextView = (TextView) itemView.findViewById(R.id.merchant_name);
             mAmountTextView = (TextView) itemView.findViewById(R.id.transaction_amount);
             mDateTextView = (TextView) itemView.findViewById(R.id.transaction_date);
+            mExpenseName = (TextView) itemView.findViewById(R.id.spend_from_expense);
         }
 
         public void bind(Transaction transaction) {
@@ -141,6 +143,11 @@ public class TransactionListFragment extends Fragment {
             mTransaction = transaction;
             mTitleTextView.setText(mTransaction.getMerchant());
             mAmountTextView.setText("$" + numFormat.format(mTransaction.getAmount()));
+            if (transaction.getExpenseName() != null) {mExpenseName.setText("Spent from " + transaction.getExpenseName());}
+            else {
+//                mExpenseName.setVisibility(View.INVISIBLE);
+                mExpenseName.setText("Spent from Balance");
+            }
             DateFormat dateFormat = new DateFormat();
             CharSequence formattedDate = dateFormat.format("MMM d, yyyy", mTransaction.getDate());
             mDateTextView.setText(formattedDate);

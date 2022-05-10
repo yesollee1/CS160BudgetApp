@@ -95,7 +95,10 @@ public abstract class Category {
         mNotifyPercent = notifyPercent;
     }
 
-    //TODO: Implement delete for Expenses, Goals, and Transactions
+    public void addMoney(Double amount) {
+        this.mCurrentAmount += amount;
+    }
+
 //    public abstract void delete();
 
 
