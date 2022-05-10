@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -46,6 +47,7 @@ public class ExpenseListFragment extends Fragment {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static boolean dataPopulated = false;
+    private static boolean incomePopulated = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,28 @@ public class ExpenseListFragment extends Fragment {
                     dataPopulated = true;
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
+        DocumentReference docRef = db.collection("Users").document(current.getUid());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful() && (!incomePopulated)) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+//                        double total = 0.0;
+//                        for(double amount:sumOfBudget){
+//                            total += amount;
+//                        }
+                        Balance.addIncome(document.getDouble("Income"));
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        incomePopulated = true;
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
                 }
             }
         });
