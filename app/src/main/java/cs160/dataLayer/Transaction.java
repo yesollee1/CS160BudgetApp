@@ -30,7 +30,7 @@ public class Transaction {
         mId = UUID.randomUUID();
         if(doubleValidation(amount)){
             mAmount = amount;
-        }else{
+        } else {
             mAmount = 0.0;
         }
         mDate = date;

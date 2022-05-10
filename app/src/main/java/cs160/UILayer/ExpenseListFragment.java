@@ -52,16 +52,17 @@ public class ExpenseListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 //        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Expenses");
-        DecimalFormat df = new DecimalFormat("#.00");
-//        ExpenseLab expenseLab = ExpenseLab.get(getActivity());
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Free to Use: " + df.format(Balance.getBalance()));
+        String pattern = Balance.getBalance() % 1 == 0 ? "#.##" : "#.00";
+        DecimalFormat df = new DecimalFormat(pattern);
+//        ExpenseLab expenseLab = ExpenseLab.get(getActivity());j
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Balance: $" + df.format(Balance.getBalance()));
         FirebaseUser current = mAuth.getCurrentUser();
         db.collection("Users").document(current.getUid()).collection("Budget").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful() && !dataPopulated){
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        Expense expense = new Expense(document.getId(), Frequency.MONTHLY, document.getDouble("currentAmount"));
+                        Expense expense = new Expense(document.getId(), Frequency.MONTHLY, document.getDouble("proposedAmount"), document.getDouble("currentAmount"));
                         ExpenseLab expenseLab = ExpenseLab.get(getActivity());
                         expenseLab.populateExpense(expense);
                         updateUI();
@@ -146,7 +147,8 @@ public class ExpenseListFragment extends Fragment {
         }
 
         public void bind(Expense expense) {
-            DecimalFormat df = new DecimalFormat("#.00");
+            String pattern = expense.getCurrentAmount() % 1 == 0 ? "#.##" : "#.00";
+            DecimalFormat df = new DecimalFormat(pattern);
             mExpense = expense;
             mTitleTextView.setText(mExpense.getTitle());
             mCurrentAmountTextView.setText("$" + df.format(mExpense.getCurrentAmount()) + " left");

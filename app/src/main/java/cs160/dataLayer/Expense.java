@@ -5,14 +5,16 @@ import java.util.UUID;
 
 public class Expense extends Category {
 
+    //TODO: Implement move money feature
+
     private ArrayList<String> mMerchants = new ArrayList<>();
 
     public Expense() {
         super(null, Frequency.MONTHLY, 0.0, 0.0);
     }
 
-    public Expense(String title, Frequency frequency, Double proposedAmount) {
-        super(title, frequency, proposedAmount, proposedAmount);
+    public Expense(String title, Frequency frequency, Double proposedAmount, Double currentAmount) {
+        super(title, frequency, proposedAmount, currentAmount);
     }
 
     public ArrayList<String> getMerchants() {

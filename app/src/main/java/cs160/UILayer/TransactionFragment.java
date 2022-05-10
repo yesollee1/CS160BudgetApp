@@ -42,9 +42,7 @@ public class TransactionFragment extends Fragment {
     private Transaction mTransaction;
     private EditText mTitleField;
     private EditText mAmountField;
-    //TODO: Add notes functionality
     private EditText mNotesField;
-    //TODO: Add categorize functionality
     private Spinner mExpenseList;
     private Button mDateButton;
     private TextView mSpendFromText;
@@ -53,7 +51,9 @@ public class TransactionFragment extends Fragment {
     private Button mDeleteBtn;
 
     private Date mDate; // this is for saving a date before the transaction has been saved
-    private String mExpenseName;
+    private boolean moveMoney = false;
+    private String mOldExpenseName;
+    private String mNewExpenseName;
 
     public static TransactionFragment newInstance(UUID transactionId) {
         Bundle args = new Bundle();
@@ -131,6 +131,9 @@ public class TransactionFragment extends Fragment {
             if (amount != 0) {
                 mAmountField.setText(amount.toString());
             }
+            if (mTransaction.getExpenseName() != null) {
+                mOldExpenseName = mTransaction.getExpenseName();
+            }
             mNotesField.setText(mTransaction.getNotes());
         }
 
@@ -183,8 +186,9 @@ public class TransactionFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (!mSpinner.getSelectedItem().toString().equalsIgnoreCase(getResources().getString(R.string.expense_list_prompt))) {
-                            mExpenseName = mSpinner.getSelectedItem().toString();
-                            Toast.makeText(getActivity(),"Spending from " + mExpenseName, Toast.LENGTH_LONG).show();
+                            mNewExpenseName = mSpinner.getSelectedItem().toString();
+                            moveMoney = true;
+                            Toast.makeText(getActivity(),"Spending from " + mNewExpenseName, Toast.LENGTH_LONG).show();
                             updateCategorizeUI();
                             dialogInterface.dismiss();
                         }
@@ -237,7 +241,7 @@ public class TransactionFragment extends Fragment {
                     try {
                         Double amount = Double.parseDouble(mAmountField.getText().toString());
                         if (mTransaction == null) {
-                            Transaction transaction = new Transaction(merchantName, amount, mExpenseName, mDate);
+                            Transaction transaction = new Transaction(merchantName, amount, mNewExpenseName, mDate);
                             TransactionLab transactionLab = TransactionLab.get(getActivity());
                             transactionLab.addTransaction(transaction);
                             mTransaction = transaction;
@@ -248,21 +252,36 @@ public class TransactionFragment extends Fragment {
                         }
                         mTransaction.setNotes(mNotesField.getText().toString());
 
-                        if (mExpenseName != null) {
-                            mTransaction.spendFrom(getActivity(), mExpenseName);
-                            databaseManager.updateExpenses(getActivity(), mExpenseName);
+                        if (moveMoney) {
+                            Balance.moveMoney(getActivity(), mNewExpenseName, mOldExpenseName, amount);
+//                            if (mOldExpenseName == null) {
+//                                databaseManager.updateExpenses(getActivity(), mNewExpenseName);
+//                                databaseManager.subtractBalanceMoney(amount);
+//                            } else if (mNewExpenseName == null) {
+//                                databaseManager.updateExpenses(getActivity(), mOldExpenseName);
+//                                databaseManager.addIncome(amount);
+//                            } else {
+//                                databaseManager.updateExpenses(getActivity(), mNewExpenseName);
+//                                databaseManager.updateExpenses(getActivity(), mOldExpenseName);
+//                            }
+                        } else if (mNewExpenseName == null) {
+                            Balance.subtractBalance(amount);
+                        } else {
+                            mTransaction.spendFrom(getActivity(), mNewExpenseName);
+                            databaseManager.updateExpenses(getActivity(), mNewExpenseName);
                         }
+                        mTransaction.setExpenseName(mNewExpenseName);
+
+//                        ////I changed this////
+//                        if (mNewExpenseName != null) {
+//
+//                            mTransaction.spendFrom(getActivity(), mExpenseName);
+//                            databaseManager.updateExpenses(getActivity(), mExpenseName);
+//                        } else {
+//                            Balance.subtractBalance(amount);
+//                        }
 
                         databaseManager.addToTransactions(mTransaction);
-
-                        //// use the following code instead of the line above when Plaid is integrated
-//                    if (!mTransaction.spendFrom(getActivity(), mExpenseName)) {
-//                        Toast.makeText(getActivity(),
-//                                "Could not spend from " + merchantName + ".\nInsufficient funds.",
-//                                Toast.LENGTH_LONG);
-//                    } else {
-//                        Toast.makeText(getActivity(), mAmountField.toString() + " spent from " + merchantName, Toast.LENGTH_LONG);
-//                    }
 
                         Intent intent = new Intent(getActivity(), TransactionListActivity.class);
                         startActivity(intent);
@@ -316,8 +335,8 @@ public class TransactionFragment extends Fragment {
     }
 
     private void updateCategorizeUI() {
-        if (mExpenseName != null) {
-            mCategorizeButton.setText(mExpenseName);
+        if (mNewExpenseName != null) {
+            mCategorizeButton.setText(mNewExpenseName);
         } else {
             mCategorizeButton.setText("None");
         }

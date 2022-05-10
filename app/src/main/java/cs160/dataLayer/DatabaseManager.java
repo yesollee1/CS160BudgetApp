@@ -84,6 +84,10 @@ public class DatabaseManager {
                 set(inc,SetOptions.merge());
     }
 
+    public void subtractBalanceMoney(Double income) {
+        //TODO: subtract balance money in db
+    }
+
     public Double getIncome() {
         FirebaseUser current = mAuth.getCurrentUser();
 

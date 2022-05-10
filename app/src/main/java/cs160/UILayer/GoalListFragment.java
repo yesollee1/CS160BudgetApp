@@ -139,10 +139,14 @@ public class GoalListFragment extends Fragment {
         }
 
         public void bind(Goal goal) {
-            DecimalFormat numFormat = new DecimalFormat("#.00");
+            DecimalFormat currFormat, propFormat;
+            String pattern = goal.getCurrentAmount() % 1 == 0 ? "#.##" : "#.00";
+            currFormat = new DecimalFormat(pattern);
+            pattern = goal.getProposedAmount() % 1 == 0 ? "#.##" : "#.00";
+            propFormat = new DecimalFormat(pattern);
             mGoal = goal;
             mTitleTextView.setText(mGoal.getTitle());
-            mAmountTextView.setText("$" + numFormat.format(mGoal.getCurrentAmount()) + " saved of $" + numFormat.format(mGoal.getProposedAmount()));
+            mAmountTextView.setText("$" + currFormat.format(mGoal.getCurrentAmount()) + " saved of $" + propFormat.format(mGoal.getProposedAmount()));
             DateFormat dateFormat = new DateFormat();
             CharSequence formattedDate = dateFormat.format("MMM d, yyyy", mGoal.getDate());
             mDateTextView.setText(formattedDate);

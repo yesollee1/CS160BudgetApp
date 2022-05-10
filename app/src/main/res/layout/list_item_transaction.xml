@@ -31,10 +31,20 @@
         android:id="@+id/transaction_amount"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/spend_from_expense"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="18sp"
         android:textColor="@android:color/black"
         android:text="Amount"/>
+
+    <TextView
+        android:id="@+id/spend_from_expense"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/transaction_amount"
+        android:textColor="@android:color/black"
+        android:text="Expense Name"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
