@@ -97,6 +97,7 @@ public abstract class Category {
 
     public void addMoney(Double amount) {
         this.mCurrentAmount += amount;
+
     }
 
 //    public abstract void delete();

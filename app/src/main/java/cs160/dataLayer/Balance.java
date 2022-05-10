@@ -27,24 +27,30 @@ public class Balance {
 
     public static void subtractBalance(Double amount) {
         mBalance -= amount;
-        //TODO DB
+        final DatabaseManager databaseManager = new DatabaseManager();
+        databaseManager.addIncome(mBalance);
     }
 
     public static void moveMoney(Context context, String from, String to, Double amount) {
+        final DatabaseManager dbm = new DatabaseManager();
         if (from == to) {
         } else if (from == null) {
             Expense toExpense = ExpenseLab.get(context).getExpenseByName(to);
             subtractBalance(amount);
             toExpense.addMoney(amount);
+            dbm.addToExpenses(toExpense);
         } else if (to == null) {
             Expense fromExpense = ExpenseLab.get(context).getExpenseByName(from);
             fromExpense.spend(amount);
             addIncome(amount);
+            dbm.addToExpenses(fromExpense);
         } else {
             Expense toExpense = ExpenseLab.get(context).getExpenseByName(to);
             Expense fromExpense = ExpenseLab.get(context).getExpenseByName(from);
             fromExpense.spend(amount);
             toExpense.addMoney(amount);
+            dbm.addToExpenses(toExpense);
+            dbm.addToExpenses(fromExpense);
         }
     }
 }
