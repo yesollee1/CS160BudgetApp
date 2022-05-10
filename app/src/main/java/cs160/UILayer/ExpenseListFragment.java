@@ -55,7 +55,7 @@ public class ExpenseListFragment extends Fragment {
         db.collection("Users").document(current.getUid()).collection("Budget").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful() && !dataPopulated){
+                if(task.isSuccessful() && (!dataPopulated)){
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Expense expense = new Expense(document.getId(), Frequency.MONTHLY, document.getDouble("currentAmount"));
                         ExpenseLab expenseLab = ExpenseLab.get(getActivity());
