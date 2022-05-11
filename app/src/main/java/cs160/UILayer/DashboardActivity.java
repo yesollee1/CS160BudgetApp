@@ -31,7 +31,7 @@ public class DashboardActivity extends AppCompatActivity {
     private Button transactionList;
     private Button addIncomeBtn;
     private Button logoutBtn;
-    private TextView signedInUser;
+//    private TextView signedInUser;
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static boolean dataPopulated = false;
@@ -48,7 +48,7 @@ public class DashboardActivity extends AppCompatActivity {
         transactionList = findViewById(R.id.linkToTransaction);
         addIncomeBtn = findViewById(R.id.addIncome);
         logoutBtn = findViewById(R.id.logoutBtn);
-        signedInUser = findViewById(R.id.signedInUser);
+//        signedInUser = findViewById(R.id.signedInUser);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -112,8 +112,5 @@ public class DashboardActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
-
 }
