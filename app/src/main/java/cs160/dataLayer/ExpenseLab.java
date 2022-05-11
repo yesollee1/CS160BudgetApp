@@ -41,8 +41,10 @@ public class ExpenseLab {
     }
 
     public void deleteExpense(UUID id){
+        Expense expense = mExpenseMap.get(id);
+        Balance.addIncome(expense.getCurrentAmount());
         databaseManager.deleteExpense(Objects.requireNonNull(mExpenseMap.get(id)));
-        mExpenses.remove(mExpenseMap.get(id));
+        mExpenses.remove(expense);
         mExpenseMap.remove(id);
     }
 

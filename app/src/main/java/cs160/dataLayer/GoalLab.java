@@ -36,10 +36,11 @@ public class GoalLab {
     }
     public void deleteGoal(UUID id){
         // Delete in mGoals
+        Goal goal = mGoalMap.get(id);
+        Balance.addIncome(goal.getCurrentAmount());
         databaseManager.deleteGoal(Objects.requireNonNull(mGoalMap.get(id)));
-        mGoals.remove(mGoalMap.get(id));
+        mGoals.remove(goal);
         mGoalMap.remove(id);
-        // need delete in database manager
     }
 
     public void populateGoal(Goal goal) {

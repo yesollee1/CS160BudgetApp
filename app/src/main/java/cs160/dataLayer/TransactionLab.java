@@ -33,8 +33,13 @@ public class TransactionLab {
         databaseManager.addToTransactions(transaction);
     }
 
-    public void deleteTransaction(UUID id){
-        databaseManager.deleteTransaction(Objects.requireNonNull(mTransactionMap.get(id)));
+    public void deleteTransaction(Context context, UUID id){
+        Transaction transaction = mTransactionMap.get(id);
+        Expense expense = ExpenseLab.get(context).getExpenseByName(transaction.getExpenseName());
+        Double amount = transaction.getAmount();
+        expense.addMoney(amount);
+        databaseManager.addToExpenses(expense);
+        databaseManager.deleteTransaction(Objects.requireNonNull(transaction));
         mTransactions.remove(mTransactionMap.get(id));
         mTransactionMap.remove(id);
     }

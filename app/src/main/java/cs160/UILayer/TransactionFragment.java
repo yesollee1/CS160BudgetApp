@@ -301,7 +301,7 @@ public class TransactionFragment extends Fragment {
                     if (mTransaction != null) {
 
                         TransactionLab transactionLab = TransactionLab.get(getActivity());
-                        transactionLab.deleteTransaction(mTransaction.getId());
+                        transactionLab.deleteTransaction(getActivity(), mTransaction.getId());
                         Intent intent = new Intent(getActivity(), TransactionListActivity.class);
                         startActivity(intent);
                     }
@@ -337,6 +337,8 @@ public class TransactionFragment extends Fragment {
     private void updateCategorizeUI() {
         if (mNewExpenseName != null) {
             mCategorizeButton.setText(mNewExpenseName);
+        } else if (mOldExpenseName != null) {
+            mCategorizeButton.setText(mOldExpenseName);
         } else {
             mCategorizeButton.setText("None");
         }
