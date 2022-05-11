@@ -76,7 +76,7 @@ public class ExpenseListFragment extends Fragment {
                 }
             }
         });
-        DocumentReference docRef = db.collection("Users").document(current.getUid());
+        /**DocumentReference docRef = db.collection("Users").document(current.getUid());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -97,7 +97,7 @@ public class ExpenseListFragment extends Fragment {
                     Log.d(TAG, "get failed with ", task.getException());
                 }
             }
-        });
+        });**/
     }
 
     @Override
