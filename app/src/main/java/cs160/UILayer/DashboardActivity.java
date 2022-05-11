@@ -22,7 +22,7 @@ public class DashboardActivity extends AppCompatActivity {
     private Button transactionList;
     private Button addIncomeBtn;
     private Button logoutBtn;
-    private TextView signedInUser;
+//    private TextView signedInUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class DashboardActivity extends AppCompatActivity {
         transactionList = findViewById(R.id.linkToTransaction);
         addIncomeBtn = findViewById(R.id.addIncome);
         logoutBtn = findViewById(R.id.logoutBtn);
-        signedInUser = findViewById(R.id.signedInUser);
+//        signedInUser = findViewById(R.id.signedInUser);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -75,7 +75,6 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
     }
 
