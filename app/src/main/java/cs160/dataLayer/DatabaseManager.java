@@ -75,7 +75,7 @@ public class DatabaseManager {
     public static void addNewUser(String uid, String name) {
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String, Object> data = new HashMap<>();
-        data.put("Name", name);
+        data.put("Income", 0.0);
         db.collection("Users").document(uid).set(data,SetOptions.merge());
     }
 
